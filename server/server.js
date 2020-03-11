@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ApolloServer, gql } = require('apollo-server-express');
@@ -9,11 +9,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //create schema for data, encoding included so it as read as string
-const typeDefs = gql(fs.readFileSync('./schema.graphql', {encoding: 'utf8'}));
-
-const resolvers = {
-  
-}
+const typeDefs = gql(fs.readFileSync('./schema.graphql', { encoding: 'utf8' }));
+//import resolvers from another file
+const resolvers = require('./resolvers');
 
 //create ApolloServer instance, plug in Apollo into existing Express app
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
