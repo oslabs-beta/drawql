@@ -1,3 +1,4 @@
+const fs = require('fs')
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ApolloServer, gql } = require('apollo-server-express');
@@ -7,9 +8,16 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//create schema for data, encoding included so it as read as string
+const typeDefs = gql(fs.readFileSync('./schema.graphql', {encoding: 'utf8'}));
+
+const resolvers = {
+  
+}
+
 //create ApolloServer instance, plug in Apollo into existing Express app
-const apolloServer = new ApolloServer({typeDefs, resolvers});
-apolloServer.applyMiddleware({app, path: '/graphql'});
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
+apolloServer.applyMiddleware({ app, path: '/graphql' });
 
 app.get('/api/hello', (req, res) => {
     res.send({ express: 'Hello From Express' });
