@@ -2,7 +2,7 @@
 const db = require('./db');
 
 const Query = {
-    greeting: () => 'Hello World!'
+    greeting: (parent, args, ctx, info) => 'Hello World!'
 };
 
 module.exports = { Query };
