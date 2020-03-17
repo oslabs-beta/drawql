@@ -37,7 +37,7 @@ import {
 // core components
 import { Link } from 'react-router-dom';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-import DemoNavbar from '../../components/Navbars/DemoNavbar';
+import HomeNav from '../../components/Navbars/HomeNav';
 
 class Login extends React.Component {
     componentDidMount() {
@@ -49,7 +49,7 @@ class Login extends React.Component {
     render() {
         return (
             <>
-                <DemoNavbar />
+                <HomeNav />
                 <main ref="main">
                     <section className="section section-shaped section-lg">
                         <div className="shape shape-style-1 bg-gradient-default">

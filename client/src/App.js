@@ -59,12 +59,13 @@ class Landing extends React.Component {
                                 <div className="col px-0">
                                     <Row>
                                         <Col lg="6">
-                                            <h1 className="display-3 text-white">
-                                                Build a GraphQL API fast
-                                                <span>
+                                            <h1 className="display-2 text-white">
+                                                Build a GraphQL API faster than
+                                                ever!
+                                                {/* <span>
                                                     and export the code for your
                                                     project or team
-                                                </span>
+                                                </span> */}
                                             </h1>
                                             <p className="lead text-white">
                                                 DrawQL allows you to prototype,
@@ -73,11 +74,11 @@ class Landing extends React.Component {
                                                 then export it as usable code.
                                             </p>
                                             <div className="btn-wrapper">
-                                                <Link to="/login">
+                                                <Link to="/register">
                                                     <Button
                                                         className="btn-icon mb-3 mb-sm-0"
                                                         color="info"
-                                                        href="https://drawql.app/login"
+                                                        href="https://drawql.app/register"
                                                     >
                                                         <span className="btn-inner--icon mr-1">
                                                             <i className="fa fa-code" />
@@ -474,9 +475,9 @@ class Landing extends React.Component {
                                     </p>
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row className="mb-sm-4">
                                 {/* each Col can be shrunk, so maybe we can put 5 images in? */}
-                                <Col className="mb-5 mb-lg-0" lg="3" md="6">
+                                <Col className="mb-5 mb-lg-0" lg="4" md="6">
                                     <div className="px-4">
                                         <img
                                             alt="..."
@@ -490,7 +491,7 @@ class Landing extends React.Component {
                                                     Lance Jeffers
                                                 </span>
                                                 <small className="h6 text-muted">
-                                                    The man with the plan
+                                                    #Visionary
                                                 </small>
                                             </h5>
                                             <div className="mt-3">
@@ -522,12 +523,12 @@ class Landing extends React.Component {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className="mb-5 mb-lg-0" lg="3" md="6">
+                                <Col className="mb-5 mb-lg-0" lg="4" md="6">
                                     <div className="px-4">
                                         <img
                                             alt="..."
                                             className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                                            src={require('./assets/img/theme/team-2-800x800.jpg')}
+                                            src={require('./assets/img/theme/Jess Headshot-8.jpg')}
                                             style={{ width: '200px' }}
                                         />
                                         <div className="pt-4 text-center">
@@ -541,32 +542,18 @@ class Landing extends React.Component {
                                             </h5>
                                             <div className="mt-3">
                                                 <Button
-                                                    className="btn-icon-only rounded-circle"
-                                                    color="primary"
-                                                    href="#pablo"
-                                                    onClick={e =>
-                                                        e.preventDefault()
-                                                    }
-                                                >
-                                                    <i className="fa fa-twitter" />
-                                                </Button>
-                                                <Button
                                                     className="btn-icon-only rounded-circle ml-1"
                                                     color="primary"
-                                                    href="#pablo"
-                                                    onClick={e =>
-                                                        e.preventDefault()
-                                                    }
+                                                    href="https://github.com/JessikeeCW"
+                                                    target="_blank"
                                                 >
                                                     <i className="fa fa-github" />
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
                                                     color="primary"
-                                                    href="#pablo"
-                                                    onClick={e =>
-                                                        e.preventDefault()
-                                                    }
+                                                    href="https://www.linkedin.com/in/jessikeecampbellwalker/"
+                                                    target="_blank"
                                                 >
                                                     <i className="fa fa-linkedin" />
                                                 </Button>
@@ -574,12 +561,12 @@ class Landing extends React.Component {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className="mb-5 mb-lg-0" lg="3" md="6">
+                                <Col className="mb-5 mb-lg-0" lg="4" md="6">
                                     <div className="px-4">
                                         <img
                                             alt="..."
                                             className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                                            src={require('./assets/img/theme/team-3-800x800.jpg')}
+                                            src={require('./assets/img/theme/Parvana.jpeg')}
                                             style={{ width: '200px' }}
                                         />
                                         <div className="pt-4 text-center">
@@ -593,32 +580,18 @@ class Landing extends React.Component {
                                             </h5>
                                             <div className="mt-3">
                                                 <Button
-                                                    className="btn-icon-only rounded-circle"
-                                                    color="info"
-                                                    href="#pablo"
-                                                    onClick={e =>
-                                                        e.preventDefault()
-                                                    }
-                                                >
-                                                    <i className="fa fa-twitter" />
-                                                </Button>
-                                                <Button
                                                     className="btn-icon-only rounded-circle ml-1"
                                                     color="info"
-                                                    href="#pablo"
-                                                    onClick={e =>
-                                                        e.preventDefault()
-                                                    }
+                                                    href="https://github.com/Parvana07"
+                                                    target="_blank"
                                                 >
                                                     <i className="fa fa-github" />
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
                                                     color="info"
-                                                    href="#pablo"
-                                                    onClick={e =>
-                                                        e.preventDefault()
-                                                    }
+                                                    href="https://www.linkedin.com/in/parvana-aliyeva-09a7a164/"
+                                                    target="_blank"
                                                 >
                                                     <i className="fa fa-linkedin" />
                                                 </Button>
@@ -626,12 +599,14 @@ class Landing extends React.Component {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col className="mb-5 mb-lg-0" lg="3" md="6">
+                            </Row>
+                            <Row>
+                                <Col className="mb-5 mb-lg-0" lg="6" md="6">
                                     <div className="px-4">
                                         <img
                                             alt="..."
                                             className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                                            src={require('./assets/img/theme/team-4-800x800.jpg')}
+                                            src={require('./assets/img/theme/Anthony.png')}
                                             style={{ width: '200px' }}
                                         />
                                         <div className="pt-4 text-center">
@@ -646,7 +621,7 @@ class Landing extends React.Component {
                                             <div className="mt-3">
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="warning"
+                                                    color="success"
                                                     href="https://github.com/floresa22"
                                                     target="_blank"
                                                 >
@@ -654,8 +629,46 @@ class Landing extends React.Component {
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="warning"
+                                                    color="success"
                                                     href="http://linkedin.com/in/anthony-flores-8669271a3"
+                                                    target="_blank"
+                                                >
+                                                    <i className="fa fa-linkedin" />
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col className="mb-5 mb-lg-0" lg="6" md="6">
+                                    <div className="px-4">
+                                        <img
+                                            alt="..."
+                                            className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
+                                            src={require('./assets/img/theme/James.png')}
+                                            style={{ width: '200px' }}
+                                        />
+                                        <div className="pt-4 text-center">
+                                            <h5 className="title">
+                                                <span className="d-block mb-1">
+                                                    James Manahan
+                                                </span>
+                                                <small className="h6 text-muted">
+                                                    The Backend Boi
+                                                </small>
+                                            </h5>
+                                            <div className="mt-3">
+                                                <Button
+                                                    className="btn-icon-only rounded-circle ml-1"
+                                                    color="danger"
+                                                    href="https://github.com/JamesRussell23"
+                                                    target="_blank"
+                                                >
+                                                    <i className="fa fa-github" />
+                                                </Button>
+                                                <Button
+                                                    className="btn-icon-only rounded-circle ml-1"
+                                                    color="danger"
+                                                    href="http://www.linkedin.com/in/james-manahan-087a84a2"
                                                     target="_blank"
                                                 >
                                                     <i className="fa fa-linkedin" />
@@ -688,12 +701,12 @@ class Landing extends React.Component {
                                             </p>
                                         </Col>
                                         <Col className="ml-lg-auto" lg="3">
-                                            <Link to="/login">
+                                            <Link to="/register">
                                                 <Button
                                                     block
                                                     className="btn-white"
                                                     color="default"
-                                                    href="https://drawql.app/login"
+                                                    href="https://drawql.app/register"
                                                     size="lg"
                                                 >
                                                     Get Started

@@ -114,9 +114,8 @@ class DemoNavbar extends React.Component {
                                         </Col>
                                     </Row>
                                 </div>
-
                                 <Nav
-                                    className="align-items-lg-center ml-lg-auto"
+                                    className="navbar-nav-hover align-items-lg-center"
                                     navbar
                                 >
                                     <NavItem>
@@ -157,15 +156,45 @@ class DemoNavbar extends React.Component {
                                             Star us on Github
                                         </UncontrolledTooltip>
                                     </NavItem>
-                                    <NavItem className="d-none d-lg-block ml-lg-4">
+                                </Nav>
+                                <Nav
+                                    className="align-items-lg-center ml-lg-auto"
+                                    navbar
+                                >
+                                    <NavItem>
                                         <Link to="/login">
+                                            <NavLink
+                                                className="nav-link-icon"
+                                                href="https://drawql.app/login"
+                                                id="tooltip1846987010"
+                                                target="_blank"
+                                            >
+                                                <i className="fa fa-user" />
+                                                <span className="nav-link-inner--text d-lg-none ml-2">
+                                                    Log in
+                                                </span>
+                                                <span className="nav-link-inner--text">
+                                                    Log in
+                                                </span>
+                                            </NavLink>
+                                            {/* <UncontrolledTooltip
+                                            delay={0}
+                                            target="tooltip184698705"
+                                        >
+                                            Log in to an existing account
+                                        </UncontrolledTooltip> */}
+                                        </Link>
+                                    </NavItem>
+
+                                    <NavItem className="d-none d-lg-block ml-lg-4">
+                                        <Link to="/register">
                                             <Button
                                                 className="btn-neutral btn-icon"
                                                 color="default"
-                                                href="https://drawql.app/login"
+                                                href="https://drawql.app/register"
                                             >
                                                 <span className="nav-link-inner--text ml-1">
-                                                    Sign In / Register
+                                                    Sign Up
                                                 </span>
                                             </Button>
                                         </Link>
