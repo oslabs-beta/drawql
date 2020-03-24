@@ -6,7 +6,7 @@ import { skip } from 'graphql-resolvers';
 export const isAuthenticated = (parent, args, { person }) =>
     person ? skip : new ForbiddenError('Not authenticated as user');
 
-// checks to see if the authenticated user is the message owner
+// checks to see if the authenticated user is the drawing owner
 export const isDrawingOwner = async (parent, { id }, { models, person }) => {
     const drawing = await models.Drawing.findByPk(id, { raw: true });
     if (drawing.user_id !== person.id) {
