@@ -43,7 +43,7 @@ export default {
             // the last argument sets an expiration time for the token
             return { token: createToken(user, secret, '30m') };
         },
-        //the user should be able to use their email or username  + password to enable a successful login 
+        //the user should be able to use their email or username  + password to enable a successful login
         login: async (parent, { login, password }, { models, secret }) => {
             const user = await models.User.findByLogin(login);
             //if a user does not exist, the application will throw an error

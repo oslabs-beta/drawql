@@ -39,7 +39,7 @@ const user = (sequelize, DataTypes) => {
         //     allowNull: true
         // }
     });
-    
+
     //One to Many relationship: one user can have many drawings
     User.associate = models => {
         User.hasMany(models.Drawing, {
@@ -64,8 +64,8 @@ const user = (sequelize, DataTypes) => {
     User.beforeCreate(async user => {
         user.password = await user.generatePasswordHash();
     });
-    // this prototype function allows the generatePasswordHash functionality to access 
-    //the users entered password and combine it to the result of the password being passed 
+    // this prototype function allows the generatePasswordHash functionality to access
+    //the users entered password and combine it to the result of the password being passed
     //into the hash function along with the 10 salt rounds.
     User.prototype.generatePasswordHash = async function() {
         const saltRounds = 10;
