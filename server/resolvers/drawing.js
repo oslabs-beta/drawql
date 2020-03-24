@@ -13,7 +13,7 @@ export default {
         }
     },
     Mutation: {
-        // creates a new drawing
+        // creates a new drawing after user gets authenticated through isAuthenticated func
         createDrawing: combineResolvers(
             isAuthenticated,
             async (parent, { project_name }, { person, models }) => {
@@ -23,6 +23,8 @@ export default {
                 });
             }
         ),
+        //checks to see if the user is authenticated
+        //checks to see if the user is the owner of the drawing
         // deletes a drawing by finding the drawing's id
         deleteDrawing: combineResolvers(
             isAuthenticated,
