@@ -33,6 +33,7 @@ const server = new ApolloServer({
     formatError: error => {
         // removes the internal sequelize error message
         //leaves only the import validation error
+        // doesn't give specifc errors to the client
         const message = error.message
             .replace('SequelizeValidationError: ', '')
             .replace('Validation error: ', '');
