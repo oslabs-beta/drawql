@@ -12,4 +12,18 @@ export default gql`
 
         login(login: String!, password: String!): Token!
     }
+
+    type Token {
+        token: String!
+    }
+
+    type User {
+        id: ID!
+        username: String!
+        email: String!
+        password: String!
+    }
 `;
+
+// Belongs to type User
+// organizaiton_name: String
