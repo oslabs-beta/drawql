@@ -1,9 +1,5 @@
 import jwt from 'jsonwebtoken';
-import {
-    AuthenticatedError,
-    UserInputError,
-    AuthenticationError
-} from 'apollo-server';
+import { UserInputError, AuthenticationError } from 'apollo-server';
 
 //creates a decoded token
 const createToken = async (user, secret, expiresIn) => {
@@ -16,10 +12,13 @@ export default {
     Query: {
         // finds all users
         users: async (parent, args, { models }) => {
-            return models.User.findAll();
+            return await models.User.findAll();
+        },
+        user: async (parent, { id }, { models }) => {
+            return await models.User.findByPk(id);
         },
         //finds user by id if the person exist
-        user: async (parent, args, { models, person }) => {
+        person: async (parent, args, { models, person }) => {
             if (!person) {
                 return null;
             }
