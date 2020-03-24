@@ -11,7 +11,7 @@ import models, { elephant } from './models/index';
 const app = express();
 app.use(cors());
 
-//access  and verifies the user by requesting the token from the http header
+//accesses  and verifies the user by requesting the token from the http header
 const getPerson = async req => {
     const token = req.headers['x-token'];
 
