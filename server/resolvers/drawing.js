@@ -32,20 +32,20 @@ export default {
             async (parent, { id }, { models }) => {
                 return await models.Drawing.destroy({ where: { id } });
             }
-        ),
-        //finds all drawings for a specific user
-        Drawing: {
-            user_id: async (drawing, args, { models }) => {
-                return await models.User.findByPk(drawing.user_id);
-            }
-      },
-        // //finds all drawings for a specific organization
-        // Drawing: {
-        //     organization_id: async (drawing, args, { models }) => {
-        //         return await models.Organization.findByPk(
-        //             drawing.organization_id
-        //         );
-        //     }
-        // }
+        )
+    },
+    //finds all drawings for a specific user
+    Drawing: {
+        user_id: async (drawing, args, { models }) => {
+            return await models.User.findByPk(drawing.user_id);
+        }
     }
+    // //finds all drawings for a specific organization
+    // Drawing: {
+    //     organization_id: async (drawing, args, { models }) => {
+    //         return await models.Organization.findByPk(
+    //             drawing.organization_id
+    //         );
+    //     }
+    // }
 };
