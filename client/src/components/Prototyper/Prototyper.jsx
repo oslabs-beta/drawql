@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { Container } from 'reactstrap';
 import { Switch, Route } from 'react-router-dom';
-// import HomeNav from '../Navbars/HomeNav';
 import Navbar from './Nav';
 
 export default props => (

@@ -44,8 +44,8 @@ export default props => {
             <header className="header-global">
                 <Navbar
                     // color="primary"
-                    className="navbar navbar-main shadow-sm navbar-light  protyper__nav "
-                    expand="lg"
+                    className="navbar navbar-main shadow-sm navbar-light protyper__nav "
+                    expand="md"
                     id="navbar-main"
                 >
                     {/* <Navbar
@@ -54,11 +54,12 @@ export default props => {
                     className="navbar shadow-sm p-3 mb-5 bg-white rounded"
                     expand="md"
                 > */}
-                    <Button color="info" onClick={props.toggle}>
-                        <FontAwesomeIcon icon={faArrowsAltH} />
-                    </Button>
                     <NavbarToggler onClick={toggle} />
-                    <Container>
+
+                    <Container className="nav__container">
+                        <Button color="info" onClick={props.toggle}>
+                            <FontAwesomeIcon icon={faArrowsAltH} />
+                        </Button>
                         {/* this doesnt seem to be necessary? */}
                         {/* <button className="navbar-toggler" id="navbar_global">
                             <span className="navbar-toggler-icon" />
