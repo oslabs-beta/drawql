@@ -44,7 +44,7 @@ export default props => {
             <header className="header-global">
                 <Navbar
                     // color="primary"
-                    className="navbar navbar-main shadow-sm navbar-light protyper__nav "
+                    className="navbar navbar-main shadow-sm navbar-light protyper__nav"
                     expand="md"
                     id="navbar-main"
                 >
