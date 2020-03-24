@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
 import {
     Button,
     Collapse,
@@ -55,19 +55,14 @@ export default props => {
                     expand="md"
                 > */}
                     <Button color="info" onClick={props.toggle}>
-                        <FontAwesomeIcon icon={faAlignLeft} />
+                        <FontAwesomeIcon icon={faArrowsAltH} />
                     </Button>
                     <NavbarToggler onClick={toggle} />
                     <Container>
-                        <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                            <img
-                                alt="drawql logo"
-                                src={require('../../assets/img/brand/DrawQL-LOGO-A.png')}
-                            />
-                        </NavbarBrand>
-                        <button className="navbar-toggler" id="navbar_global">
+                        {/* this doesnt seem to be necessary? */}
+                        {/* <button className="navbar-toggler" id="navbar_global">
                             <span className="navbar-toggler-icon" />
-                        </button>
+                        </button> */}
                         <UncontrolledCollapse
                             toggler="#navbar_global"
                             navbar
@@ -77,14 +72,6 @@ export default props => {
                         >
                             <div className="navbar-collapse-header">
                                 <Row>
-                                    <Col className="collapse-brand" xs="6">
-                                        <Link to="/">
-                                            <img
-                                                alt="drawql logo"
-                                                src={require('../../assets/img/brand/argon-react.png')}
-                                            />
-                                        </Link>
-                                    </Col>
                                     <Col className="collapse-close" xs="6">
                                         <button
                                             className="navbar-toggler"
@@ -108,7 +95,7 @@ export default props => {
                                         id="tooltip184698705"
                                         target="_blank"
                                     >
-                                        <i className="fa fa-twitter-square" />
+                                        <i className="fa fa-twitter-square color--white" />
                                         <span className="nav-link-inner--text d-lg-none ml-2">
                                             Twitter
                                         </span>
@@ -127,7 +114,7 @@ export default props => {
                                         id="tooltip112445449"
                                         target="_blank"
                                     >
-                                        <i className="fa fa-github" />
+                                        <i className="fa fa-github color--white" />
                                         <span className="nav-link-inner--text d-lg-none ml-2">
                                             Github
                                         </span>
@@ -152,20 +139,21 @@ export default props => {
                                             id="tooltip1846987010"
                                             target="_blank"
                                         >
-                                            <i className="fa fa-user" />
-                                            <span className="nav-link-inner--text d-lg-none ml-2">
+                                            <i className="fa fa-user color--white" />
+                                            {/* doesnt seem like this needs to be here? */}
+                                            {/* <span className="nav-link-inner--text d-lg-none ml-2">
                                                 Log in
-                                            </span>
-                                            <span className="nav-link-inner--text">
+                                            </span> */}
+                                            <span className="nav-link-inner--text color--white">
                                                 Log in
                                             </span>
                                         </NavLink>
-                                        {/* <UncontrolledTooltip
+                                        <UncontrolledTooltip
                                             delay={0}
-                                            target="tooltip184698705"
+                                            target="tooltip1846987010"
                                         >
                                             Log in to an existing account
-                                        </UncontrolledTooltip> */}
+                                        </UncontrolledTooltip>
                                     </Link>
                                 </NavItem>
 

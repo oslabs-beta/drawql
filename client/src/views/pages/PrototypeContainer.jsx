@@ -11,12 +11,12 @@ const Prototyper = () => {
 
     return (
         // This div was previously a <Router> but it seems fine as a div?
-        <div>
-            <div className="App wrapper">
+        <>
+            <div className="prototyper wrapper">
                 <SideBar toggle={toggle} isOpen={isOpen} />
                 <Content toggle={toggle} isOpen={isOpen} />
             </div>
-        </div>
+        </>
     );
 };
 

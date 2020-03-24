@@ -1,31 +1,10 @@
-.App {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-}
-
-@import 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700';
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-}
-
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
+// /* ---------------------------------------------------
+//     SIDEBAR STYLE
+// ----------------------------------------------------- */
 .sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386d5;
+    background: #5e72e4;
     color: #fff;
     margin-left: -250px;
     transition: all 0.5s;
@@ -37,12 +16,14 @@ a:focus {
 }
 
 .sidebar-header {
-    background: #6d7fcc;
+    background: #172b4d;
 }
 
-.sidebar-header h3 {
+.sidebar-header img {
     color: #fff;
-    padding: 1em;
+    height: 50px;
+    // not sure what is causing the rems to be different here -- should be able to use 1rem but something is affecting it
+    margin: 1.8rem;
 }
 
 .sidebar ul p {
@@ -52,11 +33,6 @@ a:focus {
 
 .menu-open {
     background: #6d7fcc;
-}
-
-.nav-item:hover {
-    color: #7386d5;
-    background: #fff;
 }
 
 .items-menu {
@@ -100,11 +76,6 @@ li a.dropdown-toggle::after {
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
-.content {
-    padding: 20px;
-    margin-left: 0;
-    height: 100vh;
-}
 
 @media only screen and (max-width: 500px) {
     body {

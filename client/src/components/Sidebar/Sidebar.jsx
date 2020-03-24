@@ -8,18 +8,26 @@ import {
     faImage,
     faCopy
 } from '@fortawesome/free-solid-svg-icons';
-import { NavItem, NavLink, Nav } from 'reactstrap';
+import { NavItem, NavLink, Nav, NavbarBrand } from 'reactstrap';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import SubMenu from './SubMenu';
+import './Sidebar.scss';
 
 const SideBar = props => (
     <div className={classNames('sidebar', { 'is-open': props.isOpen })}>
         <div className="sidebar-header">
-            <span color="info" onClick={props.toggle} style={{ color: '#fff' }}>
-                &times;
-            </span>
-            <h3>DrawQL</h3>
+            <NavbarBrand
+                className="mr-lg-5"
+                to="/"
+                tag={Link}
+                // onClick={props.toggle}
+            >
+                <img
+                    alt="drawql logo"
+                    src={require('../../assets/img/brand/DrawQL-LOGO-A.png')}
+                />
+            </NavbarBrand>
         </div>
         <div className="side-menu">
             <Nav vertical className="list-unstyled pb-3">
