@@ -1,3 +1,4 @@
+//mapping between drawing in model and database
 const drawing = (sequelize, DataTypes) => {
     const Drawing = sequelize.define('drawing', {
         project_name: {
@@ -24,6 +25,7 @@ const drawing = (sequelize, DataTypes) => {
             allowNull: false
         }
     });
+    //One to One: Drawing belongs to only one user
     Drawing.associate = models => {
         Drawing.belongsTo(models.User);
     };

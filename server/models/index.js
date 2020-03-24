@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 
+//connect to database from within application
+//must specify dialect b/c sequelize supports other db types as well
 const elephant = new Sequelize(
     'postgres://wsitgfzv:cWN6igq4nhfN3n14JePOGha2xO-3p2od@drona.db.elephantsql.com:5432/wsitgfzv',
     {
@@ -13,6 +15,8 @@ const elephant = new Sequelize(
     }
 );
 
+//associate models throughout application for access to database
+//example: resolvers can read and write data to adn from database
 const models = {
     User: elephant.import('./user'),
     Drawing: elephant.import('./drawing')
@@ -25,6 +29,7 @@ Object.keys(models).forEach(key => {
     }
 });
 
+//tests the connection along with error handling
 elephant
     .authenticate()
     .then(() => console.log('Database connected...'))
