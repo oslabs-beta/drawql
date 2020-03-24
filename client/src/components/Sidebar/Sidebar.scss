@@ -1,0 +1,105 @@
+// /* ---------------------------------------------------
+//     SIDEBAR STYLE
+// ----------------------------------------------------- */
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #5e72e4;
+    color: #fff;
+    margin-left: -250px;
+    transition: all 0.5s;
+}
+
+.sidebar.is-open {
+    margin-left: 0;
+    transition: 0.5s;
+}
+
+.sidebar-header {
+    background: #172b4d;
+}
+
+.sidebar-header img {
+    color: #fff;
+    height: 50px;
+    // not sure what is causing the rems to be different here -- should be able to use 1rem but something is affecting it
+    margin: 0.8rem;
+}
+
+.sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+.menu-open {
+    background: #6d7fcc;
+}
+
+.items-menu {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+li a.dropdown-toggle::after {
+    display: inline-flex;
+    position: relative;
+    left: 60%;
+    top: 10%;
+}
+
+.sidebar-header > span {
+    position: relative;
+    float: right;
+    margin: 0.5em;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+}
+.side-menu {
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+}
+
+.side-menu::-webkit-scrollbar {
+    width: 10px;
+}
+
+.side-menu::-webkit-scrollbar-thumb {
+    background: #5466b3;
+    border-radius: 3px;
+}
+
+.side-menu::-webkit-scrollbar-thumb:hover {
+    background: #3a4c99;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+@media only screen and (max-width: 500px) {
+    body {
+        overflow: hidden;
+    }
+
+    .content.is-open {
+        margin-left: 100%;
+    }
+
+    .sidebar.is-open {
+        min-width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        transition: all 0.5s, height 0s;
+    }
+
+    .sidebar.is-open > .sidebar-header span {
+        display: unset;
+    }
+
+    li a.dropdown-toggle::after {
+        display: inline-block;
+        position: relative;
+        left: 68%;
+    }
+}

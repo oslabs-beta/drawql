@@ -39,7 +39,7 @@ import {
     UncontrolledTooltip
 } from 'reactstrap';
 
-class DemoNavbar extends React.Component {
+class HomeNav extends React.Component {
     state = {
         collapseClasses: '',
         collapseOpen: false
@@ -76,7 +76,7 @@ class DemoNavbar extends React.Component {
                             <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
                                 <img
                                     alt="drawql logo"
-                                    src={require('../../assets/img/brand/argon-react-white.png')}
+                                    src={require('../../assets/img/brand/DrawQL-LOGO-A.png')}
                                 />
                             </NavbarBrand>
                             <button
@@ -98,7 +98,7 @@ class DemoNavbar extends React.Component {
                                             <Link to="/">
                                                 <img
                                                     alt="drawql logo"
-                                                    src={require('../../assets/img/brand/argon-react.png')}
+                                                    src={require('../../assets/img/brand/DrawQL-LOGO-A.png')}
                                                 />
                                             </Link>
                                         </Col>
@@ -209,4 +209,4 @@ class DemoNavbar extends React.Component {
     }
 }
 
-export default DemoNavbar;
+export default HomeNav;
