@@ -9,4 +9,18 @@ const createToken = async (user, secret, expiresIn) => {
     });
 };
 export default {
-}
+    Query: {
+        // finds all users
+        users: async (parent, args, { models }) => {
+            return models.User.findAll();
+    },
+      //finds user by id if the person exist
+        user: async (parent, args, { models, person }) => {
+            if (!person) {
+                return null;
+            }
+            return await models.User.findByPk(person.id);
+        }
+  },
+  
+};
