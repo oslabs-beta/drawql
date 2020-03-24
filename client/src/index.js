@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
+import testProto from './views/pages/testProto';
+import PrototypeContainer from './views/pages/PrototypeContainer';
 
 import App from './App';
 
@@ -29,6 +31,9 @@ ReactDOM.render(
                 exact
                 render={props => <Register {...props} />}
             />
+            {/* I dont recall why this needs to be here? Presumably something that happens after login? */}
+            <Route path="/app" exact component={testProto} />
+            <Route path="/proto" exact component={PrototypeContainer} />
             <Redirect to="/" />
         </Switch>
     </BrowserRouter>,
