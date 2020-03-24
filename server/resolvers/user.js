@@ -44,7 +44,7 @@ export default {
             return { token: createToken(user, secret, '30m') };
         },
         //the user should be able to use their email or username  + password to enable a successful login 
-        logIn: async (parent, { login, password }, { models, secret }) => {
+        login: async (parent, { login, password }, { models, secret }) => {
             const user = await models.User.findByLogin(login);
             //if a user does not exist, the application will throw an error
             if (!user) {
