@@ -53,3 +53,13 @@ const server = new ApolloServer({
         };
     }
 });
+
+// route for server to  utilize graphql playground to test query
+server.applyMiddleware({ app, path: '/graphql' });
+
+//synchronizes sequelize functionality from db and runs the server
+elephant.sync().then(async () => {
+    app.listen({ port: 8000 }, () => {
+        console.log('Apollo Server on http://localhost:8000/graphql');
+    });
+});
