@@ -14,4 +14,17 @@ export default gql`
         ): Drawing!
         deleteDrawing(id: ID!): Boolean!
     }
+
+    type Drawing {
+        id: ID!
+        project_name: String!
+        project_code: String
+        user_id: User!
+    }
 `;
+
+// Belongs to type Mutation
+// organization_id: Int
+
+// Belongs to type Drawing
+// organization_id: Organization
