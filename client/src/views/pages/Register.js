@@ -37,14 +37,35 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
+import { graphql } from 'react-apollo';
+import registerMutation from '../../mutations/Register';
 
 class Register extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            email: '',
+            password: ''
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
     componentDidMount() {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
         this.refs.main.scrollTop = 0;
     }
+    handleSubmit(e) {
+        e.preventDefault();
+        const { username, email, password } = this.state;
+        // console.log(name, email, password)
+        // console.log(this.props)
+        this.props.mutate({
+            variables: { username, email, password }
+            //refetch query(currentuser)
+        })
 
+    }
     render() {
         return (
             <>
@@ -116,7 +137,7 @@ class Register extends React.Component {
                                                     Or sign up with credentials
                                                 </p>
                                             </div>
-                                            <Form role="form">
+                                            <Form role="form" onSubmit={this.handleSubmit}>
                                                 <FormGroup>
                                                     <InputGroup className="input-group-alternative mb-3">
                                                         <InputGroupAddon addonType="prepend">
@@ -125,8 +146,10 @@ class Register extends React.Component {
                                                             </InputGroupText>
                                                         </InputGroupAddon>
                                                         <Input
-                                                            placeholder="Name"
+                                                            placeholder="Username"
                                                             type="text"
+                                                            value={this.state.username}
+                                                            onChange={e => this.setState({ username: e.target.value })}
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -140,6 +163,8 @@ class Register extends React.Component {
                                                         <Input
                                                             placeholder="Email"
                                                             type="email"
+                                                            value={this.state.email}
+                                                            onChange={e => this.setState({ email: e.target.value })}
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -154,6 +179,8 @@ class Register extends React.Component {
                                                             placeholder="Password"
                                                             type="password"
                                                             autoComplete="off"
+                                                            value={this.state.password}
+                                                            onChange={e => this.setState({ password: e.target.value })}
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -199,7 +226,7 @@ class Register extends React.Component {
                                                     <Button
                                                         className="mt-4"
                                                         color="primary"
-                                                        type="button"
+                                                        type="submit"
                                                     >
                                                         Create account
                                                     </Button>
@@ -218,4 +245,5 @@ class Register extends React.Component {
     }
 }
 
+//export default graphql(registerMutation)(Register)
 export default Register;
