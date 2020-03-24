@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "client": "cd ../client && npm start",
-        "dev-server": "nodemon server.js",
+        "dev-server": "nodemon --exec babel-node server.js",
         "server": "node server.js"
     },
     "keywords": [
@@ -15,12 +15,21 @@
     "author": "drawql",
     "license": "ISC",
     "dependencies": {
+        "apollo-server": "^2.11.0",
         "apollo-server-express": "^2.11.0",
+        "bcrypt": "^4.0.1",
+        "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "graphql": "^14.6.0",
-        "pg": "^7.18.2"
+        "graphql-resolvers": "^0.4.2",
+        "jsonwebtoken": "^8.5.1",
+        "pg": "^7.18.2",
+        "sequelize": "^5.21.5"
     },
     "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/node": "^7.8.7",
+        "@babel/preset-env": "^7.9.0",
         "babel-eslint": "^10.1.0",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",
@@ -29,6 +38,7 @@
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-prettier": "^3.1.2",
         "eslint-plugin-react": "^7.19.0",
+        "nodemon": "^2.0.2",
         "prettier": "^1.19.1"
     }
 }
