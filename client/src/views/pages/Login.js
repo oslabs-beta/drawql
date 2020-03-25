@@ -24,7 +24,7 @@ import SimpleFooter from '../../components/Footers/SimpleFooter';
 import HomeNav from '../../components/Navbars/HomeNav';
 import { graphql } from 'react-apollo';
 import loginMutation from '../../mutations/Login';
-import Dashboard from './Dashboard';
+
 
 class Login extends React.Component {
     constructor(props) {
