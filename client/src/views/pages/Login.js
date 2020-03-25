@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Argon Design System React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from 'react';
 
 // reactstrap components
@@ -38,8 +22,44 @@ import {
 import { Link } from 'react-router-dom';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import HomeNav from '../../components/Navbars/HomeNav';
+import { graphql } from 'react-apollo';
+import loginMutation from '../../mutations/Login';
+
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+            errors: []
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        const { email, password } = this.state;
+        console.log(email, password)
+        //passing the mutation for login. console.log this.props.mutate to see what console logs
+        this.props.mutate({
+            variables: { email, password }
+            //refecth currentuser if needed
+            //refetchQueries: [{ query }]
+        })
+        //if you want to see error in the source and check res in console by pressing esc button
+        //.catch(res => { debugger })
+        // .catch(res => {
+        //     const errors = res.graphQLErrors.map((error => error.message))
+        //     this.setState({ errors: errors })
+        // })
+    }
+    componentWillUpdate(nextProps) {
+
+        //this might be this.data.user
+        // if (!this.props.data.user && nextProps.data.user) {
+        //     //redirect to dashboard
+        // }
+    }
     componentDidMount() {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
@@ -115,7 +135,7 @@ class Login extends React.Component {
                                                     Or sign in with credentials
                                                 </p>
                                             </div>
-                                            <Form role="form">
+                                            <Form role="form" onSubmit={this.handleSubmit}>
                                                 <FormGroup className="mb-3">
                                                     <InputGroup className="input-group-alternative">
                                                         <InputGroupAddon addonType="prepend">
@@ -126,6 +146,8 @@ class Login extends React.Component {
                                                         <Input
                                                             placeholder="Email"
                                                             type="email"
+                                                            value={this.state.email}
+                                                            onChange={e => this.setState({ email: e.target.value })}
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -140,6 +162,8 @@ class Login extends React.Component {
                                                             placeholder="Password"
                                                             type="password"
                                                             autoComplete="off"
+                                                            value={this.state.password}
+                                                            onChange={e => this.setState({ password: e.target.value })}
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -160,7 +184,10 @@ class Login extends React.Component {
                                                     <Button
                                                         className="my-4"
                                                         color="primary"
-                                                        type="button"
+
+                                                    // onClick={e => e.preventDefault}
+                                                    // type="submit"
+                                                    // type="submit"
                                                     >
                                                         Sign in
                                                     </Button>
@@ -212,4 +239,5 @@ class Login extends React.Component {
     }
 }
 
+//export default graphql(loginMutation)(Login)
 export default Login;
