@@ -9,18 +9,11 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
-<<<<<<< HEAD
-        "apollo-boost": "^0.4.7",
-        "bootstrap": "4.3.1",
-        "classnames": "2.2.6",
-        "graphql": "^14.6.0",
-=======
         "apollo-client": "^2.6.8",
         "bootstrap": "4.3.1",
         "classnames": "2.2.6",
         "graphql": "^14.6.0",
         "graphql-tag": "^2.10.3",
->>>>>>> 699d02477a29357747a65dab762af4cd4e9f1321
         "headroom.js": "0.11.0",
         "konva": "^4.2.0",
         "moment": "2.24.0",
