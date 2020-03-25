@@ -40,10 +40,18 @@ class Login extends React.Component {
         e.preventDefault();
         const { email, password } = this.state;
         console.log(email, password)
+        //passing the mutation for login. console.log this.props.mutate to see what console logs
         this.props.mutate({
             variables: { email, password }
             //refecth currentuser if needed
+            //refetchQueries: [{ query }]
         })
+        //if you want to see error in the source and check res in console by pressing esc button
+        //.catch(res => { debugger })
+        // .catch(res => {
+        //     const errors = res.graphQLErrors.map((error => error.message))
+        //     this.setState({ errors: errors })
+        // })
     }
     componentWillUpdate(nextProps) {
 

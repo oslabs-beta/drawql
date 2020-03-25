@@ -46,7 +46,8 @@ class Register extends React.Component {
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            errors: []
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -63,7 +64,13 @@ class Register extends React.Component {
         this.props.mutate({
             variables: { username, email, password }
             //refetch query(currentuser)
+            //refetchQueries: [{ query }]
         })
+        // .catch(res => {
+        //     const errors = res.graphQLErrors.map(error => error.message)
+        //     //this.setState({errors: errors})
+        //     this.setState({ errors })
+        // })
 
     }
     render() {
