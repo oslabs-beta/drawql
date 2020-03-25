@@ -46,12 +46,12 @@ import * as serviceWorker from './serviceWorker';
 // })
 
 //pass GraphQL endpoint to uri
-const client = new ApolloClient({
-    uri: 'http://localhost:8000/graphql'
-});
+// const client = new ApolloClient({
+//     uri: 'http://localhost:8000/graphql'
+// });
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
+    // <ApolloProvider client={client}>
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact render={props => <App {...props} />} />
@@ -75,8 +75,8 @@ ReactDOM.render(
                 <Route path="/proto" exact component={PrototypeContainer} />
                 <Redirect to="/" />
             </Switch>
-        </BrowserRouter>
-    </ApolloProvider>,
+        </BrowserRouter>,
+    // </ApolloProvider>,
     document.getElementById('root')
 );
 
