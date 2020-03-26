@@ -4,8 +4,8 @@ export default gql`
 {
     user {
         id
-        username
         email
+        token
     }
 }
 `;

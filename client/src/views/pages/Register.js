@@ -38,9 +38,9 @@ import {
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import { graphql } from 'react-apollo';
-import registerMutation from '../../mutations/Register';
+import signUpMutation from '../../mutations/signup';
 
-class Register extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -252,5 +252,5 @@ class Register extends React.Component {
     }
 }
 
-//export default graphql(registerMutation)(Register)
-export default Register;
+//export default graphql(signUpMutation)(SignUp)
+export default SignUp;

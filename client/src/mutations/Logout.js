@@ -4,8 +4,8 @@ export default gql`
 mutation {
     logout {
         id
-        username
         email
+        token
     }
 }
 `;
