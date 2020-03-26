@@ -17,6 +17,7 @@
 */
 import React from 'react';
 
+
 // reactstrap components
 import {
     Button,
@@ -38,9 +39,9 @@ import {
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import { graphql } from 'react-apollo';
-import signUpMutation from '../../mutations/signup';
+import registerMutation from '../../mutations/Register';
 
-class SignUp extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,30 +49,32 @@ class SignUp extends React.Component {
             email: '',
             password: '',
             errors: []
-        }
-        this.handleSubmit = this.handleSubmit.bind(this)
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
         this.refs.main.scrollTop = 0;
     }
+  
     handleSubmit(e) {
         e.preventDefault();
         const { username, email, password } = this.state;
         // console.log(name, email, password)
         // console.log(this.props)
-        this.props.mutate({
-            variables: { username, email, password }
-            //refetch query(currentuser)
-            //refetchQueries: [{ query }]
-        })
-        // .catch(res => {
-        //     const errors = res.graphQLErrors.map(error => error.message)
-        //     //this.setState({errors: errors})
-        //     this.setState({ errors })
-        // })
-
+        this.props
+            .mutate({
+                mutation:register,
+                variables: { username, email, password },
+                //refetch query(currentuser)
+                // refetchQueries: [{ query }]
+            })
+            .catch(res => {
+                const errors = res.graphQLErrors.map(error => error.message);
+                //this.setState({errors: errors})
+                this.setState({ errors });
+            });
     }
     render() {
         return (
@@ -144,7 +147,10 @@ class SignUp extends React.Component {
                                                     Or sign up with credentials
                                                 </p>
                                             </div>
-                                            <Form role="form" onSubmit={this.handleSubmit}>
+                                            <Form
+                                                role="form"
+                                                onSubmit={this.handleSubmit}
+                                            >
                                                 <FormGroup>
                                                     <InputGroup className="input-group-alternative mb-3">
                                                         <InputGroupAddon addonType="prepend">
@@ -155,8 +161,17 @@ class SignUp extends React.Component {
                                                         <Input
                                                             placeholder="Username"
                                                             type="text"
-                                                            value={this.state.username}
-                                                            onChange={e => this.setState({ username: e.target.value })}
+                                                            value={
+                                                                this.state
+                                                                    .username
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    username:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -170,8 +185,16 @@ class SignUp extends React.Component {
                                                         <Input
                                                             placeholder="Email"
                                                             type="email"
-                                                            value={this.state.email}
-                                                            onChange={e => this.setState({ email: e.target.value })}
+                                                            value={
+                                                                this.state.email
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    email:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -186,8 +209,17 @@ class SignUp extends React.Component {
                                                             placeholder="Password"
                                                             type="password"
                                                             autoComplete="off"
-                                                            value={this.state.password}
-                                                            onChange={e => this.setState({ password: e.target.value })}
+                                                            value={
+                                                                this.state
+                                                                    .password
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    password:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -252,5 +284,5 @@ class SignUp extends React.Component {
     }
 }
 
-//export default graphql(signUpMutation)(SignUp)
-export default SignUp;
+export default graphql(registerMutation)(Register);
+export default Register;

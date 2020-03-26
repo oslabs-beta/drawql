@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import ApolloClient from 'apollo-client';
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
@@ -17,6 +17,18 @@ import './assets/vendor/font-awesome/css/font-awesome.min.css';
 import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
+
+const link = createHTTPLink({
+    uri: '/graphql',
+    credentials: 'same-origin'
+});
+
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link
+});
+
+
 //You can uncomment part below and test it
 
 // //network interface is in charge of making actual network requests to the backend server
@@ -32,7 +44,7 @@ import * as serviceWorker from './serviceWorker';
 // })
 
 // const client = new ApolloClient({
-//     //now Apollo client uses custom networkInterface instead of default one 
+//     //now Apollo client uses custom networkInterface instead of default one
 //     networkInterface,
 //     //in order to identify every record that comes back from the server
 //     //rather than refetching data for every single query that is used, Apollo will have the ability

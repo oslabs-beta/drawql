@@ -1,24 +1,25 @@
 import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from 'react-apollo';
 
 export default gql`
- mutation Login($email: String!, $password: String!) {
-     login(email: $email, password: $password) {
-         id
-         email
-         token
-     }
- }
+    mutation register($username: String, $email: String, $password: String) {
+        signUp(username: $username, email: $email, password: $password) {
+            id
+            username
+            email
+            token
+        }
+    }
 `;
-function loginUser() {
+function registerUser() {
     let input;
-    const [LoginUser, { loading }] = useMutation(register);
+    const [Register, { loading }] = useMutation(register);
     return (
         <div>
             <form
                 onSubmit={e => {
                     e.preventDefault();
-                    LoginUser({
+                    Register({
                         variables: {
                             username: input.value,
                             email: input.value,
@@ -37,3 +38,5 @@ function loginUser() {
             </form>
         </div>
     );
+  
+}
