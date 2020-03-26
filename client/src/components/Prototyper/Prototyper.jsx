@@ -24,8 +24,6 @@ class Prototyper extends React.Component {
             doubleClick: false
         };
         this.handleKeydown = this.handleKeydown.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
@@ -43,12 +41,14 @@ class Prototyper extends React.Component {
             });
         }
     };
+
     handleMouseUp = () => {
         const { isDrawing } = this.state;
         if (isDrawing) {
             this.setState({ isDrawing: false });
         }
     };
+
     handleMouseMove = ({ evt }) => {
         if (this.state.doubleClick) {
             const { isDrawing } = this.state;
@@ -60,8 +60,9 @@ class Prototyper extends React.Component {
             }
         }
     };
+
     handleKeydown(e) {
-        const state = Object.assign({}, this.state);
+        const state = { ...this.state };
         if (e.charCode === 13) {
             const newCircle = state.circles.push({
                 x: 50,
@@ -76,22 +77,25 @@ class Prototyper extends React.Component {
             return (e.target.value = '');
         }
     }
-    openModal() {
+
+    openModal = () => {
         this.setState({
             visible: true
         });
-    }
-    closeModal(e) {
+    };
+
+    closeModal = e => {
         this.setState({
             visible: false
         });
         // e.target.value = "";
-    }
+    };
+
     render() {
         const circle = this.state.circles.map((ele, index) => {
             return (
                 <Group
-                    key={index + 'group'}
+                    key={`${index}group`}
                     draggable
                     onDblClick={() => this.setState({ doubleClick: true })}
                     // onDblClick={() => console.log('hi')}

@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
+// import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
 import testProto from './views/pages/testProto';
 import PrototypeContainer from './views/pages/PrototypeContainer';
+import resolvers from './graphql/resolvers';
+import typeDefs from './graphql/typeDefs';
 
 import App from './App';
 
@@ -31,8 +34,28 @@ import * as serviceWorker from './serviceWorker';
 //     }
 // })
 
+const endpoint = new HttpLink({
+    uri: 'http://localhost:5000'
+});
+
+const cache = new InMemoryCache();
+
+const client = new ApolloClient({
+    link: endpoint,
+    cache,
+    typeDefs,
+    resolvers
+});
+
+// creates an initial state
+client.writeData({
+    data: {
+        sidebarHidden: false
+    }
+});
+
 // const client = new ApolloClient({
-//     //now Apollo client uses custom networkInterface instead of default one 
+//     //now Apollo client uses custom networkInterface instead of default one
 //     networkInterface,
 //     //in order to identify every record that comes back from the server
 //     //rather than refetching data for every single query that is used, Apollo will have the ability
@@ -44,28 +67,32 @@ import * as serviceWorker from './serviceWorker';
 // })
 
 ReactDOM.render(
-    // <ApolloProvider client={client}>
-    <BrowserRouter>
-        <Switch>
-            <Route path="/" exact render={props => <App {...props} />} />
-            <Route
-                path="/dev-only"
-                exact
-                render={props => <Index {...props} />}
-            />
-            <Route path="/login" exact render={props => <Login {...props} />} />
-            <Route
-                path="/register"
-                exact
-                render={props => <Register {...props} />}
-            />
-            {/* I dont recall why this needs to be here? Presumably something that happens after login? */}
-            <Route path="/app" exact component={testProto} />
-            <Route path="/proto" exact component={PrototypeContainer} />
-            <Redirect to="/" />
-        </Switch>
-    </BrowserRouter>,
-    // </ApolloProvider>,
+    <ApolloProvider client={client}>
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact render={props => <App {...props} />} />
+                <Route
+                    path="/dev-only"
+                    exact
+                    render={props => <Index {...props} />}
+                />
+                <Route
+                    path="/login"
+                    exact
+                    render={props => <Login {...props} />}
+                />
+                <Route
+                    path="/register"
+                    exact
+                    render={props => <Register {...props} />}
+                />
+                {/* I dont recall why this needs to be here? Presumably something that happens after login? */}
+                <Route path="/app" exact component={testProto} />
+                <Route path="/proto" exact component={PrototypeContainer} />
+                <Redirect to="/" />
+            </Switch>
+        </BrowserRouter>
+    </ApolloProvider>,
     document.getElementById('root')
 );
 

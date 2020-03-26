@@ -33,14 +33,14 @@ const SideBar = props => (
             <Nav vertical className="list-unstyled pb-3">
                 <p>Dummy Heading</p>
                 {/* <SubMenu title="Home" icon={faHome} items={submenus[0]} /> */}
-                <NavItem>
+                {/* <NavItem>
                     <NavLink tag={Link} to="/about">
                         <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
                         About
                     </NavLink>
                 </NavItem>
                 {/* <SubMenu title="Pages" icon={faCopy} items={submenus[1]} /> */}
-                <NavItem>
+                {/* <NavItem>
                     <NavLink tag={Link} to="/pages">
                         <FontAwesomeIcon icon={faImage} className="mr-2" />
                         Portfolio
@@ -57,7 +57,7 @@ const SideBar = props => (
                         <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
                         Contact
                     </NavLink>
-                </NavItem>
+                </NavItem> */}
             </Nav>
         </div>
     </div>
