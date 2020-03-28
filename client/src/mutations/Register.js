@@ -1,3 +1,4 @@
+import React from 'react';
 import gql from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -15,7 +16,10 @@ export default gql`
 // on click this will execute the mutate function to register a user
 function registerUser() {
     let input;
-    const [Register, { loading }] = useMutation(register);
+    const [Register, { loading, error, data }] = useMutation(register);
+    if (loading) return 'Loading ...';
+    if (error) return `Error : ${error.message}`;
+    
     return (
         <div>
             <form
@@ -36,9 +40,7 @@ function registerUser() {
                         input = node;
                     }}
                 />
-            
             </form>
         </div>
     );
-  
 }

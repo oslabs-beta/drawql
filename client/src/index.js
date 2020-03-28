@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-boost';
 import { createHTTPLink } from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
@@ -33,34 +35,39 @@ const link = createHTTPLink({
 //passed through the fetch
 const client = new ApolloClient({
     cache: new InMemoryCache(),
-    link,
+    link
 });
 
-  
-
+//connects apollo client to react
+//apolloprovider is similar to context.provider, it wraps the app andplaces the client on the context.Which gives the ability to access it anywhere in your component tree
 ReactDOM.render(
-    // <ApolloProvider client={client}>
-    <BrowserRouter>
-        <Switch>
-            <Route path="/" exact render={props => <App {...props} />} />
-            <Route
-                path="/dev-only"
-                exact
-                render={props => <Index {...props} />}
-            />
-            <Route path="/login" exact render={props => <Login {...props} />} />
-            <Route
-                path="/register"
-                exact
-                render={props => <Register {...props} />}
-            />
-            {/* I dont recall why this needs to be here? Presumably something that happens after login? */}
-            <Route path="/app" exact component={testProto} />
-            <Route path="/proto" exact component={PrototypeContainer} />
-            <Redirect to="/" />
-        </Switch>
-    </BrowserRouter>,
-    // </ApolloProvider>,
+    <ApolloProvider client={client}>
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact render={props => <App {...props} />} />
+                <Route
+                    path="/dev-only"
+                    exact
+                    render={props => <Index {...props} />}
+                />
+                <Route
+                    path="/login"
+                    exact
+                    render={props => <Login {...props} />}
+                />
+                <Route
+                    path="/register"
+                    exact
+                    render={props => <Register {...props} />}
+                />
+                {/* I dont recall why this needs to be here? Presumably something that happens after login? */}
+                <Route path="/app" exact component={testProto} />
+                <Route path="/proto" exact component={PrototypeContainer} />
+                <Redirect to="/" />
+            </Switch>
+        </BrowserRouter>
+        ,
+    </ApolloProvider>,
     document.getElementById('root')
 );
 
