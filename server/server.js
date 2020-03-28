@@ -9,6 +9,14 @@ import resolvers from './resolvers/index';
 import models, { elephant } from './models/index';
 
 const app = express();
+
+//allows crenditials from requested origin
+const corsOptions = {
+    origin={
+        origin:''
+    }
+}
+
 app.use(cors());
 
 //accesses  and verifies the user by requesting the token from the http header

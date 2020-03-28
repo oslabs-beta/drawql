@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo';
+
 import ApolloClient from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHTTPLink } from 'apollo-link-http';
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
@@ -18,16 +20,22 @@ import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
 
+//tells your network to send the cookie along with every request
 const link = createHTTPLink({
     uri: '/graphql',
+    // passes the credential option if the server has the same domain
     credentials: 'same-origin'
+
+    //passes the credential option if the server has a different domain
+    // credentials: 'include'
 });
 
+//passed through the fetch
 const client = new ApolloClient({
+    link,
     cache: new InMemoryCache(),
-    link
+    
 });
-
 
 //You can uncomment part below and test it
 

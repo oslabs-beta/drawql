@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { useMutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 
 export default gql`
     mutation register($username: String, $email: String, $password: String) {
@@ -11,6 +11,8 @@ export default gql`
         }
     }
 `;
+
+// on click this will execute the mutate function to register a user
 function registerUser() {
     let input;
     const [Register, { loading }] = useMutation(register);
