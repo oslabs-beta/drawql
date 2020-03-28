@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import ApolloClient from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHTTPLink } from 'apollo-link-http';
+import ApolloClient from 'apollo-boost';
+import { InMemoryCache } from 'apollo-boost';
+import { createHTTPLink } from 'apollo-boost';
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
@@ -22,7 +22,7 @@ import * as serviceWorker from './serviceWorker';
 
 //tells your network to send the cookie along with every request
 const link = createHTTPLink({
-    uri: '/graphql',
+    uri: 'http://localhost:5000/graphql',
     // passes the credential option if the server has the same domain
     credentials: 'same-origin'
 
@@ -32,36 +32,11 @@ const link = createHTTPLink({
 
 //passed through the fetch
 const client = new ApolloClient({
-    link,
     cache: new InMemoryCache(),
-    
+    link,
 });
 
-//You can uncomment part below and test it
-
-// //network interface is in charge of making actual network requests to the backend server
-// //by creating the custom network interface just making sure cookies are send whenever request to backend is made
-// const networkInterface = createNetworkInterface({
-//     //endpoint hosted
-//     uri: '/graphql',
-//     opts: {
-//         //safe attempt to send along the cookies with the outgoing request
-//         //this means you are making request to the same origin that browser is currently in
-//         credentials: 'same-origin'
-//     }
-// })
-
-// const client = new ApolloClient({
-//     //now Apollo client uses custom networkInterface instead of default one
-//     networkInterface,
-//     //in order to identify every record that comes back from the server
-//     //rather than refetching data for every single query that is used, Apollo will have the ability
-//     //to identify the information that is already been pulled down from the server and store it inside of some local cache
-
-//     //be sure that schema file user_type includes id
-//     //this version might be outdated, see docs
-//     dataIdFromObject: o => o.id
-// })
+  
 
 ReactDOM.render(
     // <ApolloProvider client={client}>
