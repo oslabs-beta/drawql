@@ -34,7 +34,7 @@ import * as serviceWorker from './serviceWorker';
 
 //passed through the fetch
 const client = new ApolloClient({
-    uri: 'http://localhost:5000/graphql',
+    uri: 'http://localhost:3000/graphql',
     fetchOptions: {
         //passes the credential option if the server has a different domain
         credentials: 'include'
@@ -46,7 +46,7 @@ const client = new ApolloClient({
         const token = await AsyncStorage.getItem('token');
         operation.setContext({
             headers: {
-                authorization: token
+                Authorization: token ? `Bearer ${token}`:''
             }
         });
     },

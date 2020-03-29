@@ -17,7 +17,6 @@
 */
 import React from 'react';
 
-
 // reactstrap components
 import {
     Button,
@@ -38,8 +37,25 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-import { graphql } from 'react-apollo';
-import registerMutation from '../../mutations/Register';
+import { graphql, Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
+import { register } from '../../serviceWorker';
+// import registerMutation from '../../mutations/Register';
+
+const REGISTER = gql`
+    mutation register($username: String, $email: String, $password: String) {
+        signUp(username: $username, email: $email, password: $password) {
+            token
+        }
+    }
+`;
+
+function registerUser() {
+    const [Register, { loading, error, data }] = useMutation(REGISTER);
+    if (loading) return 'Loading ...';
+    if (error) return `Error : ${error.message}`;
+    return Register;
+}
 
 class Register extends React.Component {
     constructor(props) {
@@ -57,24 +73,25 @@ class Register extends React.Component {
         document.scrollingElement.scrollTop = 0;
         this.refs.main.scrollTop = 0;
     }
-  
+
     handleSubmit(e) {
         e.preventDefault();
-        const { username, email, password } = this.state;
+        // const { username, email, password } = this.state;
         // console.log(name, email, password)
         // console.log(this.props)
-        this.props
-            .mutate({
-                mutation:register,
-                variables: { username, email, password },
-                //refetch query(currentuser)
-                // refetchQueries: [{ query }]
-            })
-            .catch(res => {
-                const errors = res.graphQLErrors.map(error => error.message);
-                //this.setState({errors: errors})
-                this.setState({ errors });
-            });
+
+        // this.props
+        //     .mutate({
+        //         mutation:register,
+        //         variables: { username, email, password },
+        //         //refetch query(currentuser)
+        //         // refetchQueries: [{ query }]
+        //     })
+        //     .catch(res => {
+        //         const errors = res.graphQLErrors.map(error => error.message);
+        //         //this.setState({errors: errors})
+        //         this.setState({ errors });
+        //     });
     }
     render() {
         return (
@@ -147,84 +164,95 @@ class Register extends React.Component {
                                                     Or sign up with credentials
                                                 </p>
                                             </div>
-                                            <Form
-                                                role="form"
-                                                onSubmit={this.handleSubmit}
-                                            >
-                                                <FormGroup>
-                                                    <InputGroup className="input-group-alternative mb-3">
-                                                        <InputGroupAddon addonType="prepend">
-                                                            <InputGroupText>
-                                                                <i className="ni ni-hat-3" />
-                                                            </InputGroupText>
-                                                        </InputGroupAddon>
-                                                        <Input
-                                                            placeholder="Username"
-                                                            type="text"
-                                                            value={
-                                                                this.state
-                                                                    .username
-                                                            }
-                                                            onChange={e =>
-                                                                this.setState({
-                                                                    username:
-                                                                        e.target
-                                                                            .value
-                                                                })
-                                                            }
-                                                        />
-                                                    </InputGroup>
-                                                </FormGroup>
-                                                <FormGroup>
-                                                    <InputGroup className="input-group-alternative mb-3">
-                                                        <InputGroupAddon addonType="prepend">
-                                                            <InputGroupText>
-                                                                <i className="ni ni-email-83" />
-                                                            </InputGroupText>
-                                                        </InputGroupAddon>
-                                                        <Input
-                                                            placeholder="Email"
-                                                            type="email"
-                                                            value={
-                                                                this.state.email
-                                                            }
-                                                            onChange={e =>
-                                                                this.setState({
-                                                                    email:
-                                                                        e.target
-                                                                            .value
-                                                                })
-                                                            }
-                                                        />
-                                                    </InputGroup>
-                                                </FormGroup>
-                                                <FormGroup>
-                                                    <InputGroup className="input-group-alternative">
-                                                        <InputGroupAddon addonType="prepend">
-                                                            <InputGroupText>
-                                                                <i className="ni ni-lock-circle-open" />
-                                                            </InputGroupText>
-                                                        </InputGroupAddon>
-                                                        <Input
-                                                            placeholder="Password"
-                                                            type="password"
-                                                            autoComplete="off"
-                                                            value={
-                                                                this.state
-                                                                    .password
-                                                            }
-                                                            onChange={e =>
-                                                                this.setState({
-                                                                    password:
-                                                                        e.target
-                                                                            .value
-                                                                })
-                                                            }
-                                                        />
-                                                    </InputGroup>
-                                                </FormGroup>
-                                                {/* the below commented code is if we want to show password strength during creation */}
-                                                {/* <div className="text-muted font-italic">
+                                            <Mutation mutation={REGISTER}>
+                                                <Form
+                                                    role="form"
+                                                    onSubmit={this.handleSubmit}
+                                                >
+                                                    <FormGroup>
+                                                        <InputGroup className="input-group-alternative mb-3">
+                                                            <InputGroupAddon addonType="prepend">
+                                                                <InputGroupText>
+                                                                    <i className="ni ni-hat-3" />
+                                                                </InputGroupText>
+                                                            </InputGroupAddon>
+                                                            <Input
+                                                                placeholder="Username"
+                                                                type="text"
+                                                                value={
+                                                                    this.state
+                                                                        .username
+                                                                }
+                                                                onChange={e => {
+                                                                    this.setState(
+                                                                        registerUser({
+                                                                            username:
+                                                                                e
+                                                                                    .target
+                                                                                    .value
+                                                                        })
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </InputGroup>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <InputGroup className="input-group-alternative mb-3">
+                                                            <InputGroupAddon addonType="prepend">
+                                                                <InputGroupText>
+                                                                    <i className="ni ni-email-83" />
+                                                                </InputGroupText>
+                                                            </InputGroupAddon>
+                                                            <Input
+                                                                placeholder="Email"
+                                                                type="email"
+                                                                value={
+                                                                    this.state
+                                                                        .email
+                                                                }
+                                                                onChange={e =>
+                                                                    this.setState(
+                                                                        {
+                                                                            email:
+                                                                                e
+                                                                                    .target
+                                                                                    .value
+                                                                        }
+                                                                    )
+                                                                }
+                                                            />
+                                                        </InputGroup>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <InputGroup className="input-group-alternative">
+                                                            <InputGroupAddon addonType="prepend">
+                                                                <InputGroupText>
+                                                                    <i className="ni ni-lock-circle-open" />
+                                                                </InputGroupText>
+                                                            </InputGroupAddon>
+                                                            <Input
+                                                                placeholder="Password"
+                                                                type="password"
+                                                                autoComplete="off"
+                                                                value={
+                                                                    this.state
+                                                                        .password
+                                                                }
+                                                                onChange={e =>
+                                                                    this.setState(
+                                                                        {
+                                                                            password:
+                                                                                e
+                                                                                    .target
+                                                                                    .value
+                                                                        }
+                                                                    )
+                                                                }
+                                                            />
+                                                        </InputGroup>
+                                                    </FormGroup>
+                                                    {/* the below commented code is if we want to show password strength during creation */}
+                                                    {/* <div className="text-muted font-italic">
                                                     <small>
                                                         password strength:{' '}
                                                         <span className="text-success font-weight-700">
@@ -232,45 +260,46 @@ class Register extends React.Component {
                                                         </span>
                                                     </small>
                                                 </div> */}
-                                                <Row className="my-4">
-                                                    <Col xs="12">
-                                                        <div className="custom-control custom-control-alternative custom-checkbox">
-                                                            <input
-                                                                className="custom-control-input"
-                                                                id="customCheckRegister"
-                                                                type="checkbox"
-                                                            />
-                                                            <label
-                                                                className="custom-control-label"
-                                                                htmlFor="customCheckRegister"
-                                                            >
-                                                                <span>
-                                                                    I agree with
-                                                                    the{' '}
-                                                                    <a
-                                                                        href="#pablo"
-                                                                        onClick={e =>
-                                                                            e.preventDefault()
-                                                                        }
-                                                                    >
-                                                                        Privacy
-                                                                        Policy
-                                                                    </a>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </Col>
-                                                </Row>
-                                                <div className="text-center">
-                                                    <Button
-                                                        className="mt-4"
-                                                        color="primary"
-                                                        type="submit"
-                                                    >
-                                                        Create account
-                                                    </Button>
-                                                </div>
-                                            </Form>
+                                                    <Row className="my-4">
+                                                        <Col xs="12">
+                                                            <div className="custom-control custom-control-alternative custom-checkbox">
+                                                                <input
+                                                                    className="custom-control-input"
+                                                                    id="customCheckRegister"
+                                                                    type="checkbox"
+                                                                />
+                                                                <label
+                                                                    className="custom-control-label"
+                                                                    htmlFor="customCheckRegister"
+                                                                >
+                                                                    <span>
+                                                                        I agree
+                                                                        with the{' '}
+                                                                        <a
+                                                                            href="#pablo"
+                                                                            onClick={e =>
+                                                                                e.preventDefault()
+                                                                            }
+                                                                        >
+                                                                            Privacy
+                                                                            Policy
+                                                                        </a>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                    <div className="text-center">
+                                                        <Button
+                                                            className="mt-4"
+                                                            color="primary"
+                                                            type="submit"
+                                                        >
+                                                            Create account
+                                                        </Button>
+                                                    </div>
+                                                </Form>
+                                            </Mutation>
                                         </CardBody>
                                     </Card>
                                 </Col>
@@ -283,6 +312,5 @@ class Register extends React.Component {
         );
     }
 }
-
-export default graphql(registerMutation)(Register);
+graphql(REGISTER)(Register);
 export default Register;

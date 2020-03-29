@@ -5,8 +5,6 @@ import { useMutation } from '@apollo/react-hooks';
 export default gql`
     mutation Login($email: String!, $password: String!) {
         login(email: $email, password: $password) {
-            id
-            email
             token
         }
     }
