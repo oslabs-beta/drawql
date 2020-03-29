@@ -3,13 +3,13 @@ import gql from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 
 export default gql`
- mutation Login($email: String!, $password: String!) {
-     login(email: $email, password: $password) {
-         id
-         email
-         token
-     }
- }
+    mutation Login($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+            id
+            email
+            token
+        }
+    }
 `;
 function loginUser() {
     let input;
@@ -34,7 +34,7 @@ function loginUser() {
                         input = node;
                     }}
                 />
-            
             </form>
         </div>
     );
+}

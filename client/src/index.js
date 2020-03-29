@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { InMemoryCache } from 'apollo-boost';
 import { createHTTPLink } from 'apollo-boost';
+import { setContext } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import Index from './views/Index';
@@ -22,20 +23,60 @@ import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
 
-//tells your network to send the cookie along with every request
-const link = createHTTPLink({
-    uri: 'http://localhost:5000/graphql',
-    // passes the credential option if the server has the same domain
-    credentials: 'same-origin'
-
-    //passes the credential option if the server has a different domain
-    // credentials: 'include'
-});
+// //tells your network to send the cookie along with every request
+// const link = createHTTPLink({
+//     uri: 'http://localhost:5000/graphql',
+//     // passes the credential option if the server has the same domain
+//     credentials: 'same-origin',
+//     //passes the credential option if the server has a different domain
+//     // credentials: 'include'
+// });
 
 //passed through the fetch
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link
+    uri: 'http://localhost:5000/graphql',
+    fetchOptions: {
+        //passes the credential option if the server has a different domain
+        credentials: 'include'
+    },
+    // cache: new InMemoryCache(),
+
+    //access the token from the headers
+    request: async operation => {
+        const token = await AsyncStorage.getItem('token');
+        operation.setContext({
+            headers: {
+                authorization: token
+            }
+        });
+    },
+    onError: ({ graphQLErrors, networkError }) => {
+        if (graphQLErrors) {
+            sendToLoggingService(graphQLErrors);
+        }
+        // if (networkError) {
+        //     logoutUser();
+        // }
+    },
+    clientState: {
+        defaults: {
+            isConnected: true
+        },
+        resolvers: {
+            Mutation: {
+                updateNetworkStatus: (_, { isConnected }, { cache }) => {
+                    cache.writeData({ data: { isConnected } });
+                    return null;
+                }
+            }
+        }
+    },
+    cacheRedirects: {
+        Query: {
+            user: (_, { id }, { getCacheKey }) =>
+                getCacheKey({ __typename: 'User', id })
+        }
+    }
 });
 
 //connects apollo client to react

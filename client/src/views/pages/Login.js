@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 // reactstrap components
@@ -25,7 +24,6 @@ import HomeNav from '../../components/Navbars/HomeNav';
 import { graphql } from 'react-apollo';
 import loginMutation from '../../mutations/Login';
 
-
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -33,29 +31,31 @@ class Login extends React.Component {
             email: '',
             password: '',
             errors: []
-        }
-        this.handleSubmit = this.handleSubmit.bind(this)
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(e) {
         e.preventDefault();
         const { email, password } = this.state;
-        console.log(email, password)
+        console.log(email, password);
         //passing the mutation for login. console.log this.props.mutate to see what console logs
-        this.props.mutate({
-            mutation:Login,
-            variables: { email, password },
-            //refecth currentuser if needed
-            refetchQueries: [{ query: }]
-        })
-        //if you want to see error in the source and check res in console by pressing esc button
-        .catch(res => { debugger })
-        .catch(res => {
-            const errors = res.graphQLErrors.map((error => error.message))
-            this.setState({ errors: errors })
-        })
+        this.props
+            .mutate({
+                mutation: Login,
+                variables: { email, password },
+                //refecth currentuser if needed
+                refetchQueries: [{ query: '' }]
+            })
+            //if you want to see error in the source and check res in console by pressing esc button
+            .catch(res => {
+                debugger;
+            })
+            .catch(res => {
+                const errors = res.graphQLErrors.map(error => error.message);
+                this.setState({ errors: errors });
+            });
     }
     componentWillUpdate(nextProps) {
-
         //this might be this.data.user
         // if (!this.props.data.user && nextProps.data.user) {
         //     //redirect to dashboard
@@ -136,7 +136,10 @@ class Login extends React.Component {
                                                     Or sign in with credentials
                                                 </p>
                                             </div>
-                                            <Form role="form" onSubmit={this.handleSubmit}>
+                                            <Form
+                                                role="form"
+                                                onSubmit={this.handleSubmit}
+                                            >
                                                 <FormGroup className="mb-3">
                                                     <InputGroup className="input-group-alternative">
                                                         <InputGroupAddon addonType="prepend">
@@ -147,8 +150,16 @@ class Login extends React.Component {
                                                         <Input
                                                             placeholder="Email"
                                                             type="email"
-                                                            value={this.state.email}
-                                                            onChange={e => this.setState({ email: e.target.value })}
+                                                            value={
+                                                                this.state.email
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    email:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -163,8 +174,17 @@ class Login extends React.Component {
                                                             placeholder="Password"
                                                             type="password"
                                                             autoComplete="off"
-                                                            value={this.state.password}
-                                                            onChange={e => this.setState({ password: e.target.value })}
+                                                            value={
+                                                                this.state
+                                                                    .password
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    password:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -186,9 +206,9 @@ class Login extends React.Component {
                                                         className="my-4"
                                                         color="primary"
 
-                                                    // onClick={e => e.preventDefault}
-                                                    // type="submit"
-                                                    // type="submit"
+                                                        // onClick={e => e.preventDefault}
+                                                        // type="submit"
+                                                        // type="submit"
                                                     >
                                                         Sign in
                                                     </Button>
@@ -240,5 +260,5 @@ class Login extends React.Component {
     }
 }
 
-export default graphql(loginMutation)(Login)
+export default graphql(loginMutation)(Login);
 export default Login;

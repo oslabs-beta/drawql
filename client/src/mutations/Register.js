@@ -40,7 +40,10 @@ function registerUser() {
                         input = node;
                     }}
                 />
+                
             </form>
         </div>
     );
 }
+
+{/* <button type="submit">Create account</button> */}
