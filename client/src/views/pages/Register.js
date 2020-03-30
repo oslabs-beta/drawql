@@ -37,25 +37,26 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-import { graphql, Mutation } from 'react-apollo';
-import { useMutation } from '@apollo/react-hooks';
-import { register } from '../../serviceWorker';
-// import registerMutation from '../../mutations/Register';
+// import { graphql, Mutation } from 'react-apollo';
+// import { useMutation } from '@apollo/react-hooks';
+// import gql from 'apollo-boost';
+// import { register } from '../../serviceWorker';
+import REGISTER from '../../mutations/Register';
 
-const REGISTER = gql`
-    mutation register($username: String, $email: String, $password: String) {
-        signUp(username: $username, email: $email, password: $password) {
-            token
-        }
-    }
-`;
+// const REGISTER = gql`
+//     mutation register($username: String, $email: String, $password: String) {
+//         signUp(username: $username, email: $email, password: $password) {
+//             token
+//         }
+//     }
+// `;
 
-function registerUser() {
-    const [Register, { loading, error, data }] = useMutation(REGISTER);
-    if (loading) return 'Loading ...';
-    if (error) return `Error : ${error.message}`;
-    return Register;
-}
+// function registerUser() {
+//     const [Register, { loading, error, data }] = useMutation(REGISTER);
+//     if (loading) return 'Loading ...';
+//     if (error) return `Error : ${error.message}`;
+//     return Register;
+// }
 
 class Register extends React.Component {
     constructor(props) {
@@ -76,22 +77,22 @@ class Register extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // const { username, email, password } = this.state;
-        // console.log(name, email, password)
-        // console.log(this.props)
+        const { username, email, password } = this.state;
+        console.log(name, email, password)
+        console.log(this.props)
 
-        // this.props
-        //     .mutate({
-        //         mutation:register,
-        //         variables: { username, email, password },
-        //         //refetch query(currentuser)
-        //         // refetchQueries: [{ query }]
-        //     })
-        //     .catch(res => {
-        //         const errors = res.graphQLErrors.map(error => error.message);
-        //         //this.setState({errors: errors})
-        //         this.setState({ errors });
-        //     });
+        this.props
+            .mutate({
+                mutation:register,
+                variables: { username, email, password },
+                //refetch query(currentuser)
+                // refetchQueries: [{ query }]
+            })
+            .catch(res => {
+                const errors = res.graphQLErrors.map(error => error.message);
+                //this.setState({errors: errors})
+                this.setState({ errors });
+            });
     }
     render() {
         return (
@@ -164,7 +165,6 @@ class Register extends React.Component {
                                                     Or sign up with credentials
                                                 </p>
                                             </div>
-                                            <Mutation mutation={REGISTER}>
                                                 <Form
                                                     role="form"
                                                     onSubmit={this.handleSubmit}
@@ -185,12 +185,13 @@ class Register extends React.Component {
                                                                 }
                                                                 onChange={e => {
                                                                     this.setState(
-                                                                        registerUser({
-                                                                            username:
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                        })
+                                                                            {
+                                                                                username:
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                            }
+
                                                                     );
                                                                 }}
                                                             />
@@ -212,12 +213,12 @@ class Register extends React.Component {
                                                                 }
                                                                 onChange={e =>
                                                                     this.setState(
-                                                                        {
-                                                                            email:
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                        }
+                                                                            {
+                                                                                email:
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                            }
                                                                     )
                                                                 }
                                                             />
@@ -240,12 +241,13 @@ class Register extends React.Component {
                                                                 }
                                                                 onChange={e =>
                                                                     this.setState(
-                                                                        {
-                                                                            password:
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                        }
+                                                                            {
+                                                                                password:
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                            }
+
                                                                     )
                                                                 }
                                                             />
@@ -299,7 +301,6 @@ class Register extends React.Component {
                                                         </Button>
                                                     </div>
                                                 </Form>
-                                            </Mutation>
                                         </CardBody>
                                     </Card>
                                 </Col>
@@ -312,5 +313,5 @@ class Register extends React.Component {
         );
     }
 }
-graphql(REGISTER)(Register);
+// graphql(REGISTER)(Register);
 export default Register;

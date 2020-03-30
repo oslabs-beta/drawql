@@ -1,48 +1,81 @@
-// import React from 'react';
-// import gql from 'apollo-boost';
-// import { useMutation } from '@apollo/react-hooks';
+import React from 'react';
+import gql from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+import Register from '../views/pages/Register';
 
-// export default gql`
-//     mutation register($username: String, $email: String, $password: String) {
-//         signUp(username: $username, email: $email, password: $password) {
-//             token
-//         }
-//     }
-// `;
+const REGISTER = gql`
+    mutation register($username: String, $email: String, $password: String) {
+        signUp(username: $username, email: $email, password: $password) {
+            token
+        }
+    }
+`;
 
-// // on click this will execute the mutate function to register a user
-// function registerUser() {
-//     let input;
-//     const [Register, { loading, error, data }] = useMutation(register);
-//     if (loading) return 'Loading ...';
-//     if (error) return `Error : ${error.message}`;
-    
-//     return (
-//         <div>
-//             <form
-//                 onSubmit={e => {
-//                     e.preventDefault();
-//                     Register({
-//                         variables: {
-//                             username: this.username.value,
-//                             email: this.email.value,
-//                             password: this.password.value
-//                         }
-//                     });
-//                     this.username.value = '';
-//                     this.email.value = '';
-//                     this.password.value = '';
-//                 }}
-//             >
-//                 {/* <input
-//                     ref={node => {
-//                         input = node;
-//                     }}
-//                 /> */}
-                
-//             </form>
-//         </div>
-//     );
-// }
-// // export default graphql(registerMutation)(Register);
+// on click this will execute the mutate function to register a user
+function registerUser() {
+    let input;
+    const [RegisterMutation, { loading, error, data }] = useMutation(register);
+    if (loading) return 'Loading ...';
+    if (error) return `Error : ${error.message}`;
+
+    return (
+        <Mutation mutation={REGISTER}>
+            <div>
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        RegisterMutation({
+                            variables: {
+                                username: this.username.value,
+                                email: this.email.value,
+                                password: this.password.value
+                            }
+                        });
+                        this.username.value = '';
+                        this.email.value = '';
+                        this.password.value = '';
+                    }}
+                >
+                    <input
+                        className="ni ni-hat-3"
+                        type="text"
+                        required
+                        placeholder="Username"
+                        ref={node => {
+                            this.username = node;
+                        }}
+                    />
+                    <input
+                        className="ni ni-hat-3"
+                        type="email"
+                        required
+                        placeholder="Email"
+                        ref={node => {
+                            this.email = node;
+                        }}
+                    />
+                    <input
+                        className="ni ni-hat-3"
+                        type="password"
+                        required
+                        autoComplete="off"
+                        placeholder="Password"
+                        ref={node => {
+                            this.password = node;
+                        }}
+                    />
+                    <div className="text-center">
+                        <Button className="mt-4" color="primary" type="submit">
+                            Create account
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </Mutation>
+    );
+}
+
+//provides an Apollo Client instance to all of the components that use graphql()
+export default graphql(REGISTER)(registerUser);
+
 // {/* <button type="submit">Create account</button> */}

@@ -22,22 +22,10 @@ import { Link } from 'react-router-dom';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import HomeNav from '../../components/Navbars/HomeNav';
 import { graphql, Mutation } from 'react-apollo';
-import { useMutation } from '@apollo/react-hooks';
-// import loginMutation from '../../mutations/Login';
+// import { useMutation } from '@apollo/react-hooks';
+// import gql from 'apollo-boost';
+import LOGIN from '../../mutations/Login';
 
-const LOGIN = gql`
-    mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
-        }
-    }
-`;
-function loginUser() {
-    const [LoginUser, { loading, error, data }] = useMutation(LOGIN);
-    if (loading) return 'Loading ...';
-    if (error) return `Error : ${error.message}`;
-    return LoginUser;
-}
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -50,24 +38,24 @@ class Login extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        // const { email, password } = this.state;
-        // console.log(email, password);
-        // //passing the mutation for login. console.log this.props.mutate to see what console logs
-        // this.props
-        //     .mutate({
-        //         mutation: Login,
-        //         variables: { email, password },
-        //         //refecth currentuser if needed
-        //         refetchQueries: [{ query: '' }]
-        //     })
-        //     //if you want to see error in the source and check res in console by pressing esc button
-        //     .catch(res => {
-        //         debugger;
-        //     })
-        //     .catch(res => {
-        //         const errors = res.graphQLErrors.map(error => error.message);
-        //         this.setState({ errors: errors });
-        //     });
+        const { email, password } = this.state;
+        console.log(email, password);
+        //passing the mutation for login. console.log this.props.mutate to see what console logs
+        this.props
+            .mutate({
+                mutation: Login,
+                variables: { email, password },
+                //refecth currentuser if needed
+                refetchQueries: [{ query: '' }]
+            })
+            //if you want to see error in the source and check res in console by pressing esc button
+            .catch(res => {
+                debugger;
+            })
+            .catch(res => {
+                const errors = res.graphQLErrors.map(error => error.message);
+                this.setState({ errors: errors });
+            });
     }
     componentWillUpdate(nextProps) {
         //this might be this.data.user
@@ -150,95 +138,84 @@ class Login extends React.Component {
                                                     Or sign in with credentials
                                                 </p>
                                             </div>
-                                            <Mutation mutation={LOGIN}>
-                                                <Form
-                                                    role="form"
-                                                    onSubmit={this.handleSubmit}
-                                                >
-                                                    <FormGroup className="mb-3">
-                                                        <InputGroup className="input-group-alternative">
-                                                            <InputGroupAddon addonType="prepend">
-                                                                <InputGroupText>
-                                                                    <i className="ni ni-email-83" />
-                                                                </InputGroupText>
-                                                            </InputGroupAddon>
-                                                            <Input
-                                                                placeholder="Email"
-                                                                type="email"
-                                                                value={
-                                                                    this.state
-                                                                        .email
-                                                                }
-                                                                onChange={e =>
-                                                                    this.setState(
-                                                                        {
-                                                                            email:
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                        }
-                                                                    )
-                                                                }
-                                                            />
-                                                        </InputGroup>
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <InputGroup className="input-group-alternative">
-                                                            <InputGroupAddon addonType="prepend">
-                                                                <InputGroupText>
-                                                                    <i className="ni ni-lock-circle-open" />
-                                                                </InputGroupText>
-                                                            </InputGroupAddon>
-                                                            <Input
-                                                                placeholder="Password"
-                                                                type="password"
-                                                                autoComplete="off"
-                                                                value={
-                                                                    this.state
-                                                                        .password
-                                                                }
-                                                                onChange={e =>
-                                                                    this.setState(
-                                                                        {
-                                                                            password:
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                        }
-                                                                    )
-                                                                }
-                                                            />
-                                                        </InputGroup>
-                                                    </FormGroup>
-                                                    <div className="custom-control custom-control-alternative custom-checkbox">
-                                                        <input
-                                                            className="custom-control-input"
-                                                            id=" customCheckLogin"
-                                                            type="checkbox"
+                                            <Form
+                                                role="form"
+                                                onSubmit={this.handleSubmit}
+                                            >
+                                                <FormGroup className="mb-3">
+                                                    <InputGroup className="input-group-alternative">
+                                                        <InputGroupAddon addonType="prepend">
+                                                            <InputGroupText>
+                                                                <i className="ni ni-email-83" />
+                                                            </InputGroupText>
+                                                        </InputGroupAddon>
+                                                        <Input
+                                                            placeholder="Email"
+                                                            type="email"
+                                                            value={
+                                                                this.state.email
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    email:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
-                                                        <label
-                                                            className="custom-control-label"
-                                                            htmlFor=" customCheckLogin"
-                                                        >
-                                                            <span>
-                                                                Remember me
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                    <div className="text-center">
-                                                        <Button
-                                                            className="my-4"
-                                                            color="primary"
+                                                    </InputGroup>
+                                                </FormGroup>
+                                                <FormGroup>
+                                                    <InputGroup className="input-group-alternative">
+                                                        <InputGroupAddon addonType="prepend">
+                                                            <InputGroupText>
+                                                                <i className="ni ni-lock-circle-open" />
+                                                            </InputGroupText>
+                                                        </InputGroupAddon>
+                                                        <Input
+                                                            placeholder="Password"
+                                                            type="password"
+                                                            autoComplete="off"
+                                                            value={
+                                                                this.state
+                                                                    .password
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    password:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
+                                                        />
+                                                    </InputGroup>
+                                                </FormGroup>
+                                                <div className="custom-control custom-control-alternative custom-checkbox">
+                                                    <input
+                                                        className="custom-control-input"
+                                                        id=" customCheckLogin"
+                                                        type="checkbox"
+                                                    />
+                                                    <label
+                                                        className="custom-control-label"
+                                                        htmlFor=" customCheckLogin"
+                                                    >
+                                                        <span>Remember me</span>
+                                                    </label>
+                                                </div>
+                                                <div className="text-center">
+                                                    <Button
+                                                        className="my-4"
+                                                        color="primary"
 
-                                                            // onClick={e => e.preventDefault}
-                                                            // type="submit"
-                                                            // type="submit"
-                                                        >
-                                                            Sign in
-                                                        </Button>
-                                                    </div>
-                                                </Form>
-                                            </Mutation>
+                                                        // onClick={e => e.preventDefault}
+                                                        // type="submit"
+                                                        // type="submit"
+                                                    >
+                                                        Sign in
+                                                    </Button>
+                                                </div>
+                                            </Form>
                                         </CardBody>
                                     </Card>
                                     <Row className="mt-3">
@@ -285,5 +262,5 @@ class Login extends React.Component {
     }
 }
 
-export default graphql(LOGIN)(Login);
-// export default Login;
+
+export default Login;
