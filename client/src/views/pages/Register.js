@@ -67,11 +67,14 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    // includes the functionality of componentdidmount, componentdidupdate, and componentwillunmount
     useEffect(() => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
         refs.main.scrollTop = 0;
     });
+    
+    //event handler for changes and submitting 
     const handleChange = e => {
         e.persist();
         setUsername(values => ({
