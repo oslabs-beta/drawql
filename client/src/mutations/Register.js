@@ -12,14 +12,14 @@ const REGISTER = gql`
 `;
 
 // on click this will execute the mutate function to register a user
-function registerUser() {
-    let input;
-    const [RegisterMutation, { loading, error, data }] = useMutation(register);
+const registerUser=()=> {
+   
+   const { loading, error, data } = useMutation(register);
     if (loading) return 'Loading ...';
     if (error) return `Error : ${error.message}`;
 
     return (
-        <Mutation mutation={REGISTER}>
+        // <Mutation mutation={REGISTER} variables={{username,email,password}}>
             <div>
                 <form
                     onSubmit={e => {
@@ -42,7 +42,7 @@ function registerUser() {
                         required
                         placeholder="Username"
                         ref={node => {
-                            this.username = node;
+                            data.username = node;
                         }}
                     />
                     <input
@@ -51,7 +51,7 @@ function registerUser() {
                         required
                         placeholder="Email"
                         ref={node => {
-                            this.email = node;
+                            data.email = node;
                         }}
                     />
                     <input
@@ -61,7 +61,7 @@ function registerUser() {
                         autoComplete="off"
                         placeholder="Password"
                         ref={node => {
-                            this.password = node;
+                            data.password = node;
                         }}
                     />
                     <div className="text-center">
@@ -71,7 +71,7 @@ function registerUser() {
                     </div>
                 </form>
             </div>
-        </Mutation>
+        // </Mutation>
     );
 }
 
