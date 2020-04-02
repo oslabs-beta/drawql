@@ -17,7 +17,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import gql from 'apollo-boost';
+import { gql } from 'apollo-boost';
 import { Redirect } from 'react-router';
 
 // reactstrap components
@@ -40,9 +40,8 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-// import { graphql, Mutation } from 'react-apollo';
+// import { graphql } from 'react-apollo';
 // import { register } from '../../serviceWorker';
-
 
 const REGISTER = gql`
     mutation register($username: String, $email: String, $password: String) {
@@ -71,8 +70,9 @@ const Register = () => {
     //event handler for submitting
     const handleSubmit = e => {
         e.preventDefault();
+        // registerUser();
     };
-
+    //apollo boost functionality
     //mutation for registering user method
     const [registerUser, { loading, error, data }] = useMutation(REGISTER, {
         variables: username,
@@ -83,7 +83,7 @@ const Register = () => {
     if (loading) return <p>Loading...</p>;
 
     //shows an eror message if mutation fails
-    if (error) return <p>Error:</p>
+    if (error) return <p>Error:</p>;
     // <Error message={error.message} />;
 
     //store token if registration is successful
@@ -95,7 +95,7 @@ const Register = () => {
     return (
         <>
             <HomeNav />
-            <main ref="main">
+            <main>
                 <section className="section section-shaped section-lg">
                     <div className="shape shape-style-1 bg-gradient-default">
                         <span />
@@ -121,7 +121,6 @@ const Register = () => {
                                                 // the below className includes mr-4, which is only necessary if Google button is included
                                                 // className="btn-neutral btn-icon mr-4"
                                                 color="default"
-                                                href="#pablo"
                                                 onClick={e =>
                                                     e.preventDefault()
                                                 }
@@ -274,7 +273,6 @@ const Register = () => {
                                                             <span>
                                                                 I agree with the{' '}
                                                                 <a
-                                                                    href="#pablo"
                                                                     onClick={e =>
                                                                         e.preventDefault()
                                                                     }
@@ -349,5 +347,5 @@ const Register = () => {
 
 // }
 
-//  graphql(REGISTER)(Register);
+//  export default graphql(REGISTER)(Register);
 export default Register;

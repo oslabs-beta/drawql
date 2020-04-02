@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import gql from 'apollo-boost';
+import { gql } from 'apollo-boost';
 import { Redirect } from 'react-router';
 
 // reactstrap components
@@ -24,7 +24,7 @@ import {
 import { Link } from 'react-router-dom';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import HomeNav from '../../components/Navbars/HomeNav';
-// import { graphql, Mutation } from 'react-apollo';
+// import { graphql } from 'react-apollo';
 
 const LOGIN = gql`
     mutation login($email: String!, $password: String!) {
@@ -56,7 +56,7 @@ const Login = () => {
     if (loading) return <p>Loading ...</p>;
 
     //shows an eror message if mutation fails
-    if (error) return <p>Error:</p>
+    if (error) return <p>Error:</p>;
     // <Error message={error.message} />;
 
     //store token if registration is successful
@@ -286,5 +286,5 @@ const Login = () => {
 //         document.scrollingElement.scrollTop = 0;
 //         this.refs.main.scrollTop = 0;
 //     }
-
+// export default graphql(LOGIN)(Login);
 export default Login;
