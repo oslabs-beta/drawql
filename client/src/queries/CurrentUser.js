@@ -1,6 +1,6 @@
 import gql from 'apollo-boost';
 
-export default gql`
+const currentUser= gql`
 {
     user {
         id
@@ -9,3 +9,4 @@ export default gql`
     }
 }
 `;
+export default {currentUser}

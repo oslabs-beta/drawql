@@ -51,8 +51,6 @@ const REGISTER = gql`
     }
 `;
 
-
-
 const Register = () => {
     //use state lets you add React state to function components
     // example: const [username,setUsername]=useState('') is similar to this.state.username and this.setState
@@ -60,7 +58,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
+    // const [errors, setErrors] = useState([]);
 
     // includes the functionality of componentdidmount, componentdidupdate, and componentwillunmount
     useEffect(() => {
@@ -68,29 +66,30 @@ const Register = () => {
         document.scrollingElement.scrollTop = 0;
         refs.main.scrollTop = 0;
     });
-    
+
     //event handler for submitting
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-        // resetUserName(()=>setUsername(''));
-        // resetEmail(()=>setEmail(''));
-        // resetPassword(()=>setPassword(''));
     };
-   
-   //mutation for registering user method
-    const [registerUser,{ loading, error, data }] = useMutation(register,{variables:username,email,password});
+
+    //mutation for registering user method
+    const [registerUser, { loading, error, data }] = useMutation(register, {
+        variables: username,
+        email,
+        password
+    });
     //wait for mutation, loading
     if (loading) return <Loading />;
-    
+
     //shows an eror message if mutation fails
     if (error) return <Error message={error.message} />;
 
     //store token if registration is successful
     if (data) {
         window.localStorage.setItem('token', data.registerUser.token);
-        return <Redirect to='/proto'/>
+        return <Redirect to="/proto" />;
     }
-    
+
     return (
         <>
             <HomeNav />
@@ -179,14 +178,18 @@ const Register = () => {
                                                         placeholder="Username"
                                                         type="text"
                                                         value={username}
-                                                        onChange={ e => setUsername(e.target.value)}
-                                                            // e => {
-                                                            // setUsername({
-                                                            //     username:
-                                                            //         e.target
-                                                            //             .value
-                                                            // });
-                                                            // }
+                                                        onChange={e =>
+                                                            setUsername(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        // e => {
+                                                        // setUsername({
+                                                        //     username:
+                                                        //         e.target
+                                                        //             .value
+                                                        // });
+                                                        // }
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -201,7 +204,12 @@ const Register = () => {
                                                         placeholder="Email"
                                                         type="email"
                                                         value={email}
-                                                        onChange={ e => setEmail(e.target.value)
+                                                        onChange={
+                                                            e =>
+                                                                setEmail(
+                                                                    e.target
+                                                                        .value
+                                                                )
                                                             // e =>
                                                             // setEmail({
                                                             //     email:
@@ -224,7 +232,12 @@ const Register = () => {
                                                         type="password"
                                                         autoComplete="off"
                                                         value={password}
-                                                        onChange={ e => setPassword(e.target.value)
+                                                        onChange={
+                                                            e =>
+                                                                setPassword(
+                                                                    e.target
+                                                                        .value
+                                                                )
                                                             // e =>
                                                             // setPassword({
                                                             //     password:
@@ -292,7 +305,6 @@ const Register = () => {
             <SimpleFooter />
         </>
     );
-                                                                }
 };
 
 // class Register extends React.Component {
