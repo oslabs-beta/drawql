@@ -37,26 +37,21 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-// import { graphql, Mutation } from 'react-apollo';
-// import { useMutation } from '@apollo/react-hooks';
-// import gql from 'apollo-boost';
+import { graphql, Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'apollo-boost';
 // import { register } from '../../serviceWorker';
-import REGISTER from '../../mutations/Register';
+import { Redirect } from 'react-router';
 
-// const REGISTER = gql`
-//     mutation register($username: String, $email: String, $password: String) {
-//         signUp(username: $username, email: $email, password: $password) {
-//             token
-//         }
-//     }
-// `;
+const REGISTER = gql`
+    mutation register($username: String, $email: String, $password: String) {
+        signUp(username: $username, email: $email, password: $password) {
+            token
+        }
+    }
+`;
 
-// function registerUser() {
-//     const [Register, { loading, error, data }] = useMutation(REGISTER);
-//     if (loading) return 'Loading ...';
-//     if (error) return `Error : ${error.message}`;
-//     return Register;
-// }
+
 
 const Register = () => {
     //use state lets you add React state to function components
@@ -74,25 +69,28 @@ const Register = () => {
         refs.main.scrollTop = 0;
     });
     
-    //event handler for changes and submitting 
-    const handleChange = e => {
-        e.persist();
-        setUsername(values => ({
-            ...values,
-            [e.target.username]: e.target.value
-        }));
-        setEmail(values => ({
-            ...values,
-            [e.target.email]: e.target.value
-        }));
-        setPassword(values => ({
-            [e.target.password]:e.target.value
-        }))
-    };
-    const handleSubmit = (e, onSubmit) => {
+    //event handler for submitting
+    const handleSubmit = (e) => {
         e.preventDefault();
-        callback(values);
+        // resetUserName(()=>setUsername(''));
+        // resetEmail(()=>setEmail(''));
+        // resetPassword(()=>setPassword(''));
     };
+   
+   //mutation for registering user method
+    const [registerUser,{ loading, error, data }] = useMutation(register,{variables:username,email,password});
+    //wait for mutation, loading
+    if (loading) return <Loading />;
+    
+    //shows an eror message if mutation fails
+    if (error) return <Error message={error.message} />;
+
+    //store token if registration is successful
+    if (data) {
+        window.localStorage.setItem('token', data.registerUser.token);
+        return <Redirect to='/proto'/>
+    }
+    
     return (
         <>
             <HomeNav />
@@ -163,9 +161,12 @@ const Register = () => {
                                         </div>
                                         <Form
                                             role="form"
-                                            onSubmit={e => {
-                                                e.preventDefault();
-                                            }}
+                                            onSubmit={
+                                                handleSubmit
+                                                // e => {
+                                                // e.preventDefault();
+                                                // }
+                                            }
                                         >
                                             <FormGroup>
                                                 <InputGroup className="input-group-alternative mb-3">
@@ -178,13 +179,14 @@ const Register = () => {
                                                         placeholder="Username"
                                                         type="text"
                                                         value={username}
-                                                        onChange={e => {
-                                                            setUsername({
-                                                                username:
-                                                                    e.target
-                                                                        .value
-                                                            });
-                                                        }}
+                                                        onChange={ e => setUsername(e.target.value)}
+                                                            // e => {
+                                                            // setUsername({
+                                                            //     username:
+                                                            //         e.target
+                                                            //             .value
+                                                            // });
+                                                            // }
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -199,12 +201,13 @@ const Register = () => {
                                                         placeholder="Email"
                                                         type="email"
                                                         value={email}
-                                                        onChange={e =>
-                                                            setEmail({
-                                                                email:
-                                                                    e.target
-                                                                        .value
-                                                            })
+                                                        onChange={ e => setEmail(e.target.value)
+                                                            // e =>
+                                                            // setEmail({
+                                                            //     email:
+                                                            //         e.target
+                                                            //             .value
+                                                            // })
                                                         }
                                                     />
                                                 </InputGroup>
@@ -221,12 +224,13 @@ const Register = () => {
                                                         type="password"
                                                         autoComplete="off"
                                                         value={password}
-                                                        onChange={e =>
-                                                            setPassword({
-                                                                password:
-                                                                    e.target
-                                                                        .value
-                                                            })
+                                                        onChange={ e => setPassword(e.target.value)
+                                                            // e =>
+                                                            // setPassword({
+                                                            //     password:
+                                                            //         e.target
+                                                            //             .value
+                                                            // })
                                                         }
                                                     />
                                                 </InputGroup>
@@ -288,6 +292,7 @@ const Register = () => {
             <SimpleFooter />
         </>
     );
+                                                                }
 };
 
 // class Register extends React.Component {
@@ -330,5 +335,5 @@ const Register = () => {
 
 // }
 
-// graphql(REGISTER)(Register);
+//  graphql(REGISTER)(Register);
 export default Register;
