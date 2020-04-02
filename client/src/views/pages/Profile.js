@@ -36,7 +36,7 @@ const Profile = () => {
     // const handleSubmit = e => {
     //     e.preventDefault();
     // };
-    const { loading, error, data } = useQuery(login);
+    const { loading, error, data } = useQuery(currentUser);
     //wait for query, loading
     if (loading) return <Loading />;
 
