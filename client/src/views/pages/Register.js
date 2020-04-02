@@ -57,10 +57,10 @@ class Register extends React.Component {
         this.refs.main.scrollTop = 0;
     }
     handleSubmit(e) {
-        e.preventDefault();
+        // e.preventDefault();
         const { username, email, password } = this.state;
-        // console.log(name, email, password)
-        // console.log(this.props)
+        console.log(username, email, password)
+        console.log(this.props)
         this.props.mutate({
             variables: { username, email, password }
             //refetch query(currentuser)

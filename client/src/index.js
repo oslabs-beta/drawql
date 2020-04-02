@@ -31,17 +31,17 @@ import * as serviceWorker from './serviceWorker';
 //     }
 // })
 
-// const client = new ApolloClient({
-//     //now Apollo client uses custom networkInterface instead of default one 
-//     networkInterface,
-//     //in order to identify every record that comes back from the server
-//     //rather than refetching data for every single query that is used, Apollo will have the ability
-//     //to identify the information that is already been pulled down from the server and store it inside of some local cache
+const client = new ApolloClient({
+    //now Apollo client uses custom networkInterface instead of default one 
+    // networkInterface,
+    //in order to identify every record that comes back from the server
+    //rather than refetching data for every single query that is used, Apollo will have the ability
+    //to identify the information that is already been pulled down from the server and store it inside of some local cache
 
-//     //be sure that schema file user_type includes id
-//     //this version might be outdated, see docs
-//     dataIdFromObject: o => o.id
-// })
+    //be sure that schema file user_type includes id
+    //this version might be outdated, see docs
+    dataIdFromObject: o => o.id
+})
 
 ReactDOM.render(
     // <ApolloProvider client={client}>
