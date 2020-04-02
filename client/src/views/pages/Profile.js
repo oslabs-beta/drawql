@@ -31,7 +31,7 @@ const Profile = () => {
     useEffect(() => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
-        refs.main.scrollTop = 0;
+        // refs.main.scrollTop = 0;
     });
     // const handleSubmit = e => {
     //     e.preventDefault();

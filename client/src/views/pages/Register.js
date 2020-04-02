@@ -65,7 +65,7 @@ const Register = () => {
     useEffect(() => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
-        refs.main.scrollTop = 0;
+        // refs.main.scrollTop = 0;
     });
 
     //event handler for submitting
@@ -74,20 +74,21 @@ const Register = () => {
     };
 
     //mutation for registering user method
-    const [registerUser, { loading, error, data }] = useMutation(register, {
+    const [registerUser, { loading, error, data }] = useMutation(REGISTER, {
         variables: username,
         email,
         password
     });
     //wait for mutation, loading
-    if (loading) return <Loading />;
+    if (loading) return <p>Loading...</p>;
 
     //shows an eror message if mutation fails
-    if (error) return <Error message={error.message} />;
+    if (error) return <p>Error:</p>
+    // <Error message={error.message} />;
 
     //store token if registration is successful
     if (data) {
-        window.localStorage.setItem('token', data.registerUser.token);
+        window.localStorage.setItem('token', data[registerUser].token);
         return <Redirect to="/proto" />;
     }
 

@@ -43,16 +43,18 @@ const client = new ApolloClient({
 
     //access the token from the headers
     request: async operation => {
-        const token = await localStorage.getItem('token');
+        const token = await window.localStorage.getItem('token');
+        //passes token to the headers
         operation.setContext({
             headers: {
-                Authorization: token ? `Bearer ${token}`:''
+                Authorization: token ? `Bearer ${token}` : ''
             }
         });
     },
     onError: ({ graphQLErrors, networkError }) => {
         if (graphQLErrors) {
-            sendToLoggingService(graphQLErrors);
+            console.log(`GraphQLerrors: ${graphQLErrors}`);
+            // sendToLoggingService(graphQLErrors);
         }
         // if (networkError) {
         //     logoutUser();

@@ -42,25 +42,26 @@ const Login = () => {
     useEffect(() => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
-        refs.main.scrollTop = 0;
+        // refs.main.scrollTop = 0;
     });
     const handleSubmit = e => {
         e.preventDefault();
     };
     //mutation for login user method
-    const [loginUser, { loading, error, data }] = useMutation(login, {
+    const [loginUser, { loading, error, data }] = useMutation(LOGIN, {
         variables: email,
         password
     });
     //wait for mutation, loading
-    if (loading) return <Loading />;
+    if (loading) return <p>Loading ...</p>;
 
     //shows an eror message if mutation fails
-    if (error) return <Error message={error.message} />;
+    if (error) return <p>Error:</p>
+    // <Error message={error.message} />;
 
     //store token if registration is successful
     if (data) {
-        window.localStorage.setItem('token', data.loginUser.token);
+        window.localStorage.setItem('token', data[loginUser].token);
         return <Redirect to="/proto" />;
     }
 
