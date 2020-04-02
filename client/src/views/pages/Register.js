@@ -15,7 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'apollo-boost';
+import { Redirect } from 'react-router';
 
 // reactstrap components
 import {
@@ -37,11 +40,9 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-import { graphql, Mutation } from 'react-apollo';
-import { useMutation } from '@apollo/react-hooks';
-import gql from 'apollo-boost';
+// import { graphql, Mutation } from 'react-apollo';
 // import { register } from '../../serviceWorker';
-import { Redirect } from 'react-router';
+
 
 const REGISTER = gql`
     mutation register($username: String, $email: String, $password: String) {
