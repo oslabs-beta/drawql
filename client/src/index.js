@@ -4,9 +4,9 @@ import './index.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import ApolloClient from 'apollo-boost';
-import { InMemoryCache } from 'apollo-boost';
-import { createHTTPLink } from 'apollo-boost';
-import { setContext } from 'apollo-boost';
+// import { InMemoryCache } from 'apollo-boost';
+// import { createHTTPLink } from 'apollo-boost';
+// import { setContext } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import Index from './views/Index';
@@ -43,7 +43,7 @@ const client = new ApolloClient({
 
     //access the token from the headers
     request: async operation => {
-        const token = await AsyncStorage.getItem('token');
+        const token = await localStorage.getItem('token');
         operation.setContext({
             headers: {
                 Authorization: token ? `Bearer ${token}`:''
