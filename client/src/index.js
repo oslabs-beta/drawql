@@ -1,45 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-
-import { ApolloClient } from 'apollo-boost';
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { InMemoryCache } from 'apollo-boost';
-import { HttpLink } from 'apollo-boost';
-// import { setContext } from 'apollo-boost';
 
+//Import components ...
 import Index from './views/Index';
 import Login from './views/pages/Login';
 import Register from './views/pages/Register';
 import testProto from './views/pages/testProto';
 import PrototypeContainer from './views/pages/PrototypeContainer';
-
 import App from './App';
 
+// import css/sass
+import './index.css';
 import './assets/vendor/nucleo/css/nucleo.css';
 import './assets/vendor/font-awesome/css/font-awesome.min.css';
 import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
 
-// //tells your network to send the cookie along with every request
+//tells your network to send the cookie along with every request
 const link = new HttpLink({
-    uri: 'http://localhost:3000/',
-    // passes the credential option if the server has the same domain
-    // credentials: 'same-origin',
+    uri: 'http://localhost:5000/graphql',
     //passes the credential option if the server has a different domain
     credentials: 'include'
+});
+const cache = new InMemoryCache({
+    cacheRedirects: {
+        Query: {
+            user: (_, { id }, { getCacheKey }) =>
+                getCacheKey({ __typename: 'User', id })
+        }
+    }
 });
 
 //passed through the fetch
 const client = new ApolloClient({
-    // uri: 'http://localhost:3000/',
-    // fetchOptions: {
-    //     //passes the credential option if the server has a different domain
-    //     credentials: 'include'
-    // },
     link,
+    cache,
+    // typeDefs,
+    // resolvers,
+    
     //access the token from the headers
     request: async operation => {
         const token = await window.localStorage.getItem('token');
@@ -55,31 +57,23 @@ const client = new ApolloClient({
             console.log(`GraphQLerrors: ${graphQLErrors}`);
             // sendToLoggingService(graphQLErrors);
         }
-        // if (networkError) {
-        //     logoutUser();
-        // }
-    },
-    // clientState: {
-    //     defaults: {
-    //         isConnected: true
-    //     },
-    //     resolvers: {
-    //         Mutation: {
-    //             updateNetworkStatus: (_, { isConnected }, { cache }) => {
-    //                 cache.writeData({ data: { isConnected } });
-    //                 return null;
-    //             }
-    //         }
-    //     }
-    // },
-    cache: new InMemoryCache({
-        cacheRedirects: {
-            Query: {
-                user: (_, { id }, { getCacheKey }) =>
-                    getCacheKey({ __typename: 'User', id })
+        if (networkError) {
+            // logoutUser();
+            //check if error is JSON
+            try {
+                JSON.parse(networkError.bodyText);
+            } catch (e) {
+                //if not replace parsing error with real one
+                networkError.message = networkError.bodyText;
             }
         }
-    })
+    }
+});
+
+cache.writeData({
+    data: {
+        sidebarHidden: false
+    }
 });
 
 //connects apollo client to react
@@ -110,12 +104,9 @@ ReactDOM.render(
                 <Redirect to="/" />
             </Switch>
         </BrowserRouter>
-        ,
     </ApolloProvider>,
     document.getElementById('root')
 );
-
-// ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -44,7 +44,7 @@ import SimpleFooter from '../../components/Footers/SimpleFooter';
 // import { register } from '../../serviceWorker';
 
 const REGISTER = gql`
-    mutation register($username: String, $email: String, $password: String) {
+    mutation signUp($username: String, $email: String, $password: String) {
         signUp(username: $username, email: $email, password: $password) {
             token
         }
@@ -70,7 +70,7 @@ const Register = () => {
     //event handler for submitting
     const handleSubmit = e => {
         e.preventDefault();
-        // registerUser();
+        registerUser();
     };
     //apollo boost functionality
     //mutation for registering user method
