@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Arrow } from "react-konva";
 
-export default class CustomArrow extends Component {
+export default class RelationArrow extends Component {
     constructor(props) {
         super(props);
 
@@ -14,7 +14,6 @@ export default class CustomArrow extends Component {
 
     componentDidMount() {
         const { startPos, endPos } = this.props;
-
         this.setState({
             startPos,
             endPos
@@ -27,8 +26,6 @@ export default class CustomArrow extends Component {
             endPos: nextProps.endPos,
         })
     }
-
-
 
     renderArrow() {
         //const Edge = ({ node1, node2 }) => {
