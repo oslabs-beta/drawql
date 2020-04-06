@@ -40,7 +40,7 @@ import {
 // core components
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-// import { graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 // import { register } from '../../serviceWorker';
 
 const REGISTER = gql`
@@ -70,25 +70,43 @@ const Register = () => {
     //event handler for submitting
     const handleSubmit = e => {
         e.preventDefault();
-        registerUser();
+        registerUser({ variables: username, email, password });
+        // const event = validate(values);
+        // setErrors({
+        //     ...errors,
+        //     ...e
+        // });
+        // onSubmit({ values, e });
+
+        console.log('inthesubmit');
     };
     //apollo boost functionality
     //mutation for registering user method
-    const [registerUser, { loading, error, data }] = useMutation(REGISTER, {
-        variables: username,
-        email,
-        password
-    });
+    const [registerUser, { loading, error, data }] = useMutation(
+        REGISTER,
+        {
+            variables: username,
+            email,
+            password
+        },
+        console.log('hit  the registerUser')
+    );
+
     //wait for mutation, loading
     if (loading) return <p>Loading...</p>;
 
     //shows an eror message if mutation fails
-    if (error) return <p>Error:</p>;
+    if (error) {
+        console.log('this is errorrrr', error);
+        return <p>Error:{error.message}</p>;
+    }
     // <Error message={error.message} />;
 
     //store token if registration is successful
     if (data) {
-        window.localStorage.setItem('token', data[registerUser].token);
+        window.localStorage.setItem('token', data.registerUser.token);
+        console.log('dattaaaaa', data);
+        console.log('checking data', data.registerUser.token);
         return <Redirect to="/proto" />;
     }
 
@@ -179,18 +197,15 @@ const Register = () => {
                                                         placeholder="Username"
                                                         type="text"
                                                         value={username}
-                                                        onChange={e =>
+                                                        onChange={e => {
+                                                            e.persist();
+                                                            console.log(
+                                                                'updatingusername'
+                                                            );
                                                             setUsername(
                                                                 e.target.value
-                                                            )
-                                                        }
-                                                        // e => {
-                                                        // setUsername({
-                                                        //     username:
-                                                        //         e.target
-                                                        //             .value
-                                                        // });
-                                                        // }
+                                                            );
+                                                        }}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -205,19 +220,12 @@ const Register = () => {
                                                         placeholder="Email"
                                                         type="email"
                                                         value={email}
-                                                        onChange={
-                                                            e =>
-                                                                setEmail(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            // e =>
-                                                            // setEmail({
-                                                            //     email:
-                                                            //         e.target
-                                                            //             .value
-                                                            // })
-                                                        }
+                                                        onChange={e => {
+                                                            e.persist();
+                                                            setEmail(
+                                                                e.target.value
+                                                            );
+                                                        }}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -233,19 +241,12 @@ const Register = () => {
                                                         type="password"
                                                         autoComplete="off"
                                                         value={password}
-                                                        onChange={
-                                                            e =>
-                                                                setPassword(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            // e =>
-                                                            // setPassword({
-                                                            //     password:
-                                                            //         e.target
-                                                            //             .value
-                                                            // })
-                                                        }
+                                                        onChange={e => {
+                                                            e.persist();
+                                                            setPassword(
+                                                                e.target.value
+                                                            );
+                                                        }}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -346,6 +347,6 @@ const Register = () => {
 // render() {
 
 // }
-
-//  export default graphql(REGISTER)(Register);
-export default Register;
+const registerPage = graphql(REGISTER)(Register);
+export default registerPage;
+// export default Register;

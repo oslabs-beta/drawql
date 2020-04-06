@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+// import { onError } from 'apollo-link-error';
 
 //Import components ...
 import Index from './views/Index';
 import Login from './views/pages/Login';
-import Register from './views/pages/Register';
+import registerPage from './views/pages/Register';
 import testProto from './views/pages/testProto';
 import PrototypeContainer from './views/pages/PrototypeContainer';
 import App from './App';
@@ -20,9 +21,10 @@ import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
 
+
 //tells your network to send the cookie along with every request
 const link = new HttpLink({
-    uri: 'http://localhost:5000/graphql',
+    uri: 'http://localhost:3000/graphql',
     //passes the credential option if the server has a different domain
     credentials: 'include'
 });
@@ -41,7 +43,7 @@ const client = new ApolloClient({
     cache,
     // typeDefs,
     // resolvers,
-    
+
     //access the token from the headers
     request: async operation => {
         const token = await window.localStorage.getItem('token');
@@ -54,18 +56,21 @@ const client = new ApolloClient({
     },
     onError: ({ graphQLErrors, networkError }) => {
         if (graphQLErrors) {
-            console.log(`GraphQLerrors: ${graphQLErrors}`);
-            // sendToLoggingService(graphQLErrors);
+            graphQLErrors.forEach(({ message, locations, path }) => {
+                console.log(`GraphQLerrors: message:${message},location:${locations},path:${path}`);
+            })
+            
         }
         if (networkError) {
             // logoutUser();
             //check if error is JSON
-            try {
-                JSON.parse(networkError.bodyText);
-            } catch (e) {
-                //if not replace parsing error with real one
-                networkError.message = networkError.bodyText;
-            }
+            // try {
+            //     JSON.parse(networkError.bodyText);
+            // } catch (e) {
+            //     //if not replace parsing error with real one
+            //     networkError.message = networkError.bodyText;
+            // }
+            console.log(`Networkerrors: ${networkError}`);
         }
     }
 });
@@ -96,7 +101,8 @@ ReactDOM.render(
                 <Route
                     path="/register"
                     exact
-                    render={props => <Register {...props} />}
+                    // render={props => <Register {...props} />}
+                    component={registerPage}
                 />
                 {/* I dont recall why this needs to be here? Presumably something that happens after login? */}
                 <Route path="/app" exact component={testProto} />

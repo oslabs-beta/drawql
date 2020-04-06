@@ -24,7 +24,7 @@ import {
 import { Link } from 'react-router-dom';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import HomeNav from '../../components/Navbars/HomeNav';
-// import { graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 const LOGIN = gql`
     mutation login($email: String!, $password: String!) {
@@ -286,5 +286,7 @@ const Login = () => {
 //         document.scrollingElement.scrollTop = 0;
 //         this.refs.main.scrollTop = 0;
 //     }
-// export default graphql(LOGIN)(Login);
-export default Login;
+
+const loginPage = graphql(LOGIN)(Login);
+export default loginPage;
+// export default Login;
