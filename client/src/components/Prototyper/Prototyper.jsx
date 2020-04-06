@@ -6,7 +6,8 @@ import { Stage, Layer, Text, Circle, Group } from 'react-konva';
 
 import Navbar from './Nav';
 import AddType from '../AddType/AddType';
-import CustomArrow from '../RelationArrow/RelationArrow';
+import RelationArrow from '../RelationArrow/RelationArrow';
+
 
 import { Button } from 'reactstrap'
 
@@ -19,22 +20,16 @@ class Prototyper extends React.Component {
             circles: {
                 0: {
                     x: 50, y: 50, pointer: true
-                },
-                1: {
-                    x: 50, y: 50, type: "User"
-                },
-                2: {
-                    x: 190, y: 200, type: "Product"
                 }
             },
-            lastID: 2,
+            lastID: 0,
             visible: false,
             isDrawing: false,
             arrowStartPos: [{ x: 0, y: 0 }],
             arrowEndPos: [{ x: 0, y: 0 }],
             doubleClick: false,
             arrowStartCoordinates: { x: 0, y: 0 },
-            arrows: [{ begin: 1, end: 2 }]
+            arrows: []
             // x: 50,
             // y: 50
         };
@@ -49,8 +44,9 @@ class Prototyper extends React.Component {
         this.firstCharToUpper = this.firstCharToUpper.bind(this)
         this.handleExportClick = this.handleExportClick.bind(this)
         this.renderArrows = this.renderArrows.bind(this)
-        this.doubleClickhandler = this.doubleClickhandler.bind(this)
-        this.circleClickHandler = this.circleClickHandler.bind(this)
+        this.doubleClickhandler = this.doubleClickhandler.bind(this);
+        this.outSideClick = this.outSideClick.bind(this)
+        // this.circleClickHandler = this.circleClickHandler.bind(this)
     }
 
 
@@ -79,17 +75,16 @@ class Prototyper extends React.Component {
         const { isDrawing } = this.state;
         const { offsetX, offsetY } = evt;
 
-
         this.setState((prevState) => {
             let oldState = prevState;
             oldState.circles[0] = { x: offsetX, y: offsetY, pointer: true }
-
             return {
                 circles: oldState.circles
             }
         });
     };
 
+    //exports stage as png
     handleExportClick() {
         function downloadURI(uri, name) {
             var link = document.createElement('a');
@@ -101,7 +96,7 @@ class Prototyper extends React.Component {
             // delete link;
         }
         let dataURL = this.stageRef.getStage().toDataURL();
-        downloadURI(dataURL, 'stage.png');
+        downloadURI(dataURL, 'schema.png');
     }
 
     firstCharToUpper(word) {
@@ -111,15 +106,34 @@ class Prototyper extends React.Component {
     }
 
     handleKeydown(e) {
-        const state = Object.assign({}, this.state);
+        let value = e.target.value;
+        // console.log('keypres')
+        // const state = Object.assign({}, this.state);
         if (e.charCode === 13) {
-            state.circles[state.lastID + 1] = { x: 50, y: 50, type: e.target.value }
-            this.setState({
-                circles: state.circles,
-                visible: false
+            this.setState((prevState) => {
+                //  let state = prevState.slice();
+                let state = Object.assign({}, prevState)
+                // console.log('prev ')
+                let lastIDNew = state.lastID + 1;
+                state.circles[lastIDNew] = { x: 50, y: 50, type: value }
+
+                return {
+                    circles: state.circles,
+                    visible: false,
+                    lastID: lastIDNew
+                }
             })
             return e.target.value = ""
         }
+        // if (e.charCode === 13) {
+        //     console.log('enter press')
+        //     state.circles[state.lastID + 1] = { x: 50, y: 50, type: e.target.value }
+        //     this.setState({
+        //         circles: state.circles,
+        //         visible: false
+        //     })
+        //     return e.target.value = ""
+        // }
     }
 
     openModal() {
@@ -134,22 +148,39 @@ class Prototyper extends React.Component {
         });
     }
 
+    outSideClick() {
+        this.setState((prevState) => {
+            let oldState = Object.assign({}, prevState);
+            oldState.arrows.pop();
+
+            return {
+                arrows: oldState.arrows,
+                isDrawing: false
+            }
+        })
+    }
+
     doubleClickhandler(e, key_) {
-        console.log('double cli')
         if (this.state.isDrawing) {
-            console.log('draw finished')
             this.setState((prevState) => {
                 let oldState = Object.assign({}, prevState);
-                oldState.arrows[oldState.arrows.length - 1].end = key_;
-
-                return {
-                    arrows: oldState.arrows,
-                    isDrawing: false
+                // let arrow
+                if (oldState.arrows[oldState.arrows.length - 1].begin === key_) {
+                    oldState.arrows.pop();
+                    return {
+                        arrows: oldState.arrows,
+                        isDrawing: false
+                    }
+                } else {
+                    oldState.arrows[oldState.arrows.length - 1].end = key_;
+                    return {
+                        arrows: oldState.arrows,
+                        isDrawing: false
+                    }
                 }
+
             })
         } else {
-            console.log('draw began')
-
             this.setState((prevState) => {
                 let oldArrows = prevState.arrows.slice();
                 let newArrow = { begin: key_, end: 0 }
@@ -164,91 +195,92 @@ class Prototyper extends React.Component {
         }
     }
 
-    circleClickHandler(key_) {
-        console.log('clicked to circle')
-        if (this.state.isDrawing) {
-            this.setState((prevState) => {
-                let oldState = prevState;
-                oldState.arrows[oldState.arrows.length - 1].end = key_;
+    // circleClickHandler(key_) {
+    //     // console.log('clicked to circle')
+    //     if (this.state.isDrawing) {
+    //         this.setState((prevState) => {
+    //             let oldState = prevState;
+    //             oldState.arrows[oldState.arrows.length - 1].end = key_;
 
-                return {
-                    arrows: oldState.arrows,
-                    isDrawing: false
-                }
-            })
-        }
-    }
+    //             return {
+    //                 arrows: oldState.arrows,
+    //                 isDrawing: false
+    //             }
+    //         })
+    //     }
+    // }
 
     circle() {
         let circles = Object.keys(this.state.circles);
         circles.shift()
-        return circles.map((key_, index) => {
-            let ele = this.state.circles[key_];
-            return (
-                <Group
-                    key={`group${index}`}
-                    draggable
-
-                    x={ele.x}
-                    y={ele.y}
-                    onClick={(e) => this.doubleClickhandler(e, key_)}
-                    onDragStart={() => {
-                        this.setState({
-                            isDragging: true
-                        });
-                    }}
-                    // onClick={this.state.doubleClick ? () => this.circleClickHandler(key_) : false}
-                    onDragMove={e => {
-                        this.setState((prevState) => {
-                            let oldState = prevState;
-                            oldState.circles[key_].x = e.target.x();
-                            oldState.circles[key_].y = e.target.y();
-
-                            return {
-                                isDragging: false,
-                                circles: oldState.circles
-                            }
-                        })
-                    }}
-                >
-                    <Circle
-                        key={`circle${index}`}
-                        // x={ele.x}
-                        // y={ele.y}
-                        radius={50}
-                        stroke={10}
-                        // fill="#4a47a3"
-                        shadowBlur={5}
-                    />
-                    <Text
-                        key={`text${index}`}
-                        text={ele.type}
-                    // x={ele.x - 35}
-                    // y={ele.y - 10}
-                    // fill={this.state.isDragging ? 'green' : 'black'}
-                    // onDragStart={() => {
-                    //     this.setState({
-                    //         isDragging: true
-                    //     });
-                    // }}
-                    // onDragEnd={e => {
-                    //     this.setState({
-                    //         isDragging: false,
-                    //         x: e.target.x(),
-                    //         y: e.target.y()
-                    //     });
-                    // }}
-                    />
-                </Group >
-            )
-        })
+        // console.log(circles)
+        if (circles.length > 0) {
+            return circles.map((key_, index) => {
+                let ele = this.state.circles[key_];
+                return (
+                    <Group
+                        key={`group${index}`}
+                        draggable
+                        x={ele.x}
+                        y={ele.y}
+                        onClick={(e) => this.doubleClickhandler(e, key_)}
+                        onDragStart={() => {
+                            this.setState({
+                                isDragging: true
+                            });
+                        }}
+                        // onClick={this.state.doubleClick ? () => this.circleClickHandler(key_) : false}
+                        onDragMove={e => {
+                            this.setState((prevState) => {
+                                let oldState = prevState;
+                                oldState.circles[key_].x = e.target.x();
+                                oldState.circles[key_].y = e.target.y();
+                                return {
+                                    isDragging: false,
+                                    circles: oldState.circles
+                                }
+                            })
+                        }}
+                    >
+                        <Circle
+                            key={`circle${index}`}
+                            // x={ele.x}
+                            // y={ele.y}
+                            radius={50}
+                            stroke={10}
+                            // fill="#4a47a3"
+                            shadowBlur={5}
+                        />
+                        <Text
+                            key={`text${index}`}
+                            text={ele.type}
+                        // x={ele.x - 35}
+                        // y={ele.y - 10}
+                        // fill={this.state.isDragging ? 'green' : 'black'}
+                        // onDragStart={() => {
+                        //     this.setState({
+                        //         isDragging: true
+                        //     });
+                        // }}
+                        // onDragEnd={e => {
+                        //     this.setState({
+                        //         isDragging: false,
+                        //         x: e.target.x(),
+                        //         y: e.target.y()
+                        //     });
+                        // }}
+                        />
+                    </Group >
+                )
+            })
+        }
     }
 
     renderArrows() {
         const { arrows } = this.state;
 
         return arrows.map((arrow, index) => {
-            return <CustomArrow key={`arrows${index}`} startPos={this.state.circles[arrow.begin]} endPos={this.state.circles[arrow.end]} />
+            return <RelationArrow key={`arrows${index}`} startPos={this.state.circles[arrow.begin]} endPos={this.state.circles[arrow.end]} />
         });
     }
 
@@ -277,6 +309,8 @@ class Prototyper extends React.Component {
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
                     ref={node => { this.stageRef = node }}
+                    // onClick={(e) => console.log(e.target._id)}
+                    onClick={(e) => (e.target._id < 3 && this.state.isDrawing) ? this.outSideClick() : null}
                 >
                     <Layer>
                         {this.circle()}
