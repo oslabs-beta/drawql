@@ -20,7 +20,6 @@ import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
 
-
 //tells your network to send the cookie along with every request
 const link = new HttpLink({
     uri: 'http://localhost:3000/graphql',
@@ -37,11 +36,9 @@ const cache = new InMemoryCache({
     }
 });
 
-
-
 //passed through the fetch
 const client = new ApolloClient({
-     link,
+    link,
     //passes the credential option if the server has a different domain
     // fetchOptions: {
     //     credentials: 'include'
@@ -52,14 +49,13 @@ const client = new ApolloClient({
 
     //access the token from the headers
     request: async operation => {
-        const token = await window.localStorage.getItem('token');
+        const token = localStorage.getItem('token') || null;
         //passes token to the headers
         operation.setContext({
             headers: {
                 Authorization: token ? `Bearer ${token}` : ''
             }
         });
-        
     },
     onError: ({ graphQLErrors, networkError }) => {
         if (graphQLErrors) {
@@ -80,7 +76,7 @@ const client = new ApolloClient({
             // }
             console.log(`Networkerrors: ${networkError}`);
         }
-    },
+    }
 });
 
 cache.writeData({

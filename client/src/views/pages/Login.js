@@ -88,7 +88,7 @@ const Login = () => {
 
     //store token if login is successful
     if (data) {
-        // window.localStorage.setItem('token', data.loginUser.token);
+        localStorage.setItem('token', data.login.token);
         return <Redirect to="/proto" />;
     }
 

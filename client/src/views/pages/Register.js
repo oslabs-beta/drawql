@@ -127,8 +127,8 @@ const Register = () => {
 
     //store token if registration is successful
     if (data) {
-        // window.localStorage.setItem('token', data.registerUser.token);
-        console.log('dattaaaaa', data);
+        localStorage.setItem('token', data.signUp.token);
+
         // console.log('checking data', data.registerUser.token);
 
         return <Redirect to="/proto" />;
