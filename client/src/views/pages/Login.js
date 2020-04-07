@@ -271,49 +271,6 @@ const Login = () => {
     );
 };
 
-// class Login extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             email: '',
-//             password: '',
-//             errors: []
-//         };
-//         this.handleSubmit = this.handleSubmit.bind(this);
-//     }
-//     handleSubmit(e) {
-//         e.preventDefault();
-//         const { email, password } = this.state;
-//         console.log(email, password);
-//         //passing the mutation for login. console.log this.props.mutate to see what console logs
-//         this.props
-//             .mutate({
-//                 mutation: Login,
-//                 variables: { email, password },
-//                 //refecth currentuser if needed
-//                 refetchQueries: [{ query: '' }]
-//             })
-//             //if you want to see error in the source and check res in console by pressing esc button
-//             .catch(res => {
-//                 debugger;
-//             })
-//             .catch(res => {
-//                 const errors = res.graphQLErrors.map(error => error.message);
-//                 this.setState({ errors: errors });
-//             });
-//     }
-//     componentWillUpdate(nextProps) {
-//         //this might be this.data.user
-//         // if (!this.props.data.user && nextProps.data.user) {
-//         //     //redirect to dashboard
-//         // }
-//     }
-//     componentDidMount() {
-//         document.documentElement.scrollTop = 0;
-//         document.scrollingElement.scrollTop = 0;
-//         this.refs.main.scrollTop = 0;
-//     }
-
 const loginPage = graphql(LOGIN)(Login);
 export default loginPage;
-// export default Login;
+

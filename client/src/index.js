@@ -39,10 +39,6 @@ const cache = new InMemoryCache({
 //passed through the fetch
 const client = new ApolloClient({
     link,
-    //passes the credential option if the server has a different domain
-    // fetchOptions: {
-    //     credentials: 'include'
-    // },
     cache,
     // typeDefs,
     // resolvers,
@@ -67,13 +63,6 @@ const client = new ApolloClient({
         }
         if (networkError) {
             // logoutUser();
-            //check if error is JSON
-            // try {
-            //     JSON.parse(networkError.bodyText);
-            // } catch (e) {
-            //     //if not replace parsing error with real one
-            //     networkError.message = networkError.bodyText;
-            // }
             console.log(`Networkerrors: ${networkError}`);
         }
     }

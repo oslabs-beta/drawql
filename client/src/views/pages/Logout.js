@@ -3,28 +3,39 @@
 // import { Redirect } from 'react-router';
 // import currentUser from '../../queries';
 
-// const HeaderLogOutButton = () => {
+//import gql from 'apollo-boost';
+
+// const LOGOUT = gql`
+//     mutation {
+//         logout {
+//             id
+//             email
+//             token
+//         }
+//     }
+// `;
+
+// const Logout = () => {
 //     const { client, data } = useQuery(currentUser);
 
 //     //resets Apollo and local store on logout
 //     const logout = () => {
-//         window.localStorage.clear();
+//        localStorage.clear();
 //         client.resetStore();
 //     };
 //     if (data && data.user) {
 //       return ( //insert logout-button page style here
 //           );
 //     }
-  
+
 //   return (
 //     //insert logout-button page style here
 //     <>
-      
+
 //       <Redirect to="/login" />
 //         </>
-    
-   
+
 //   )
 // };
 
-// export default HeaderLogOutButton
+// export default Logout;

@@ -13,16 +13,6 @@ import { graphqlExpress } from 'apollo-server-express';
 
 const app = express();
 
-// //allows crenditials from requested origin
-// const corsOptions = {
-//     origin: 'http://localhost:5000/graphql',
-//     crenditials: true //required backend setting
-// };
-// //enables cors
-// app.use(cors(
-//     corsOptions
-// ));
-
 /*browser allows data to load from the other server,
 the other server sets Access - Control headers to determine its policy regarding cross - origin resource access.*/
 

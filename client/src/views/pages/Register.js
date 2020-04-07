@@ -43,7 +43,6 @@ import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import { graphql } from 'react-apollo';
 
-// import { register } from '../../serviceWorker';
 
 const REGISTER = gql`
     mutation signUp($username: String!, $email: String!, $password: String!) {
@@ -110,6 +109,7 @@ const Register = () => {
                 }
             });
         },
+        //once it's complete it will reset the state
         onCompleted: () => {
             setUsername('');
             setEmail('');
@@ -128,9 +128,6 @@ const Register = () => {
     //store token if registration is successful
     if (data) {
         localStorage.setItem('token', data.signUp.token);
-
-        // console.log('checking data', data.registerUser.token);
-
         return <Redirect to="/proto" />;
     }
 
@@ -324,45 +321,6 @@ const Register = () => {
     );
 };
 
-// class Register extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             username: '',
-//             email: '',
-//             password: '',
-//             errors: []
-//         };
-//         this.handleSubmit = this.handleSubmit.bind(this);
-//     }
-//     componentDidMount() {
-//         document.documentElement.scrollTop = 0;
-//         document.scrollingElement.scrollTop = 0;
-//         this.refs.main.scrollTop = 0;
-//     }
-
-//     handleSubmit(e) {
-//         e.preventDefault();
-//         const { username, email, password } = this.state;
-//         console.log(name, email, password)
-//         console.log(this.props)
-
-//         // this.props
-//         //     .mutate({
-//         //         mutation:register,
-//         //         variables: { username, email, password },
-//         //         //refetch query(currentuser)
-//         //         // refetchQueries: [{ query }]
-//         //     })
-//         //     .catch(res => {
-//         //         const errors = res.graphQLErrors.map(error => error.message);
-//         //         //this.setState({errors: errors})
-//         //         this.setState({ errors });
-//         //     });
-//     }
-// render() {
-
-// }
 const registerPage = graphql(REGISTER)(Register);
 export default registerPage;
-// export default Register;
+
