@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
@@ -36,9 +36,15 @@ const cache = new InMemoryCache({
     }
 });
 
+
+
 //passed through the fetch
 const client = new ApolloClient({
-    link,
+     link,
+    //passes the credential option if the server has a different domain
+    // fetchOptions: {
+    //     credentials: 'include'
+    // },
     cache,
     // typeDefs,
     // resolvers,
@@ -52,6 +58,7 @@ const client = new ApolloClient({
                 Authorization: token ? `Bearer ${token}` : ''
             }
         });
+        
     },
     onError: ({ graphQLErrors, networkError }) => {
         if (graphQLErrors) {
@@ -72,7 +79,7 @@ const client = new ApolloClient({
             // }
             console.log(`Networkerrors: ${networkError}`);
         }
-    }
+    },
 });
 
 cache.writeData({

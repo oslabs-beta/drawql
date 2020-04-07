@@ -46,7 +46,7 @@ import { graphql } from 'react-apollo';
 // import { register } from '../../serviceWorker';
 
 const REGISTER = gql`
-    mutation signUp($username: String, $email: String, $password: String) {
+    mutation signUp($username: String!, $email: String!, $password: String!) {
         signUp(username: $username, email: $email, password: $password) {
             token
         }
@@ -68,16 +68,14 @@ const Register = () => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
         // refs.main.scrollTop = 0;
-    });
+    })
 
     //event handler for submitting
     const handleSubmit = async e => {
         e.preventDefault();
         await registerUser({
             variables: {
-                objects: [
-                    { username: username, email: email, password: password }
-                ]
+                    username: username, email: email, password: password 
             }
         });
         // const event = validate(values);
@@ -88,7 +86,7 @@ const Register = () => {
         // onSubmit({ values, e });
 
         console.log('inthesubmit');
-    };
+    }
 
     //apollo boost functionality
     //mutation for registering user method
@@ -208,12 +206,7 @@ const Register = () => {
                                         </div>
                                         <Form
                                             role="form"
-                                            onSubmit={
-                                                handleSubmit
-                                                // e => {
-                                                // e.preventDefault();
-                                                // }
-                                            }
+                                            onSubmit={handleSubmit}
                                         >
                                             <FormGroup>
                                                 <InputGroup className="input-group-alternative mb-3">
