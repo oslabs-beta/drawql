@@ -91,6 +91,7 @@ const Register = () => {
     //apollo boost functionality
     //mutation for registering user method
     const [registerUser, { loading, error, data }] = useMutation(REGISTER, {
+        //updates the cache with current data
         update: (
             cache,
             {
@@ -99,11 +100,13 @@ const Register = () => {
                 }
             }
         ) => {
+            // reads the users value from cache
             const { users } = cache.readQuery({ query: currentUser });
+            // writes to the cache adding a user
             cache.writeQuery({
                 query: currentUser,
                 data: {
-                    users: users.concat({login: { token }})
+                    users: users.concat({ login: { token } })
                 }
             });
         },

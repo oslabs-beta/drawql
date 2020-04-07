@@ -86,7 +86,7 @@ const Login = () => {
     if (error) return <p>Error:{error.message}</p>;
     // <Error message={error.message} />;
 
-    //store token if registration is successful
+    //store token if login is successful
     if (data) {
         // window.localStorage.setItem('token', data.loginUser.token);
         return <Redirect to="/proto" />;
