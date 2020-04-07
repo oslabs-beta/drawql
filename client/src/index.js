@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-// import { onError } from 'apollo-link-error';
 
 //Import components ...
 import Index from './views/Index';
@@ -21,13 +20,13 @@ import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
 
-
 //tells your network to send the cookie along with every request
 const link = new HttpLink({
     uri: 'http://localhost:3000/graphql',
     //passes the credential option if the server has a different domain
     credentials: 'include'
 });
+
 const cache = new InMemoryCache({
     cacheRedirects: {
         Query: {
@@ -57,9 +56,10 @@ const client = new ApolloClient({
     onError: ({ graphQLErrors, networkError }) => {
         if (graphQLErrors) {
             graphQLErrors.forEach(({ message, locations, path }) => {
-                console.log(`GraphQLerrors: message:${message},location:${locations},path:${path}`);
-            })
-            
+                console.log(
+                    `GraphQLerrors: message:${message},location:${locations},path:${path}`
+                );
+            });
         }
         if (networkError) {
             // logoutUser();

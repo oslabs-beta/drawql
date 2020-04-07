@@ -19,6 +19,7 @@ import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { Redirect } from 'react-router';
+import currentUser from '../../queries/CurrentUser';
 
 // reactstrap components
 import {
@@ -41,6 +42,7 @@ import {
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import { graphql } from 'react-apollo';
+
 // import { register } from '../../serviceWorker';
 
 const REGISTER = gql`
@@ -52,6 +54,7 @@ const REGISTER = gql`
 `;
 
 const Register = () => {
+    let input;
     //use state lets you add React state to function components
     // example: const [username,setUsername]=useState('') is similar to this.state.username and this.setState
     //returns a pair of values: the current state and a fuunction that updates it
@@ -68,9 +71,15 @@ const Register = () => {
     });
 
     //event handler for submitting
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        registerUser({ variables: username, email, password });
+        await registerUser({
+            variables: {
+                objects: [
+                    { username: username, email: email, password: password }
+                ]
+            }
+        });
         // const event = validate(values);
         // setErrors({
         //     ...errors,
@@ -80,15 +89,35 @@ const Register = () => {
 
         console.log('inthesubmit');
     };
+
     //apollo boost functionality
     //mutation for registering user method
     const [registerUser, { loading, error, data }] = useMutation(
         REGISTER,
+        // {
+        //     variables: username,
+        //     email,
+        //     password
+        // },
         {
-            variables: username,
-            email,
-            password
+            update: (
+                cache,
+                {
+                    data: {
+                        signUp: { token }
+                    }
+                }
+            ) => {
+                const { users } = cache.readQuery({ query: currentUser });
+                cache.writeQuery({
+                    query: currentUser,
+                    data: {
+                        users: users.concat(token)
+                    }
+                });
+            }
         },
+        console.log('usaaa:', username),
         console.log('hit  the registerUser')
     );
 
@@ -100,13 +129,13 @@ const Register = () => {
         console.log('this is errorrrr', error);
         return <p>Error:{error.message}</p>;
     }
-    // <Error message={error.message} />;
 
     //store token if registration is successful
     if (data) {
         window.localStorage.setItem('token', data.registerUser.token);
         console.log('dattaaaaa', data);
         console.log('checking data', data.registerUser.token);
+
         return <Redirect to="/proto" />;
     }
 
@@ -198,7 +227,7 @@ const Register = () => {
                                                         type="text"
                                                         value={username}
                                                         onChange={e => {
-                                                            e.persist();
+                                                            // e.persist();
                                                             console.log(
                                                                 'updatingusername'
                                                             );
@@ -206,6 +235,7 @@ const Register = () => {
                                                                 e.target.value
                                                             );
                                                         }}
+                                                        ref={n => (input = n)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -221,11 +251,12 @@ const Register = () => {
                                                         type="email"
                                                         value={email}
                                                         onChange={e => {
-                                                            e.persist();
+                                                            // e.persist();
                                                             setEmail(
                                                                 e.target.value
                                                             );
                                                         }}
+                                                        ref={n => (input = n)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -242,11 +273,12 @@ const Register = () => {
                                                         autoComplete="off"
                                                         value={password}
                                                         onChange={e => {
-                                                            e.persist();
+                                                            // e.persist();
                                                             setPassword(
                                                                 e.target.value
                                                             );
                                                         }}
+                                                        ref={n => (input = n)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
