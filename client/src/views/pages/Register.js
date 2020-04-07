@@ -68,14 +68,16 @@ const Register = () => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
         // refs.main.scrollTop = 0;
-    })
+    });
 
     //event handler for submitting
     const handleSubmit = async e => {
         e.preventDefault();
         await registerUser({
             variables: {
-                    username: username, email: email, password: password 
+                username: username,
+                email: email,
+                password: password
             }
         });
         // const event = validate(values);
@@ -84,55 +86,47 @@ const Register = () => {
         //     ...e
         // });
         // onSubmit({ values, e });
-
-        console.log('inthesubmit');
-    }
+    };
 
     //apollo boost functionality
     //mutation for registering user method
-    const [registerUser, { loading, error, data }] = useMutation(
-        REGISTER,
-        // {
-        //     variables: username,
-        //     email,
-        //     password
-        // },
-        {
-            update: (
-                cache,
-                {
-                    data: {
-                        signUp: { token }
-                    }
+    const [registerUser, { loading, error, data }] = useMutation(REGISTER, {
+        update: (
+            cache,
+            {
+                data: {
+                    signUp: { token }
                 }
-            ) => {
-                const { users } = cache.readQuery({ query: currentUser });
-                cache.writeQuery({
-                    query: currentUser,
-                    data: {
-                        users: users.concat(token)
-                    }
-                });
             }
+        ) => {
+            const { users } = cache.readQuery({ query: currentUser });
+            cache.writeQuery({
+                query: currentUser,
+                data: {
+                    users: users.concat({login: { token }})
+                }
+            });
         },
-        console.log('usaaa:', username),
-        console.log('hit  the registerUser')
-    );
+        onCompleted: () => {
+            setUsername('');
+            setEmail('');
+            setPassword('');
+        }
+    });
 
     //wait for mutation, loading
     if (loading) return <p>Loading...</p>;
 
     //shows an eror message if mutation fails
     if (error) {
-        console.log('this is errorrrr', error);
         return <p>Error:{error.message}</p>;
     }
 
     //store token if registration is successful
     if (data) {
-        window.localStorage.setItem('token', data.registerUser.token);
+        // window.localStorage.setItem('token', data.registerUser.token);
         console.log('dattaaaaa', data);
-        console.log('checking data', data.registerUser.token);
+        // console.log('checking data', data.registerUser.token);
 
         return <Redirect to="/proto" />;
     }
@@ -221,14 +215,10 @@ const Register = () => {
                                                         value={username}
                                                         onChange={e => {
                                                             // e.persist();
-                                                            console.log(
-                                                                'updatingusername'
-                                                            );
                                                             setUsername(
                                                                 e.target.value
                                                             );
                                                         }}
-                                                        ref={n => (input = n)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -249,7 +239,6 @@ const Register = () => {
                                                                 e.target.value
                                                             );
                                                         }}
-                                                        ref={n => (input = n)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>
@@ -271,7 +260,6 @@ const Register = () => {
                                                                 e.target.value
                                                             );
                                                         }}
-                                                        ref={n => (input = n)}
                                                     />
                                                 </InputGroup>
                                             </FormGroup>

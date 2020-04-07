@@ -6,7 +6,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 //Import components ...
 import Index from './views/Index';
-import Login from './views/pages/Login';
+import loginPage from './views/pages/Login';
 import registerPage from './views/pages/Register';
 import testProto from './views/pages/testProto';
 import PrototypeContainer from './views/pages/PrototypeContainer';
@@ -19,6 +19,7 @@ import './assets/vendor/font-awesome/css/font-awesome.min.css';
 import './assets/scss/argon-design-system-react.scss';
 
 import * as serviceWorker from './serviceWorker';
+
 
 //tells your network to send the cookie along with every request
 const link = new HttpLink({
@@ -103,7 +104,8 @@ ReactDOM.render(
                 <Route
                     path="/login"
                     exact
-                    render={props => <Login {...props} />}
+                    // render={props => <Login {...props} />}
+                    component={loginPage}
                 />
                 <Route
                     path="/register"
