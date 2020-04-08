@@ -77,7 +77,6 @@ cache.writeData({
     data: {
         users: [],
         // drawing:[],
-        // sidebarHidden: false
         
         //  the double-bang returns the boolean true/false association of a value, so we use it to set a truthy value rather than evaluating the value of 'token'
         // isLoggedIn can be used to conditionally display login/signup areas of navbar
