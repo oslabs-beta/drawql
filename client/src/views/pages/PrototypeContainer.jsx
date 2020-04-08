@@ -1,24 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
-import { graphql } from 'react-apollo';
-
 import { gql } from 'apollo-boost';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PrototypeContainer.scss';
-// import { BrowserRouter as Router } from 'react-router-dom';
 import SideBar from '../../components/Sidebar/Sidebar';
 import Content from '../../components/Prototyper/Prototyper';
 
-const TOGGLE_SIDEBAR = gql`
-    # calls the mutation we defined in our typeDefs
-    mutation ToggleSidebar {
-        # returns the toggleCart that we wrote in our graphql/resolver, which is basically the function that changes the cartHidden property
-        # we also tell graphql to search the client cache, rather than requesting from the backend
-        toggleSidebar @client
-    }
-`;
-
+// define a GQL query to retrieve our sidebar status from state
 const IS_SIDEBAR_OPEN = gql`
     query IsSidebarOpen {
         sidebarOpen @client
@@ -29,9 +18,10 @@ const Prototyper = () => {
     // apolloClient hook that allows us to modify state
     const client = useApolloClient();
 
-    // const [isOpen, setOpen] = useState(true);
-    // const toggle = () => setOpen(!isOpen);
-    const { data, loading, error } = useQuery(IS_SIDEBAR_OPEN);
+    // extract the data from our cache and any error messages (loading could be used to conditionally render a loading spinner)
+    const { data, error } = useQuery(IS_SIDEBAR_OPEN);
+    if (error) return <p>ERROR: {error.message}</p>;
+
     const toggle = () =>
         client.writeData({
             data: { sidebarOpen: !data.sidebarOpen }
