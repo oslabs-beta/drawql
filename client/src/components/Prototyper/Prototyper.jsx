@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Container, Button } from 'reactstrap';
-import { Switch, Route } from 'react-router-dom';
+// import { Switch, Route } from 'react-router-dom';
 import { Stage, Layer, Text, Circle, Group } from 'react-konva';
 
 import Navbar from './Nav';

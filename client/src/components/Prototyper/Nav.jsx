@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignLeft, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
+// import { faAlignLeft, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
 import {
     Button,
-    Collapse,
+    // Collapse,
     UncontrolledCollapse,
-    DropdownMenu,
-    DropdownItem,
-    DropdownToggle,
-    UncontrolledDropdown,
-    Media,
-    NavbarBrand,
+    // DropdownMenu,
+    // DropdownItem,
+    // DropdownToggle,
+    // UncontrolledDropdown,
+    // Media,
+    // NavbarBrand,
     Navbar,
     NavbarToggler,
     NavItem,
@@ -31,7 +32,6 @@ import {
 //     NavItem,
 //     NavLink
 // } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 import './Nav.scss';
 

@@ -1,17 +1,18 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faHome,
-    faBriefcase,
-    faPaperPlane,
-    faQuestion,
-    faImage,
-    faCopy
-} from '@fortawesome/free-solid-svg-icons';
-import { NavItem, NavLink, Nav, NavbarBrand } from 'reactstrap';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {
+//     faHome,
+//     faBriefcase,
+//     faPaperPlane,
+//     faQuestion,
+//     faImage,
+//     faCopy
+// } from '@fortawesome/free-solid-svg-icons';
+// import { NavItem, NavLink, Nav, NavbarBrand } from 'reactstrap';
+import { Nav, NavbarBrand } from 'reactstrap';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import SubMenu from './SubMenu';
+// import SubMenu from './SubMenu';
 import './Sidebar.scss';
 
 const SideBar = props => (

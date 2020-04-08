@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
-import { useQuery } from '@apollo/react-hooks';
-import { ApolloClient, InMemoryCache, HttpLink, gql } from 'apollo-boost';
+import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 
 // Import components...
 import Index from './views/Index';

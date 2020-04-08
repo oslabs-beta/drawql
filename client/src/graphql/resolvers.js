@@ -1,5 +1,4 @@
 import { gql } from 'apollo-boost';
-import typeDefs from './typeDefs';
 
 // extracts the sidebar status from the client to determine if its collapsed or not
 export const GET_SIDEBAR_STATUS = gql`
