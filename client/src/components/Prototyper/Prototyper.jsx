@@ -3,10 +3,14 @@ import classNames from 'classnames';
 import { Container, Button } from 'reactstrap';
 // import { Switch, Route } from 'react-router-dom';
 import { Stage, Layer, Text, Circle, Group } from 'react-konva';
+import { Spring, animated } from 'react-spring/renderprops-konva'
 
 import Navbar from './Nav';
-import AddType from '../AddType/AddType';
+import AddType from './AddType';
 import RelationArrow from '../RelationArrow/RelationArrow';
+import SideBar from '../Sidebar/Sidebar';
+import ModalPrompt from './ModalPrompt';
+
 
 class Prototyper extends React.Component {
     constructor(props) {
@@ -25,31 +29,40 @@ class Prototyper extends React.Component {
             isDrawing: false,
             arrowStartPos: [{ x: 0, y: 0 }],
             arrowEndPos: [{ x: 0, y: 0 }],
+            firstNode: {},
+            secondNode: {},
             doubleClick: false,
             arrowStartCoordinates: { x: 0, y: 0 },
-            arrows: []
-            // x: 50,
-            // y: 50
+            arrows: [],
+            flag: false,
+            displayPrompt: false,
+            key: null
         };
         // this.addCircle = this.addCircle.bind(this)
         this.handleKeydown = this.handleKeydown.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
-        this.handleMouseUp = this.handleMouseUp.bind(this);
+        // this.handleMouseUp = this.handleMouseUp.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.circle = this.circle.bind(this);
         this.firstCharToUpper = this.firstCharToUpper.bind(this);
         this.handleExportClick = this.handleExportClick.bind(this);
         this.renderArrows = this.renderArrows.bind(this);
         this.doubleClickhandler = this.doubleClickhandler.bind(this);
-        this.outSideClick = this.outSideClick.bind(this);
+        this.outSideClick = this.outSideClick.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+        this.closeModalPromt = this.closeModalPromt.bind(this)
+        this.returnedValueHandler = this.returnedValueHandler.bind(this)
         // this.circleClickHandler = this.circleClickHandler.bind(this)
+    }
+
+    handleClick() {
+        this.setState(state => ({ flag: !state.flag }))
     }
 
     handleMouseDown({ evt }) {
         // evt is the React Konva envent
-
         if (this.state.doubleClick) {
             const { offsetX, offsetY } = evt;
             this.setState({
@@ -58,13 +71,6 @@ class Prototyper extends React.Component {
                 arrowEndPos: { x: offsetX, y: offsetY }
             });
         }
-    }
-
-    handleMouseUp() {
-        // const { isDrawing } = this.state;
-        // if (isDrawing) {
-        //     this.setState({ isDrawing: false });
-        // }
     }
 
     handleMouseMove({ evt }) {
@@ -99,6 +105,13 @@ class Prototyper extends React.Component {
         const firstChar = word.slice(0, 1);
         const restOfTheWord = word.slice(1);
         return `${firstChar.toUpperCase()}${restOfTheWord}`;
+    }
+
+    returnedValueHandler(value) {
+        this.setState({ displayPrompt: false, newNodeType: value }, () => {
+            this.addNewCircle()
+        })
+
     }
 
     handleKeydown(e) {
@@ -144,6 +157,12 @@ class Prototyper extends React.Component {
         });
     }
 
+    closeModalPromt(e) {
+        this.setState({
+            displayPrompt: false
+        });
+    }
+
     outSideClick() {
         this.setState(prevState => {
             const oldState = { ...prevState };
@@ -156,19 +175,55 @@ class Prototyper extends React.Component {
         });
     }
 
+    addNewCircle() {
+        this.setState((prevState) => {
+            //  let state = prevState.slice();
+            let state = Object.assign({}, prevState)
+            let { firstNode, secondNode } = state;
+            // console.log('prev ')
+            let lastIDNew = state.lastID + 1;
+            state.circles[lastIDNew] = {
+                x: (secondNode.x + firstNode.x) / 2,
+                y: (secondNode.y + firstNode.y) / 2,
+                type: prevState.newNodeType,
+                small: true
+            }
+
+            state.arrows[state.arrows.length - 1].end = lastIDNew;
+            state.arrows.push({ begin: lastIDNew, end: state.key })
+
+            return {
+                circles: state.circles,
+                visible: false,
+                lastID: lastIDNew,
+                isDrawing: false
+            }
+        })
+    }
+
     doubleClickhandler(e, key_) {
         if (this.state.isDrawing) {
-            this.setState(prevState => {
-                const oldState = { ...prevState };
-                // let arrow
-                if (
-                    oldState.arrows[oldState.arrows.length - 1].begin === key_
-                ) {
+            this.setState((prevState) => {
+                let oldState = Object.assign({}, prevState);
+                // undraw arrow if same circle
+                if (oldState.arrows[oldState.arrows.length - 1].begin === key_) {
                     oldState.arrows.pop();
                     return {
                         arrows: oldState.arrows,
                         isDrawing: false
-                    };
+                    }
+                } else {
+                    // finish drawing arrow
+                    return {
+                        secondNode: prevState.circles[key_],
+                        key: key_,
+                        displayPrompt: true
+                    }
+                    // oldState.arrows[oldState.arrows.length - 1].end = key_;
+                    // return {
+                    //     arrows: oldState.arrows,
+                    //     isDrawing: false
+                    // }
                 }
                 oldState.arrows[oldState.arrows.length - 1].end = key_;
                 return {
@@ -184,6 +239,7 @@ class Prototyper extends React.Component {
 
                 return {
                     arrows: oldArrows,
+                    firstNode: prevState.circles[key_],
                     doubleClick: true,
                     isDrawing: true
                 };
@@ -207,19 +263,30 @@ class Prototyper extends React.Component {
     // }
 
     circle() {
-        const circles = Object.keys(this.state.circles);
-        circles.shift();
+        const { flag } = this.state;
+        let circles = Object.keys(this.state.circles);
+        circles.shift()
         // console.log(circles)
         if (circles.length > 0) {
             return circles.map((key_, index) => {
-                const ele = this.state.circles[key_];
+                let ele = this.state.circles[key_];
+                // const text = {
+                //     text: ele.type,
+                //     align: 'center'
+                // }
                 return (
+                    // <Spring native
+                    //     from={{ shadowBlur: 0, fill: 'green' }}
+                    //     to={{ fill: flag ? 'blue' : 'green' }}
+                    // >
+
                     <Group
                         key={`group${index}`}
                         draggable
                         x={ele.x}
                         y={ele.y}
-                        onClick={e => this.doubleClickhandler(e, key_)}
+                        align={'center'}
+                        onClick={(e) => this.doubleClickhandler(e, key_)}
                         onDragStart={() => {
                             this.setState({
                                 isDragging: true
@@ -240,35 +307,21 @@ class Prototyper extends React.Component {
                     >
                         <Circle
                             key={`circle${index}`}
-                            // x={ele.x}
-                            // y={ele.y}
-                            radius={50}
-                            stroke={10}
-                            // fill="#4a47a3"
+                            radius={ele.small ? 35 : 50}
+                            stroke={ele.small ? 5 : 10}
+                            stroke={'blue'}
                             shadowBlur={5}
+
                         />
                         <Text
+                            // {...text}
                             key={`text${index}`}
                             text={ele.type}
-                            // x={ele.x - 35}
-                            // y={ele.y - 10}
-                            // fill={this.state.isDragging ? 'green' : 'black'}
-                            // onDragStart={() => {
-                            //     this.setState({
-                            //         isDragging: true
-                            //     });
-                            // }}
-                            // onDragEnd={e => {
-                            //     this.setState({
-                            //         isDragging: false,
-                            //         x: e.target.x(),
-                            //         y: e.target.y()
-                            //     });
-                            // }}
                         />
-                    </Group>
-                );
-            });
+                    </Group >
+
+                )
+            })
         }
     }
 
@@ -276,20 +329,18 @@ class Prototyper extends React.Component {
         const { arrows } = this.state;
 
         return arrows.map((arrow, index) => {
-            return (
-                <RelationArrow
-                    key={`arrows${index}`}
-                    startPos={this.state.circles[arrow.begin]}
-                    endPos={this.state.circles[arrow.end]}
-                />
-            );
+            return <RelationArrow
+                key={`arrows${index}`}
+                startPos={this.state.circles[arrow.begin]}
+                endPos={this.state.circles[arrow.end]}
+            />
         });
     }
 
     render() {
-        const { arrowEndPos, arrowStartPos } = this.state;
-
+        const { arrowEndPos, arrowStartPos, flag, displayPrompt } = this.state;
         return (
+
             <Container
                 fluid
                 className={classNames('content', 'no-padding', {
@@ -297,19 +348,16 @@ class Prototyper extends React.Component {
                 })}
             >
                 <Navbar toggle={this.props.toggle} />
-
-                <AddType
-                    handleKeydown={this.handleKeydown}
+                <AddType handleKeydown={this.handleKeydown}
                     types={this.state.type}
                     openModal={this.openModal}
                     closeModal={this.closeModal}
                     visible={this.state.visible}
                 />
-                <Button color="info" onClick={this.handleExportClick}>
-                    Export stage
-                </Button>
-                <Stage
-                    width={window.innerWidth}
+                {displayPrompt ? <ModalPrompt returnedValueHandler={this.returnedValueHandler}
+                    closeModalPromt={this.closeModalPromt} /> : ''}
+                <Button color="info" onClick={this.handleExportClick}>Export stage</Button>
+                <Stage width={window.innerWidth}
                     height={window.innerHeight}
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
