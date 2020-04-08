@@ -17,6 +17,7 @@
 */
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import currentUser from '../../queries/CurrentUser';
 import { Redirect } from 'react-router';
 
 // reactstrap components

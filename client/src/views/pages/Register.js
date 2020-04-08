@@ -43,7 +43,6 @@ import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import { graphql } from 'react-apollo';
 
-
 const REGISTER = gql`
     mutation signUp($username: String!, $email: String!, $password: String!) {
         signUp(username: $username, email: $email, password: $password) {
@@ -100,21 +99,41 @@ const Register = () => {
             }
         ) => {
             // reads the users value from cache
-            const { users } = cache.readQuery({ query: currentUser });
+            const { users } = cache.readQuery({
+                query: gql`
+                    {
+                        user {
+                            id
+                            email
+                            token
+                        }
+                    }
+                `
+            });
             // writes to the cache adding a user
             cache.writeQuery({
-                query: currentUser,
+                query: gql`
+                    {
+                        user {
+                            id
+                            email
+                            token
+                        }
+                    }
+                `,
                 data: {
-                    users: users.concat({ login: { token } })
+                    // users: users.concat({
+                    signUp: { token }
+                    // })
                 }
             });
-        },
-        //once it's complete it will reset the state
-        onCompleted: () => {
-            setUsername('');
-            setEmail('');
-            setPassword('');
         }
+        // once it's complete it will reset the state
+        // onCompleted: () => {
+        //     setUsername('');
+        //     setEmail('');
+        //     setPassword('');
+        // }
     });
 
     //wait for mutation, loading
@@ -127,6 +146,7 @@ const Register = () => {
 
     //store token if registration is successful
     if (data) {
+        console.log('thisssss', data);
         localStorage.setItem('token', data.signUp.token);
         return <Redirect to="/proto" />;
     }
@@ -323,4 +343,3 @@ const Register = () => {
 
 const registerPage = graphql(REGISTER)(Register);
 export default registerPage;
-

@@ -48,7 +48,7 @@ const Login = () => {
     });
     const handleSubmit = async e => {
         e.preventDefault();
-        await loginUser({
+       await loginUser({
             variables: {
                 email: email,
                 password: password
@@ -56,29 +56,31 @@ const Login = () => {
         });
     };
     //mutation for login user method
-    const [loginUser, { loading, error, data }] = useMutation(LOGIN, {
-        update: (
-            cache,
-            {
-                data: {
-                    email: { token }
-                }
-            }
-        ) => {
-            cache.readQuery({ query: currentUser });
-            const { users } = cache.readQuery({ query: currentUser });
-            cache.writeQuery({
-                query: currentUser,
-                data: {
-                    users: users.concat({ email: { token } })
-                }
-            });
-        },
-        onCompleted: () => {
-            setEmail('');
-            setPassword('');
-        }
-    });
+    const [loginUser, { loading, error, data }] = useMutation(LOGIN
+        //{
+        // update: (
+        //     cache,
+        //     {
+        //         data: {
+        //             email: { token }
+        //         }
+        //     }
+        // ) => {
+        //     cache.readQuery({ query: currentUser });
+        //     const { users } = cache.readQuery({ query: currentUser });
+        //     cache.writeQuery({
+        //         query: currentUser,
+        //         data: {
+        //             users: users.concat({ email: { token } })
+        //         }
+        //     });
+        // },
+        // onCompleted: () => {
+        //     setEmail('');
+        //     setPassword('');
+        // }
+    //}
+    );
     //wait for mutation, loading
     if (loading) return <p>Loading ...</p>;
 
@@ -273,4 +275,3 @@ const Login = () => {
 
 const loginPage = graphql(LOGIN)(Login);
 export default loginPage;
-

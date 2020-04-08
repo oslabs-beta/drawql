@@ -28,12 +28,12 @@ const link = new HttpLink({
 });
 
 const cache = new InMemoryCache({
-    cacheRedirects: {
-        Query: {
-            user: (_, { id }, { getCacheKey }) =>
-                getCacheKey({ __typename: 'User', id })
-        }
-    }
+    // cacheRedirects: {
+    //     Query: {
+    //         user: (_, id , { getCacheKey }) =>
+    //             getCacheKey({ __typename: 'User', id })
+    //     }
+    // }
 });
 
 //passed through the fetch
@@ -70,7 +70,9 @@ const client = new ApolloClient({
 
 cache.writeData({
     data: {
-        sidebarHidden: false
+        user: [],
+        // drawing:[],
+        // sidebarHidden: false
     }
 });
 
