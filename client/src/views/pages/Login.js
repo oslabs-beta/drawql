@@ -57,11 +57,10 @@ const Login = () => {
     //mutation for login user method
     const [loginUser, { loading, error, data }] = useMutation(LOGIN,
         {
-       
-        onCompleted: () => {
-            setEmail('');
-            setPassword('');
-        }
+        // onCompleted: () => {
+        //     setEmail('');
+        //     setPassword('');
+        // }
     }
     );
     //wait for mutation, loading

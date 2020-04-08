@@ -12,6 +12,10 @@ import testProto from './views/pages/testProto';
 import PrototypeContainer from './views/pages/PrototypeContainer';
 import App from './App';
 
+// import GQL stuff so we can create our initial state
+import resolvers from './graphql/resolvers';
+import typeDefs from './graphql/typeDefs';
+
 // import css/sass
 import './index.css';
 import './assets/vendor/nucleo/css/nucleo.css';
@@ -28,12 +32,13 @@ const link = new HttpLink({
 });
 
 const cache = new InMemoryCache({
-    // cacheRedirects: {
-    //     Query: {
-    //         user: (_, id , { getCacheKey }) =>
-    //             getCacheKey({ __typename: 'User', id })
-    //     }
-    // }
+    //updating the cache if needed
+//     cacheRedirects: {
+//         Query: {
+//             users: (_, id , { getCacheKey }) =>
+//                 getCacheKey({ __typename: 'User', id:id })
+//         }
+//     }
 });
 
 //passed through the fetch
@@ -70,7 +75,7 @@ const client = new ApolloClient({
 
 cache.writeData({
     data: {
-        user: [],
+        users: [],
         // drawing:[],
         // sidebarHidden: false
         

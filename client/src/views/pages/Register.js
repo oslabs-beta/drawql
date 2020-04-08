@@ -89,44 +89,37 @@ const Register = () => {
     //mutation for registering user method
     const [registerUser, { loading, error, data }] = useMutation(REGISTER, {
         //updates the cache with current data
-        update: (
-            cache,
-            {
-                data: {
-                    signUp: { token }
-                }
-            }
-        ) => {
-            // reads the users value from cache
-            const { user } = cache.readQuery({
-                query: gql`
-                    {
-                        user {
-                            id
-                            email
-                            token
-                        }
-                    }
-                `
-            });
-            // writes to the cache adding a user
-            cache.writeQuery({
-                query: gql`
-                    {
-                        user {
-                            id
-                            email
-                            token
-                        }
-                    }
-                `,
-                data: {
-                    // users: users.concat({
-                    signUp: { token }
-                    // })
-                }
-            });
-        }
+        // update: (cache, { data: { registerUser } }) => {
+        //     // reads the users value from cache
+        //     console.log(cache);
+        //     const { users } = cache.readQuery({
+        //         query: gql`
+        //             {
+        //                 users {
+        //                     id
+        //                     __typename
+
+        //                 }
+        //             }
+        //         `
+        //     });
+        //     // writes to the cache adding a user
+        //     cache.writeQuery({
+        //         query: gql`
+        //             {
+        //                 users {
+        //                     id
+        //                     username
+        //                     email
+        //                     __typename
+        //                 }
+        //             }
+        //         `,
+        //         data: {
+        //             users: users.concat([registerUser])
+        //         }
+        //     });
+        // },
         // once it's complete it will reset the state
         // onCompleted: () => {
         //     setUsername('');
@@ -134,7 +127,7 @@ const Register = () => {
         //     setPassword('');
         // }
     });
-
+   
     //wait for mutation, loading
     if (loading) return <p>Loading...</p>;
 
@@ -145,7 +138,6 @@ const Register = () => {
 
     //store token if registration is successful
     if (data) {
-        console.log('thisssss', data);
         localStorage.setItem('token', data.signUp.token);
         return <Redirect to="/proto" />;
     }
