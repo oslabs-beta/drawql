@@ -39,6 +39,7 @@ import {
 } from 'reactstrap';
 
 // core components
+import { graphql } from 'react-apollo';
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
 import { graphql } from 'react-apollo';

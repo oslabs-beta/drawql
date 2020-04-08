@@ -1,21 +1,23 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faHome,
-    faBriefcase,
-    faPaperPlane,
-    faQuestion,
-    faImage,
-    faCopy
-} from '@fortawesome/free-solid-svg-icons';
-import { NavItem, NavLink, Nav, NavbarBrand } from 'reactstrap';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {
+//     faHome,
+//     faBriefcase,
+//     faPaperPlane,
+//     faQuestion,
+//     faImage,
+//     faCopy
+// } from '@fortawesome/free-solid-svg-icons';
+// import { NavItem, NavLink, Nav, NavbarBrand } from 'reactstrap';
+import { Nav, NavbarBrand } from 'reactstrap';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import SubMenu from './SubMenu';
+// import SubMenu from './SubMenu';
 import './Sidebar.scss';
 
 const SideBar = props => (
-    <div className={classNames('sidebar', { 'is-open': props.isOpen })}>
+    // <div className={classNames('sidebar', { 'is-open': props.isOpen })}>
+    <div className={classNames('sidebar', { 'is-open': props.sidebarOpen })}>
         <div className="sidebar-header">
             <NavbarBrand
                 className="mr-lg-5"
@@ -33,14 +35,14 @@ const SideBar = props => (
             <Nav vertical className="list-unstyled pb-3">
                 <p>Dummy Heading</p>
                 {/* <SubMenu title="Home" icon={faHome} items={submenus[0]} /> */}
-                <NavItem>
+                {/* <NavItem>
                     <NavLink tag={Link} to="/about">
                         <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
                         About
                     </NavLink>
                 </NavItem>
                 {/* <SubMenu title="Pages" icon={faCopy} items={submenus[1]} /> */}
-                <NavItem>
+                {/* <NavItem>
                     <NavLink tag={Link} to="/pages">
                         <FontAwesomeIcon icon={faImage} className="mr-2" />
                         Portfolio
@@ -57,7 +59,7 @@ const SideBar = props => (
                         <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
                         Contact
                     </NavLink>
-                </NavItem>
+                </NavItem> */}
             </Nav>
         </div>
     </div>
