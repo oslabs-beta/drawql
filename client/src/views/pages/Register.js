@@ -19,7 +19,6 @@ import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { Redirect } from 'react-router';
-import currentUser from '../../queries/CurrentUser';
 
 // reactstrap components
 import {
@@ -42,7 +41,6 @@ import {
 import { graphql } from 'react-apollo';
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-import { graphql } from 'react-apollo';
 
 const REGISTER = gql`
     mutation signUp($username: String!, $email: String!, $password: String!) {
