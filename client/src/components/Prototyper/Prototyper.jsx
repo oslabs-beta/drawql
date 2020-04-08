@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Container } from 'reactstrap';
-import { Switch, Route } from 'react-router-dom';
+import { Container, Button } from 'reactstrap';
+// import { Switch, Route } from 'react-router-dom';
 import { Stage, Layer, Text, Circle, Group } from 'react-konva';
 import { Spring, animated } from 'react-spring/renderprops-konva'
 
@@ -11,8 +11,6 @@ import RelationArrow from '../RelationArrow/RelationArrow';
 import SideBar from '../Sidebar/Sidebar';
 import ModalPrompt from './ModalPrompt';
 
-import { Button } from 'reactstrap'
-
 
 class Prototyper extends React.Component {
     constructor(props) {
@@ -21,7 +19,9 @@ class Prototyper extends React.Component {
             isDragging: false,
             circles: {
                 0: {
-                    x: 50, y: 50, pointer: true
+                    x: 50,
+                    y: 50,
+                    pointer: true
                 }
             },
             lastID: 0,
@@ -39,16 +39,16 @@ class Prototyper extends React.Component {
             key: null
         };
         // this.addCircle = this.addCircle.bind(this)
-        this.handleKeydown = this.handleKeydown.bind(this)
+        this.handleKeydown = this.handleKeydown.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         // this.handleMouseUp = this.handleMouseUp.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.circle = this.circle.bind(this);
-        this.firstCharToUpper = this.firstCharToUpper.bind(this)
-        this.handleExportClick = this.handleExportClick.bind(this)
-        this.renderArrows = this.renderArrows.bind(this)
+        this.firstCharToUpper = this.firstCharToUpper.bind(this);
+        this.handleExportClick = this.handleExportClick.bind(this);
+        this.renderArrows = this.renderArrows.bind(this);
         this.doubleClickhandler = this.doubleClickhandler.bind(this);
         this.outSideClick = this.outSideClick.bind(this)
         this.handleClick = this.handleClick.bind(this)
@@ -77,19 +77,19 @@ class Prototyper extends React.Component {
         const { isDrawing } = this.state;
         const { offsetX, offsetY } = evt;
 
-        this.setState((prevState) => {
-            let oldState = prevState;
-            oldState.circles[0] = { x: offsetX, y: offsetY, pointer: true }
+        this.setState(prevState => {
+            const oldState = prevState;
+            oldState.circles[0] = { x: offsetX, y: offsetY, pointer: true };
             return {
                 circles: oldState.circles
-            }
+            };
         });
-    };
+    }
 
     //exports stage as png
     handleExportClick() {
         function downloadURI(uri, name) {
-            var link = document.createElement('a');
+            const link = document.createElement('a');
             link.download = name;
             link.href = uri;
             document.body.appendChild(link);
@@ -97,14 +97,14 @@ class Prototyper extends React.Component {
             document.body.removeChild(link);
             // delete link;
         }
-        let dataURL = this.stageRef.getStage().toDataURL();
+        const dataURL = this.stageRef.getStage().toDataURL();
         downloadURI(dataURL, 'schema.png');
     }
 
     firstCharToUpper(word) {
         const firstChar = word.slice(0, 1);
-        const restOfTheWord = word.slice(1)
-        return `${firstChar.toUpperCase()}${restOfTheWord}`
+        const restOfTheWord = word.slice(1);
+        return `${firstChar.toUpperCase()}${restOfTheWord}`;
     }
 
     returnedValueHandler(value) {
@@ -115,24 +115,24 @@ class Prototyper extends React.Component {
     }
 
     handleKeydown(e) {
-        let value = e.target.value;
+        const value = e.target.value;
         // console.log('keypres')
         // const state = Object.assign({}, this.state);
         if (e.charCode === 13) {
-            this.setState((prevState) => {
+            this.setState(prevState => {
                 //  let state = prevState.slice();
-                let state = Object.assign({}, prevState)
+                const state = { ...prevState };
                 // console.log('prev ')
-                let lastIDNew = state.lastID + 1;
-                state.circles[lastIDNew] = { x: 50, y: 50, type: value }
+                const lastIDNew = state.lastID + 1;
+                state.circles[lastIDNew] = { x: 50, y: 50, type: value };
 
                 return {
                     circles: state.circles,
                     visible: false,
                     lastID: lastIDNew
-                }
-            })
-            return e.target.value = ""
+                };
+            });
+            return (e.target.value = '');
         }
         // if (e.charCode === 13) {
         //     console.log('enter press')
@@ -164,15 +164,15 @@ class Prototyper extends React.Component {
     }
 
     outSideClick() {
-        this.setState((prevState) => {
-            let oldState = Object.assign({}, prevState);
+        this.setState(prevState => {
+            const oldState = { ...prevState };
             oldState.arrows.pop();
 
             return {
                 arrows: oldState.arrows,
                 isDrawing: false
-            }
-        })
+            };
+        });
     }
 
     addNewCircle() {
@@ -225,21 +225,25 @@ class Prototyper extends React.Component {
                     //     isDrawing: false
                     // }
                 }
-
-            })
+                oldState.arrows[oldState.arrows.length - 1].end = key_;
+                return {
+                    arrows: oldState.arrows,
+                    isDrawing: false
+                };
+            });
         } else {
-            this.setState((prevState) => {
-                let oldArrows = prevState.arrows.slice();
-                let newArrow = { begin: key_, end: 0 }
-                oldArrows.push(newArrow)
+            this.setState(prevState => {
+                const oldArrows = prevState.arrows.slice();
+                const newArrow = { begin: key_, end: 0 };
+                oldArrows.push(newArrow);
 
                 return {
                     arrows: oldArrows,
                     firstNode: prevState.circles[key_],
                     doubleClick: true,
                     isDrawing: true
-                }
-            })
+                };
+            });
         }
     }
 
@@ -290,15 +294,15 @@ class Prototyper extends React.Component {
                         }}
                         // onClick={this.state.doubleClick ? () => this.circleClickHandler(key_) : false}
                         onDragMove={e => {
-                            this.setState((prevState) => {
-                                let oldState = prevState;
+                            this.setState(prevState => {
+                                const oldState = prevState;
                                 oldState.circles[key_].x = e.target.x();
                                 oldState.circles[key_].y = e.target.y();
                                 return {
                                     isDragging: false,
                                     circles: oldState.circles
-                                }
-                            })
+                                };
+                            });
                         }}
                     >
                         <Circle
@@ -358,9 +362,15 @@ class Prototyper extends React.Component {
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
-                    ref={node => { this.stageRef = node }}
+                    ref={node => {
+                        this.stageRef = node;
+                    }}
                     // onClick={(e) => console.log(e.target._id)}
-                    onClick={(e) => (e.target._id < 3 && this.state.isDrawing) ? this.outSideClick() : null}
+                    onClick={e =>
+                        e.target._id < 3 && this.state.isDrawing
+                            ? this.outSideClick()
+                            : null
+                    }
                 >
                     <Layer>
                         {this.circle()}

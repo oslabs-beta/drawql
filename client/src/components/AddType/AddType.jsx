@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import Modal from 'react-awesome-modal';
 
-import { Input, Button, CardTitle, CardText } from 'reactstrap'
-import './AddType.scss'
+// import { Input, Button, CardTitle, CardText } from 'reactstrap';
+import { Button, CardTitle } from 'reactstrap';
+import './AddType.scss';
+
 class AddType extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
+
     render() {
         return (
             <section>
                 <CardTitle>Create Schema</CardTitle>
-                <Button
-                    color="info"
-                    onClick={() => this.props.openModal()}
-                >Add Node</Button>
+                <Button color="info" onClick={() => this.props.openModal()}>
+                    Add Node
+                </Button>
                 <div className="add-modal">
                     {/* <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}> */}
                     <Modal
@@ -32,8 +34,13 @@ class AddType extends Component {
                                 type="text"
                                 onKeyPress={e => this.props.handleKeydown(e)}
                             />
-                            <p></p>
-                            <Button color="secondary" onClick={e => this.props.closeModal(e)}>Close</Button>
+                            <p />
+                            <Button
+                                color="secondary"
+                                onClick={e => this.props.closeModal(e)}
+                            >
+                                Close
+                            </Button>
                         </div>
                     </Modal>
                 </div>

@@ -35,9 +35,9 @@ import {
 } from 'reactstrap';
 
 // core components
+import { graphql } from 'react-apollo';
 import HomeNav from '../../components/Navbars/HomeNav';
 import SimpleFooter from '../../components/Footers/SimpleFooter';
-import { graphql } from 'react-apollo';
 import registerMutation from '../../mutations/Register';
 
 class Register extends React.Component {
@@ -48,14 +48,16 @@ class Register extends React.Component {
             email: '',
             password: '',
             errors: []
-        }
-        this.handleSubmit = this.handleSubmit.bind(this)
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     componentDidMount() {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
         this.refs.main.scrollTop = 0;
     }
+
     handleSubmit(e) {
         e.preventDefault();
         const { username, email, password } = this.state;
@@ -65,14 +67,14 @@ class Register extends React.Component {
             variables: { username, email, password }
             //refetch query(currentuser)
             //refetchQueries: [{ query }]
-        })
+        });
         // .catch(res => {
         //     const errors = res.graphQLErrors.map(error => error.message)
         //     //this.setState({errors: errors})
         //     this.setState({ errors })
         // })
-
     }
+
     render() {
         return (
             <>
@@ -144,7 +146,10 @@ class Register extends React.Component {
                                                     Or sign up with credentials
                                                 </p>
                                             </div>
-                                            <Form role="form" onSubmit={this.handleSubmit}>
+                                            <Form
+                                                role="form"
+                                                onSubmit={this.handleSubmit}
+                                            >
                                                 <FormGroup>
                                                     <InputGroup className="input-group-alternative mb-3">
                                                         <InputGroupAddon addonType="prepend">
@@ -155,8 +160,17 @@ class Register extends React.Component {
                                                         <Input
                                                             placeholder="Username"
                                                             type="text"
-                                                            value={this.state.username}
-                                                            onChange={e => this.setState({ username: e.target.value })}
+                                                            value={
+                                                                this.state
+                                                                    .username
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    username:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -170,8 +184,16 @@ class Register extends React.Component {
                                                         <Input
                                                             placeholder="Email"
                                                             type="email"
-                                                            value={this.state.email}
-                                                            onChange={e => this.setState({ email: e.target.value })}
+                                                            value={
+                                                                this.state.email
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    email:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
@@ -186,8 +208,17 @@ class Register extends React.Component {
                                                             placeholder="Password"
                                                             type="password"
                                                             autoComplete="off"
-                                                            value={this.state.password}
-                                                            onChange={e => this.setState({ password: e.target.value })}
+                                                            value={
+                                                                this.state
+                                                                    .password
+                                                            }
+                                                            onChange={e =>
+                                                                this.setState({
+                                                                    password:
+                                                                        e.target
+                                                                            .value
+                                                                })
+                                                            }
                                                         />
                                                     </InputGroup>
                                                 </FormGroup>
