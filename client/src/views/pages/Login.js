@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { Redirect } from 'react-router';
-import currentUser from '../../queries/CurrentUser';
 
 // reactstrap components
 import {
@@ -56,30 +55,14 @@ const Login = () => {
         });
     };
     //mutation for login user method
-    const [loginUser, { loading, error, data }] = useMutation(LOGIN
-        //{
-        // update: (
-        //     cache,
-        //     {
-        //         data: {
-        //             email: { token }
-        //         }
-        //     }
-        // ) => {
-        //     cache.readQuery({ query: currentUser });
-        //     const { users } = cache.readQuery({ query: currentUser });
-        //     cache.writeQuery({
-        //         query: currentUser,
-        //         data: {
-        //             users: users.concat({ email: { token } })
-        //         }
-        //     });
-        // },
-        // onCompleted: () => {
-        //     setEmail('');
-        //     setPassword('');
-        // }
-    //}
+    const [loginUser, { loading, error, data }] = useMutation(LOGIN,
+        {
+       
+        onCompleted: () => {
+            setEmail('');
+            setPassword('');
+        }
+    }
     );
     //wait for mutation, loading
     if (loading) return <p>Loading ...</p>;

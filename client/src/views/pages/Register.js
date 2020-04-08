@@ -98,7 +98,7 @@ const Register = () => {
             }
         ) => {
             // reads the users value from cache
-            const { users } = cache.readQuery({
+            const { user } = cache.readQuery({
                 query: gql`
                     {
                         user {

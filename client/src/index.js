@@ -40,8 +40,8 @@ const cache = new InMemoryCache({
 const client = new ApolloClient({
     link,
     cache,
-    // typeDefs,
-    // resolvers,
+    typeDefs,
+    resolvers,
 
     //access the token from the headers
     request: async operation => {
