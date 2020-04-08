@@ -15,7 +15,8 @@ import SubMenu from './SubMenu';
 import './Sidebar.scss';
 
 const SideBar = props => (
-    <div className={classNames('sidebar', { 'is-open': props.isOpen })}>
+    // <div className={classNames('sidebar', { 'is-open': props.isOpen })}>
+    <div className={classNames('sidebar', { 'is-open': props.sidebarOpen })}>
         <div className="sidebar-header">
             <NavbarBrand
                 className="mr-lg-5"

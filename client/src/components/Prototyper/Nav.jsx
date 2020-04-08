@@ -133,43 +133,39 @@ export default props => {
                                 navbar
                             >
                                 <NavItem>
-                                    <Link to="/login">
-                                        <NavLink
-                                            className="nav-link-icon"
-                                            href="https://drawql.app/login"
-                                            id="tooltip1846987010"
-                                            target="_blank"
-                                        >
-                                            <i className="fa fa-user color--white" />
-                                            {/* doesnt seem like this needs to be here? */}
-                                            {/* <span className="nav-link-inner--text d-lg-none ml-2">
+                                    <NavLink
+                                        className="nav-link-icon"
+                                        href="/login"
+                                        id="tooltip1846987010"
+                                        target="_blank"
+                                    >
+                                        <i className="fa fa-user color--white" />
+                                        {/* doesnt seem like this needs to be here? */}
+                                        {/* <span className="nav-link-inner--text d-lg-none ml-2">
                                                 Log in
                                             </span> */}
-                                            <span className="nav-link-inner--text color--white">
-                                                Log in
-                                            </span>
-                                        </NavLink>
-                                        <UncontrolledTooltip
-                                            delay={0}
-                                            target="tooltip1846987010"
-                                        >
-                                            Log in to an existing account
-                                        </UncontrolledTooltip>
-                                    </Link>
+                                        <span className="nav-link-inner--text color--white">
+                                            Log in
+                                        </span>
+                                    </NavLink>
+                                    <UncontrolledTooltip
+                                        delay={0}
+                                        target="tooltip1846987010"
+                                    >
+                                        Log in to an existing account
+                                    </UncontrolledTooltip>
                                 </NavItem>
 
                                 <NavItem className="d-none d-lg-block ml-lg-4">
-                                    <Link to="/register">
-                                        <Button
-                                            className="btn-neutral btn-icon"
-                                            color="default"
-                                            href="https://drawql.app/register"
-                                        >
-                                            <span className="nav-link-inner--text ml-1">
-                                                Sign Up
-                                            </span>
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        className="btn-neutral btn-icon"
+                                        color="default"
+                                        href="/register"
+                                    >
+                                        <span className="nav-link-inner--text ml-1">
+                                            Sign Up
+                                        </span>
+                                    </Button>
                                 </NavItem>
                             </Nav>
                         </UncontrolledCollapse>

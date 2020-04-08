@@ -144,6 +144,7 @@ class Prototyper extends React.Component {
             );
         });
         const { arrowEndPos, arrowStartPos } = this.state;
+
         return (
             <Container
                 fluid

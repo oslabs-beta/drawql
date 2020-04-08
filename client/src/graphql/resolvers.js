@@ -2,9 +2,9 @@ import { gql } from 'apollo-boost';
 import typeDefs from './typeDefs';
 
 // extracts the sidebar status from the client to determine if its collapsed or not
-const GET_SIDEBAR_STATUS = gql`
+export const GET_SIDEBAR_STATUS = gql`
     {
-        sidebarHidden @client
+        sidebarOpen @client
     }
 `;
 
@@ -20,17 +20,17 @@ const resolvers = {
     Mutation: {
         toggleSidebar: (_root, _args, { cache }) => {
             // destructures sidebarHidden from our data obj that we get back
-            const { sidebarHidden } = cache.readQuery({
+            const { sidebarOpen } = cache.readQuery({
                 query: GET_SIDEBAR_STATUS
             });
 
             cache.writeQuery({
                 quer: GET_SIDEBAR_STATUS,
                 // the below is like updating state, where data contains our state and we are inverting the value of our sidebarHidden key/prop
-                data: { sidebarHidden: !sidebarHidden }
+                data: { sidebarOpen: !sidebarOpen }
             });
 
-            return !sidebarHidden;
+            return !sidebarOpen;
         }
     }
 };
