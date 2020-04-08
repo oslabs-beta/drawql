@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // nodejs library that concatenates classes
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 // reactstrap components
 import {
@@ -9,12 +9,12 @@ import {
     Button,
     Card,
     CardBody,
-    CardImg,
-    FormGroup,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
+    // CardImg,
+    // FormGroup,
+    // Input,
+    // InputGroupAddon,
+    // InputGroupText,
+    // InputGroup,
     Container,
     Row,
     Col
@@ -25,7 +25,7 @@ import HomeNav from './components/Navbars/HomeNav';
 import SimpleFooter from './components/Footers/SimpleFooter';
 
 // index page sections
-import Download from './components/IndexSections/Download';
+// import Download from './components/IndexSections/Download';
 
 class Landing extends React.Component {
     state = {};
@@ -74,20 +74,18 @@ class Landing extends React.Component {
                                                 then export it as usable code.
                                             </p>
                                             <div className="btn-wrapper">
-                                                <Link to="/register">
-                                                    <Button
-                                                        className="btn-icon mb-3 mb-sm-0"
-                                                        color="info"
-                                                        href="https://drawql.app/register"
-                                                    >
-                                                        <span className="btn-inner--icon mr-1">
-                                                            <i className="fa fa-code" />
-                                                        </span>
-                                                        <span className="btn-inner--text">
-                                                            Get Started Now
-                                                        </span>
-                                                    </Button>
-                                                </Link>
+                                                <Button
+                                                    className="btn-icon mb-3 mb-sm-0"
+                                                    color="info"
+                                                    href="/register"
+                                                >
+                                                    <span className="btn-inner--icon mr-1">
+                                                        <i className="fa fa-code" />
+                                                    </span>
+                                                    <span className="btn-inner--text">
+                                                        Get Started Now
+                                                    </span>
+                                                </Button>
                                             </div>
                                         </Col>
                                     </Row>
@@ -120,10 +118,10 @@ class Landing extends React.Component {
                                         <Col lg="4">
                                             <Card className="card-lift--hover shadow border-0">
                                                 <CardBody className="py-5">
-                                                    <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
+                                                    <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                                                         <i className="ni ni-check-bold" />
                                                     </div>
-                                                    <h5 className="text-primary text-uppercase">
+                                                    <h5 className="text-info text-uppercase">
                                                         Map out your API
                                                     </h5>
                                                     {/* this formerly had a "description" as one of the class names, resulting in smaller text */}
@@ -139,14 +137,14 @@ class Landing extends React.Component {
                                                     </p>
                                                     <div>
                                                         <Badge
-                                                            color="primary"
+                                                            color="info"
                                                             pill
                                                             className="mr-1"
                                                         >
                                                             Visualize
                                                         </Badge>
                                                         <Badge
-                                                            color="primary"
+                                                            color="success"
                                                             pill
                                                             className="mr-1"
                                                         />
@@ -157,10 +155,10 @@ class Landing extends React.Component {
                                         <Col lg="4">
                                             <Card className="card-lift--hover shadow border-0">
                                                 <CardBody className="py-5">
-                                                    <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
+                                                    <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                                                         <i className="ni ni-istanbul" />
                                                     </div>
-                                                    <h5 className="text-success text-uppercase">
+                                                    <h5 className="text-info text-uppercase">
                                                         Export your prototype
                                                     </h5>
                                                     {/* this formerly had a "description" as one of the class names, resulting in smaller text */}
@@ -177,7 +175,7 @@ class Landing extends React.Component {
                                                     </p>
                                                     <div>
                                                         <Badge
-                                                            color="success"
+                                                            color="info"
                                                             pill
                                                             className="mr-1"
                                                         >
@@ -190,10 +188,10 @@ class Landing extends React.Component {
                                         <Col lg="4">
                                             <Card className="card-lift--hover shadow border-0">
                                                 <CardBody className="py-5">
-                                                    <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                                                    <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                                                         <i className="ni ni-planet" />
                                                     </div>
-                                                    <h5 className="text-warning text-uppercase">
+                                                    <h5 className="text-info text-uppercase">
                                                         Collaborate
                                                     </h5>
 
@@ -210,7 +208,7 @@ class Landing extends React.Component {
                                                     </p>
                                                     <div>
                                                         <Badge
-                                                            color="warning"
+                                                            color="info"
                                                             pill
                                                             className="mr-1"
                                                         >
@@ -231,14 +229,14 @@ class Landing extends React.Component {
                             <Row className="row-grid align-items-center">
                                 <Col className="order-md-2" md="6">
                                     <img
-                                        alt="floating preview image"
+                                        alt="floating preview"
                                         className="img-fluid floating"
                                         src={require('./assets/img/theme/promo-1.png')}
                                     />
                                 </Col>
                                 <Col className="order-md-1" md="6">
                                     <div className="pr-md-5">
-                                        <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
+                                        <div className="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle mb-5">
                                             <i className="ni ni-settings-gear-65" />
                                         </div>
                                         <h3>Awesome features</h3>
@@ -255,7 +253,7 @@ class Landing extends React.Component {
                                                     <div>
                                                         <Badge
                                                             className="badge-circle mr-3"
-                                                            color="success"
+                                                            color="primary"
                                                         >
                                                             <i className="ni ni-settings-gear-65" />
                                                         </Badge>
@@ -272,7 +270,7 @@ class Landing extends React.Component {
                                                     <div>
                                                         <Badge
                                                             className="badge-circle mr-3"
-                                                            color="success"
+                                                            color="primary"
                                                         >
                                                             <i className="ni ni-html5" />
                                                         </Badge>
@@ -291,7 +289,7 @@ class Landing extends React.Component {
                                                     <div>
                                                         <Badge
                                                             className="badge-circle mr-3"
-                                                            color="success"
+                                                            color="primary"
                                                         >
                                                             <i className="ni ni-satisfied" />
                                                         </Badge>
@@ -343,7 +341,7 @@ class Landing extends React.Component {
                         </div> */}
                     </section>
                     {/* THIS IS A REALLY GOOD SECTION -- COULD BE GREAT FOR ANOTHER SCREENSHOT OF THE APP OR A GIF/MP4? */}
-                    <section className="section pb-40 bg-gradient-warning">
+                    <section className="section pb-40 bg-gradient-info">
                         <Container>
                             <Row className="row-grid align-items-center">
                                 <Col className="order-lg-2 ml-lg-auto" md="6">
@@ -377,12 +375,12 @@ class Landing extends React.Component {
                                         <CardBody>
                                             <div className="d-flex px-3">
                                                 <div>
-                                                    <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
+                                                    <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
                                                         <i className="ni ni-satisfied" />
                                                     </div>
                                                 </div>
                                                 <div className="pl-4">
-                                                    <h5 className="title text-success">
+                                                    <h5 className="title text-primary">
                                                         This is a smiley icon
                                                     </h5>
                                                     <p>
@@ -411,12 +409,12 @@ class Landing extends React.Component {
                                         <CardBody>
                                             <div className="d-flex px-3">
                                                 <div>
-                                                    <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
+                                                    <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
                                                         <i className="ni ni-active-40" />
                                                     </div>
                                                 </div>
                                                 <div className="pl-4">
-                                                    <h5 className="title text-warning">
+                                                    <h5 className="title text-primary">
                                                         Modular Components
                                                     </h5>
                                                     <p>
@@ -428,7 +426,7 @@ class Landing extends React.Component {
                                                         whatever.
                                                     </p>
                                                     <a
-                                                        className="text-warning"
+                                                        className="text-primary"
                                                         href="#pablo"
                                                         onClick={e =>
                                                             e.preventDefault()
@@ -467,12 +465,12 @@ class Landing extends React.Component {
                                     <h2 className="display-3">
                                         The Amazing Team
                                     </h2>
-                                    <p className="lead text-muted">
+                                    {/* <p className="lead text-muted">
                                         According to the National Oceanic and
                                         Atmospheric Administration, Ted,
                                         Scambos, NSIDClead scentist, puts the
                                         potentially record maximum.
-                                    </p>
+                                    </p> */}
                                 </Col>
                             </Row>
                             <Row className="mb-sm-4">
@@ -497,7 +495,7 @@ class Landing extends React.Component {
                                             <div className="mt-3">
                                                 <Button
                                                     className="btn-icon-only rounded-circle"
-                                                    color="warning"
+                                                    color="info"
                                                     href="https://twitter.com/6catsinacoat"
                                                     target="_blank"
                                                 >
@@ -505,7 +503,7 @@ class Landing extends React.Component {
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="warning"
+                                                    color="info"
                                                     href="https://github.com/lancej1022"
                                                     target="_blank"
                                                 >
@@ -513,7 +511,7 @@ class Landing extends React.Component {
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="warning"
+                                                    color="info"
                                                     href="https://www.linkedin.com/in/lance-jeffers/"
                                                     target="_blank"
                                                 >
@@ -543,7 +541,7 @@ class Landing extends React.Component {
                                             <div className="mt-3">
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="primary"
+                                                    color="info"
                                                     href="https://github.com/JessikeeCW"
                                                     target="_blank"
                                                 >
@@ -551,7 +549,7 @@ class Landing extends React.Component {
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="primary"
+                                                    color="info"
                                                     href="https://www.linkedin.com/in/jessikeecampbellwalker/"
                                                     target="_blank"
                                                 >
@@ -621,7 +619,7 @@ class Landing extends React.Component {
                                             <div className="mt-3">
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="success"
+                                                    color="info"
                                                     href="https://github.com/floresa22"
                                                     target="_blank"
                                                 >
@@ -629,7 +627,7 @@ class Landing extends React.Component {
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="success"
+                                                    color="info"
                                                     href="http://linkedin.com/in/anthony-flores-8669271a3"
                                                     target="_blank"
                                                 >
@@ -659,7 +657,7 @@ class Landing extends React.Component {
                                             <div className="mt-3">
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="danger"
+                                                    color="info"
                                                     href="https://github.com/JamesRussell23"
                                                     target="_blank"
                                                 >
@@ -667,7 +665,7 @@ class Landing extends React.Component {
                                                 </Button>
                                                 <Button
                                                     className="btn-icon-only rounded-circle ml-1"
-                                                    color="danger"
+                                                    color="info"
                                                     href="http://www.linkedin.com/in/james-manahan-087a84a2"
                                                     target="_blank"
                                                 >
@@ -682,7 +680,7 @@ class Landing extends React.Component {
                     </section>
                     <section className="section section-lg pt-0">
                         <Container>
-                            <Card className="bg-gradient-warning shadow-lg border-0">
+                            <Card className="bg-gradient-primary shadow-lg border-0">
                                 <div className="p-5">
                                     <Row className="align-items-center">
                                         <Col lg="8">
@@ -701,17 +699,15 @@ class Landing extends React.Component {
                                             </p>
                                         </Col>
                                         <Col className="ml-lg-auto" lg="3">
-                                            <Link to="/register">
-                                                <Button
-                                                    block
-                                                    className="btn-white"
-                                                    color="default"
-                                                    href="https://drawql.app/register"
-                                                    size="lg"
-                                                >
-                                                    Get Started
-                                                </Button>
-                                            </Link>
+                                            <Button
+                                                block
+                                                className="btn-white"
+                                                color="default"
+                                                href="/register"
+                                                size="lg"
+                                            >
+                                                Get Started
+                                            </Button>
                                         </Col>
                                     </Row>
                                 </div>
