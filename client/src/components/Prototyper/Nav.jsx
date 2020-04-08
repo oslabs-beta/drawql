@@ -132,7 +132,7 @@ export default props => {
                                 className="align-items-lg-center ml-lg-auto"
                                 navbar
                             >
-                                <NavItem>
+                                {/* <NavItem>
                                     <NavLink
                                         className="nav-link-icon"
                                         href="/login"
@@ -141,10 +141,10 @@ export default props => {
                                     >
                                         <i className="fa fa-user color--white" />
                                         {/* doesnt seem like this needs to be here? */}
-                                        {/* <span className="nav-link-inner--text d-lg-none ml-2">
+                                {/* <span className="nav-link-inner--text d-lg-none ml-2">
                                                 Log in
                                             </span> */}
-                                        <span className="nav-link-inner--text color--white">
+                                {/* <span className="nav-link-inner--text color--white">
                                             Log in
                                         </span>
                                     </NavLink>
@@ -154,16 +154,16 @@ export default props => {
                                     >
                                         Log in to an existing account
                                     </UncontrolledTooltip>
-                                </NavItem>
+                                </NavItem>  */}
 
                                 <NavItem className="d-none d-lg-block ml-lg-4">
                                     <Button
                                         className="btn-neutral btn-icon"
                                         color="default"
-                                        href="/register"
+                                        // href="/register"
                                     >
                                         <span className="nav-link-inner--text ml-1">
-                                            Sign Up
+                                            Log out
                                         </span>
                                     </Button>
                                 </NavItem>
