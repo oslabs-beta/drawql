@@ -3,6 +3,9 @@ import React from 'react';
 // nodejs library that concatenates classes
 // import classnames from 'classnames';
 
+//import YT video
+import ReactPlayer from 'react-player';
+
 // reactstrap components
 import {
     Badge,
@@ -314,12 +317,15 @@ class Landing extends React.Component {
                             <Row className="text-center justify-content-center">
                                 <Col lg="10">
                                     <h2 className="display-3 text-white">
-                                        This section shows a demo mp4/gif
+                                        See DrawQL in action!
                                     </h2>
-                                    <p className="lead text-white">
-                                        this text goes on the left hand side of
-                                        the video/gif
-                                    </p>
+                                    <br></br>
+                                    <ReactPlayer
+                                        url="https://youtu.be/OJflUvLr7lE"
+                                        width="100%"
+                                        height="600px"
+                                        controls="true"
+                                    />
                                 </Col>
                             </Row>
                         </Container>
@@ -362,12 +368,12 @@ class Landing extends React.Component {
                                         </div>
                                         <div className="pl-4">
                                             <h4 className="display-3 text-white">
-                                                Talk about DrawQL some more here
+                                                More to Come!
                                             </h4>
                                             <p className="text-white">
-                                                This is some subheading text.
-                                                Look at that fellow standing at
-                                                his desk to the right. BDE.
+                                                While DrawQL is already great,
+                                                expect changes to improve the
+                                                application!
                                             </p>
                                         </div>
                                     </div>
@@ -381,16 +387,16 @@ class Landing extends React.Component {
                                                 </div>
                                                 <div className="pl-4">
                                                     <h5 className="title text-primary">
-                                                        This is a smiley icon
+                                                        Moving Forward
                                                     </h5>
                                                     <p>
-                                                        Doggo ipsum he made many
-                                                        woofs lotsa pats tungg
-                                                        puggorino, noodle horse
-                                                        puggo maximum borkdrive
-                                                        long bois, most angery
-                                                        pupper I have ever seen
-                                                        floofs.
+                                                        Behind DrawQL are
+                                                        engineers who are always
+                                                        looking to improve the
+                                                        product on a consistent
+                                                        basis to best serve the
+                                                        needs of the open source
+                                                        community.
                                                     </p>
                                                     {/* <a
                                                         className="text-success"
@@ -415,15 +421,15 @@ class Landing extends React.Component {
                                                 </div>
                                                 <div className="pl-4">
                                                     <h5 className="title text-primary">
-                                                        Modular Components
+                                                        Feedback
                                                     </h5>
                                                     <p>
-                                                        The Arctic Ocean freezes
-                                                        every winter and much of
-                                                        the sea-ice then thaws
-                                                        every summer, and that
-                                                        process will continue
-                                                        whatever.
+                                                        Any feedback on the
+                                                        application is always
+                                                        welcome, please reach
+                                                        out to any of the team
+                                                        members with any
+                                                        questions/concerns!
                                                     </p>
                                                     <a
                                                         className="text-primary"
