@@ -103,7 +103,7 @@ class Hero extends React.Component {
                             </div>
                         </Container>
                         {/* SVG separator */}
-                        <div className="separator separator-bottom separator-skew zindex-100">
+                        <div className="separator separator-bottom separator-skew z-100">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 preserveAspectRatio="none"

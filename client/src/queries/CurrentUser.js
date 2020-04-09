@@ -1,11 +1,12 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 
-export default gql`
+const currentUser = gql`
     {
         user {
             id
-            username
             email
+            token
         }
     }
 `;
+export default { currentUser };
