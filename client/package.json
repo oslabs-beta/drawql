@@ -25,6 +25,7 @@
         "react-datetime": "2.16.3",
         "react-dom": "^16.13.0",
         "react-konva": "^16.12.0-0",
+        "react-player": "^1.15.3",
         "react-router": "5.1.2",
         "react-router-dom": "5.1.2",
         "react-scripts": "3.4.0",
@@ -43,7 +44,7 @@
         "minify-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.min.css --output-style compressed",
         "map-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css --source-map true"
     },
-    "proxy": "http://localhost:5000/",
+    "proxy": "https://intense-coast-32624.herokuapp.com/",
     "browserslist": {
         "production": [
             ">0.2%",

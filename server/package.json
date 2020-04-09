@@ -6,7 +6,7 @@
     "scripts": {
         "client": "cd ../client && npm start",
         "dev-server": "nodemon --exec babel-node server.js",
-        "server": "node server.js"
+        "start": "babel-node server.js"
     },
     "keywords": [
         "graphql",
@@ -40,5 +40,8 @@
         "eslint-plugin-react": "^7.19.0",
         "nodemon": "^2.0.2",
         "prettier": "^1.19.1"
+    },
+    "engines": {
+        "node": "13.6.0"
     }
 }

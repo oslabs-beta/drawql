@@ -13,6 +13,8 @@ import { graphqlExpress } from 'apollo-server-express';
 
 const app = express();
 
+const PORT = process.env.PORT || 5000;
+
 /*browser allows data to load from the other server,
 the other server sets Access - Control headers to determine its policy regarding cross - origin resource access.*/
 
@@ -38,7 +40,10 @@ const getPerson = async req => {
 //creates ApolloServer instance, plugs in Apollo into existing Express app
 const server = new ApolloServer({
     cors: {
-        origin: 'http://localhost:3000/graphql',
+        // uncomment this line in order to run on localhost
+        // origin: 'http://localhost:3000/graphql',
+        // comment out this line in order to run on localhost
+        origin: 'https://drawql.app/graphql',
         crenditials: true //required backend setting
     },
     typeDefs: schema,
@@ -73,7 +78,7 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 //synchronizes sequelize functionality from db and runs the server
 elephant.sync().then(async () => {
-    app.listen({ port: 5000 }, () => {
-        console.log('Apollo Server on http://localhost:5000/graphql');
+    app.listen(PORT, () => {
+        console.log(`Apollo Server on ${PORT}`);
     });
 });

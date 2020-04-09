@@ -26,7 +26,7 @@ import * as serviceWorker from './serviceWorker';
 
 //tells your network to send the cookie along with every request
 const link = new HttpLink({
-    uri: 'http://localhost:3000/graphql',
+    uri: '/graphql',
     //passes the credential option if the server has a different domain
     credentials: 'include'
 });
