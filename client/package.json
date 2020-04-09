@@ -19,7 +19,7 @@
         "moment": "2.24.0",
         "node-sass": "4.13.1",
         "nouislider": "14.1.1",
-        "react": "^16.13.0",
+        "react": "^16.13.1",
         "react-apollo": "^3.1.3",
         "react-awesome-modal": "^2.0.5",
         "react-datetime": "2.16.3",

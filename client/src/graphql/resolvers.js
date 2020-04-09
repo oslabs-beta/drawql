@@ -24,7 +24,7 @@ const resolvers = {
             });
 
             cache.writeQuery({
-                quer: GET_SIDEBAR_STATUS,
+                query: GET_SIDEBAR_STATUS,
                 // the below is like updating state, where data contains our state and we are inverting the value of our sidebarHidden key/prop
                 data: { sidebarOpen: !sidebarOpen }
             });
