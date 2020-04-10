@@ -24,8 +24,6 @@ In server directory, run server script of application in your terminal.
 
 `npm run server` 
 
-## Deployment
-Heroku
 
 ## Built With
 * React: Router, Konva, Bootstrap
