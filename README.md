@@ -26,11 +26,15 @@ In server directory, run server script of application in your terminal.
 
 
 ## Built With
-* React: Router, Konva, Bootstrap
+* GraphQL
+* React: Router, Konva, Bootstrap, Hooks
+* Reactstrap
+* Express/Node.js
 * Apollo Server Express
 * Apollo Client
 * PostgreSQL
 * Sequelize
+* Sass/Scss
 
 ## Versioning
 * Version 1.0 
