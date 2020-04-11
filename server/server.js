@@ -41,9 +41,9 @@ const getPerson = async req => {
 const server = new ApolloServer({
     cors: {
         // uncomment this line in order to run on localhost
-        // origin: 'http://localhost:3000/graphql',
+        origin: 'http://localhost:3000/graphql',
         // comment out this line in order to run on localhost
-        origin: 'https://drawql.app/graphql',
+        // origin: 'https://drawql.app/graphql',
         crenditials: true //required backend setting
     },
     typeDefs: schema,
