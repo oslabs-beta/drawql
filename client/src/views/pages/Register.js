@@ -51,16 +51,14 @@ const REGISTER = gql`
 `;
 
 const Register = () => {
-    let input;
     //use state lets you add React state to function components
     // example: const [username,setUsername]=useState('') is similar to this.state.username and this.setState
     //returns a pair of values: the current state and a fuunction that updates it
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [errors, setErrors] = useState([]);
 
-    // includes the functionality of componentdidmount, componentdidupdate, and componentwillunmount
+    // useEffect includes the functionality of componentdidmount, componentdidupdate, and componentwillunmount
     useEffect(() => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;

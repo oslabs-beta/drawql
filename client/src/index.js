@@ -1,4 +1,8 @@
-import React, { forwardRef } from 'react';
+/**
+ * NOTE: In order to run the client in production, you need to modify the package.json to proxy the Heroku server
+ * make sure to proxy "https://intense-coast-32624.herokuapp.com/" and change the ApolloServer config in server.js
+ */
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
